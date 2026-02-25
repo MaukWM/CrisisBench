@@ -1,0 +1,27 @@
+# Reference repos
+openclaw
+
+# Environment
+.env
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Tools
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# IDE
+.idea/
+
+# Project outputs
+results/
+
+# OS
+.DS_Store

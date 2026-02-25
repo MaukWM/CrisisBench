@@ -1,5 +1,14 @@
 # Reference repos
 openclaw
+openclaw_base_files/
+system_prompt.py
+
+# BMAD tooling
+_bmad/
+_bmad-output/
+
+# Claude Code
+.claude/
 
 # Environment
 .env

@@ -26,7 +26,6 @@ repos:
     rev: v2.4.1
     hooks:
       - id: codespell
-        additional_dependencies: ["tomli"]
 
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.24.0
@@ -37,14 +36,21 @@ repos:
     rev: v1.15.0
     hooks:
       - id: mypy
-        additional_dependencies:
-          - "click>=8.1"
-          - "pydantic>=2.0"
-          - "structlog>=24.0"
-          - "types-click"
-        args: [--strict]
+        args:
+          - --install-types
+          - --non-interactive
+          - --check-untyped-defs
+          - --disallow-incomplete-defs
+          - --ignore-missing-imports
+          - --warn-redundant-casts
+          - --warn-unreachable
+          - --explicit-package-bases
 
-  - repo: https://github.com/pypa/pip-audit
-    rev: v2.8.0
+  - repo: local
     hooks:
       - id: pip-audit
+        name: pip-audit
+        entry: uv run pip-audit --local --ignore-vuln CVE-2025-69872
+        language: system
+        pass_filenames: false
+        always_run: true

@@ -575,3 +575,113 @@ class TestFinancialRealism:
             assert q1.price == q2.price, (
                 f"{q1.symbol} price changed pre-market: {q1.price} -> {q2.price}"
             )
+
+
+class TestCommsRealism:
+    """Story 2.4: Communications module generates notification-based data."""
+
+    @pytest.fixture()
+    def package(self) -> ScenarioPackage:
+        return generate_scenario(crisis_type="cardiac_arrest", tier="T3", seed=42)
+
+    def test_comms_none_for_t1(self) -> None:
+        """AC #5: T1 heartbeats have no comms data."""
+        package = generate_scenario(crisis_type="cardiac_arrest", tier="T1", seed=42)
+        for hb in package.heartbeats:
+            assert hb.comms is None
+
+    def test_comms_none_for_t2(self) -> None:
+        """AC #5: T2 heartbeats have no comms data."""
+        package = generate_scenario(crisis_type="cardiac_arrest", tier="T2", seed=42)
+        for hb in package.heartbeats:
+            assert hb.comms is None
+
+    def test_comms_present_for_t3(self, package: ScenarioPackage) -> None:
+        """AC #5: T3+ heartbeats have comms data on almost every beat."""
+        present = sum(1 for hb in package.heartbeats if hb.comms is not None)
+        assert present >= len(package.heartbeats) * 0.95
+
+    def test_notification_based_not_cumulative(self, package: ScenarioPackage) -> None:
+        """AC #1: items appear in one heartbeat only, not cumulative."""
+        with_comms = [hb for hb in package.heartbeats if hb.comms is not None]
+        # Count total emails across all heartbeats.
+        total_emails = sum(len(hb.comms.new_emails) for hb in with_comms)
+        # Should equal total scripted events (10), not grow cumulatively.
+        # Some may be dropped by the ~1.5% module drop, but total should be ≤ 10.
+        assert total_emails <= 10
+
+    def test_most_heartbeats_empty(self, package: ScenarioPackage) -> None:
+        """Most heartbeats should have empty comms lists (events are sparse)."""
+        with_comms = [hb for hb in package.heartbeats if hb.comms is not None]
+        empty_email_hbs = sum(1 for hb in with_comms if len(hb.comms.new_emails) == 0)
+        # With 10 emails over ~160 heartbeats, most should be empty.
+        assert empty_email_hbs > len(with_comms) * 0.8
+
+    def test_comms_deterministic(self) -> None:
+        """AC #4: same seed = identical comms output."""
+        pkg1 = generate_scenario(crisis_type="cardiac_arrest", tier="T3", seed=42)
+        pkg2 = generate_scenario(crisis_type="cardiac_arrest", tier="T3", seed=42)
+        for h1, h2 in zip(pkg1.heartbeats, pkg2.heartbeats, strict=False):
+            assert h1.comms == h2.comms
+
+    def test_crisis_comms_continue(self, package: ScenarioPackage) -> None:
+        """AC #6: comms module stays active during crisis heartbeats."""
+        cid = package.crisis_heartbeat_id
+        crisis_hbs = [hb for hb in package.heartbeats[cid:] if hb.comms is not None]
+        assert len(crisis_hbs) > 0
+
+    def test_field_population_types(self, package: ScenarioPackage) -> None:
+        """AC #3: all 6 CommsData fields present and correctly typed."""
+        with_comms = [hb for hb in package.heartbeats if hb.comms is not None]
+        assert len(with_comms) > 0
+        comms = with_comms[0].comms
+        assert isinstance(comms.new_emails, list)
+        assert isinstance(comms.new_slack_messages, list)
+        assert isinstance(comms.new_missed_calls, int)
+        assert isinstance(comms.new_voicemails, int)
+        assert isinstance(comms.new_sms, list)
+        assert isinstance(comms.new_notifications, list)
+
+    def test_email_fields(self, package: ScenarioPackage) -> None:
+        """AC #2: emails show sender+subject only."""
+        with_comms = [hb for hb in package.heartbeats if hb.comms is not None]
+        hbs_with_email = [hb for hb in with_comms if len(hb.comms.new_emails) > 0]
+        assert len(hbs_with_email) > 0
+        email = hbs_with_email[0].comms.new_emails[0]
+        assert len(email.sender) > 0
+        assert len(email.subject) > 0
+
+    def test_events_not_repeated(self, package: ScenarioPackage) -> None:
+        """Each scripted event appears in exactly one heartbeat."""
+        with_comms = [hb for hb in package.heartbeats if hb.comms is not None]
+        all_subjects = []
+        for hb in with_comms:
+            all_subjects.extend(e.subject for e in hb.comms.new_emails)
+        # No duplicates.
+        assert len(all_subjects) == len(set(all_subjects))
+
+    def test_missed_calls_per_heartbeat(self, package: ScenarioPackage) -> None:
+        """Missed calls are per-heartbeat (0 or 1), not cumulative."""
+        with_comms = [hb for hb in package.heartbeats if hb.comms is not None]
+        for hb in with_comms:
+            assert hb.comms.new_missed_calls <= 1
+        # Total across all heartbeats should equal scripted count (2).
+        total = sum(hb.comms.new_missed_calls for hb in with_comms)
+        assert total == 2
+
+    def test_sms_per_heartbeat(self, package: ScenarioPackage) -> None:
+        """SMS are per-heartbeat notifications, not cumulative."""
+        with_comms = [hb for hb in package.heartbeats if hb.comms is not None]
+        total_sms = sum(len(hb.comms.new_sms) for hb in with_comms)
+        # Should equal total scripted SMS events (4).
+        assert total_sms == 4
+
+    def test_event_timing_irregular(self, package: ScenarioPackage) -> None:
+        """Events should not arrive at perfectly uniform intervals."""
+        with_comms = [hb for hb in package.heartbeats if hb.comms is not None]
+        # Find heartbeats with any new email.
+        email_hb_ids = [hb.heartbeat_id for hb in with_comms if len(hb.comms.new_emails) > 0]
+        if len(email_hb_ids) >= 3:
+            # Check gaps between email arrivals are not all identical.
+            gaps = [email_hb_ids[i] - email_hb_ids[i - 1] for i in range(1, len(email_hb_ids))]
+            assert len(set(gaps)) > 1, "Email arrival gaps should not be perfectly uniform"

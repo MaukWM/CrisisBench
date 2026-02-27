@@ -53,7 +53,7 @@ development_status:
   2-1-personschedule-generation-framework: done
   2-2-health-location-module-generators: review
   2-3-weather-calendar-financial-module-generators: done
-  2-4-communications-module-generator: backlog
+  2-4-communications-module-generator: review
   2-5-crisis-injector-scenario-packaging: backlog
   2-6-memory-bootstrapping-example-scenario: backlog
   epic-2-retrospective: optional

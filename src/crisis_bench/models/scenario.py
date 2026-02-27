@@ -132,17 +132,19 @@ class SocialNotification(BaseModel):
 
 
 class CommsData(BaseModel):
-    """Communications module: emails, messages, calls, social."""
+    """Communications module: per-heartbeat notification-based updates."""
 
     model_config = ConfigDict(frozen=True)
 
-    unread_emails: list[Email] = Field(description="Unread email headers")
-    slack_messages: list[SlackMessage] = Field(description="Recent Slack messages")
-    missed_calls: int = Field(description="Number of missed calls")
-    voicemail_count: int = Field(description="Number of voicemails")
-    sms: list[Sms] = Field(description="Recent SMS messages")
-    social_notifications: list[SocialNotification] = Field(
-        description="Social media notifications"
+    new_emails: list[Email] = Field(description="Emails received since last update")
+    new_slack_messages: list[SlackMessage] = Field(
+        description="Slack messages received since last update"
+    )
+    new_missed_calls: int = Field(description="Missed calls since last update")
+    new_voicemails: int = Field(description="New voicemails since last update")
+    new_sms: list[Sms] = Field(description="SMS messages received since last update")
+    new_notifications: list[SocialNotification] = Field(
+        description="Social media notifications since last update"
     )
 
 

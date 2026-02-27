@@ -184,6 +184,7 @@ def _collect_generators(
 ) -> dict[str, ModuleGenerator]:
     """Return the set of module generators enabled for *tier*."""
     from crisis_bench.generator.modules.calendar import CalendarGenerator
+    from crisis_bench.generator.modules.comms import CommsGenerator
     from crisis_bench.generator.modules.financial import FinancialGenerator
     from crisis_bench.generator.modules.health import HealthGenerator
     from crisis_bench.generator.modules.location import LocationGenerator
@@ -194,6 +195,7 @@ def _collect_generators(
         "location": LocationGenerator(),
         "weather": WeatherGenerator(),
         "calendar": CalendarGenerator(),
+        "comms": CommsGenerator(),
         "financial": FinancialGenerator(),
     }
 

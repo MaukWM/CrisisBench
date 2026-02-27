@@ -152,7 +152,7 @@ Adapted from vrm-ai-agent project:
 **Important Decisions (Shape Architecture):**
 
 12. **OpenClaw alignment & divergence doc** — Explicit documentation of where CrisisBench diverges from OpenClaw and why, AND what was deliberately kept the same and why. Strengthens paper methodology — reviewers can see architecture mirrors a real deployed system with specific modifications for experimental control.
-13. **Notification-based messaging** — Heartbeat shows new/unread messages only (pending_responses). Agent can pull conversation threads via `get_conversations()` if it wants context.
+13. **Notification-based messaging** — Each heartbeat's comms module contains ONLY items that arrived since the previous heartbeat. Emails, Slack messages, SMS, missed calls, voicemails, and social notifications appear once and are not repeated in subsequent heartbeats. The generator produces per-heartbeat deltas (not cumulative state). Agent can pull conversation threads via `get_conversations()` if it wants context. CommsData field names use `new_` prefix to reinforce this: `new_emails`, `new_slack_messages`, `new_missed_calls`, `new_voicemails`, `new_sms`, `new_notifications`.
 14. **v0.5 vs v1.0 actor model:**
     - v0.5: Agent + User Simulator (LLM) + Scenario Data. 911 calls logged, not simulated.
     - v1.0: Adds 911 Operator Simulator (LLM), live contact responses.

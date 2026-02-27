@@ -1,0 +1,3638 @@
+[
+  {
+    "heartbeat_id": 0,
+    "timestamp": "2027-06-15T06:30:20Z",
+    "location": {
+      "lat": 40.785038,
+      "lon": -73.975338,
+      "altitude": 10.4,
+      "speed": 0.23,
+      "heading": 16,
+      "accuracy": 5.1,
+      "geofence_status": "at_home",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 1,
+    "timestamp": "2027-06-15T06:35:03Z",
+    "location": {
+      "lat": 40.785169,
+      "lon": -73.975359,
+      "altitude": 10.8,
+      "speed": 0.21,
+      "heading": 355,
+      "accuracy": 7.7,
+      "geofence_status": "at_home",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 2,
+    "timestamp": "2027-06-15T06:40:00Z",
+    "location": {
+      "lat": 40.785086,
+      "lon": -73.975342,
+      "altitude": 12.5,
+      "speed": 0.02,
+      "heading": 171,
+      "accuracy": 3.4,
+      "geofence_status": "at_home",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 3,
+    "timestamp": "2027-06-15T06:45:23Z",
+    "location": {
+      "lat": 40.785173,
+      "lon": -73.975321,
+      "altitude": 9.1,
+      "speed": 0.17,
+      "heading": 17,
+      "accuracy": 5.1,
+      "geofence_status": "at_home",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 4,
+    "timestamp": "2027-06-15T06:50:08Z",
+    "location": {
+      "lat": 40.78507,
+      "lon": -73.975438,
+      "altitude": 11.2,
+      "speed": 0.04,
+      "heading": 231,
+      "accuracy": 9.5,
+      "geofence_status": "at_home",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 5,
+    "timestamp": "2027-06-15T06:55:07Z",
+    "location": {
+      "lat": 40.785075,
+      "lon": -73.97537,
+      "altitude": 9.8,
+      "speed": 0.26,
+      "heading": 86,
+      "accuracy": 9.4,
+      "geofence_status": "at_home",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 6,
+    "timestamp": "2027-06-15T07:00:07Z",
+    "location": {
+      "lat": 40.784984,
+      "lon": -73.9755,
+      "altitude": 14.2,
+      "speed": 0.41,
+      "heading": 241,
+      "accuracy": 9.1,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 7,
+    "timestamp": "2027-06-15T07:05:04Z",
+    "location": {
+      "lat": 40.778943,
+      "lon": -73.977205,
+      "altitude": 10.5,
+      "speed": 0.28,
+      "heading": 201,
+      "accuracy": 10.1,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [
+        {
+          "sender": "Priya Kapoor",
+          "subject": "Re: PR #482 \u2014 small nit on the retry logic"
+        }
+      ],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 8,
+    "timestamp": "2027-06-15T07:10:23Z",
+    "location": {
+      "lat": 40.772695,
+      "lon": -73.978768,
+      "altitude": 13.9,
+      "speed": 3.96,
+      "heading": 192,
+      "accuracy": 12.2,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 9,
+    "timestamp": "2027-06-15T07:15:03Z",
+    "location": {
+      "lat": 40.766816,
+      "lon": -73.980502,
+      "altitude": 9.6,
+      "speed": 0.37,
+      "heading": 206,
+      "accuracy": 8.1,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [
+        {
+          "sender": "LinkedIn Notifications",
+          "subject": "3 new connection requests this week"
+        }
+      ],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 10,
+    "timestamp": "2027-06-15T07:20:21Z",
+    "location": {
+      "lat": 40.760754,
+      "lon": -73.9822,
+      "altitude": 14.7,
+      "speed": 11.85,
+      "heading": 197,
+      "accuracy": 13.9,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 11,
+    "timestamp": "2027-06-15T07:25:23Z",
+    "location": {
+      "lat": 40.754449,
+      "lon": -73.983997,
+      "altitude": 10.7,
+      "speed": 0.25,
+      "heading": 202,
+      "accuracy": 12.7,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": [
+        {
+          "platform": "Instagram",
+          "notification_text": "tom_brennan liked your photo"
+        }
+      ]
+    }
+  },
+  {
+    "heartbeat_id": 12,
+    "timestamp": "2027-06-15T07:30:28Z",
+    "location": {
+      "lat": 40.748405,
+      "lon": -73.985635,
+      "altitude": 43.4,
+      "speed": 1.47,
+      "heading": 199,
+      "accuracy": 6.0,
+      "geofence_status": "at_office",
+      "movement_classification": "walking"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 13,
+    "timestamp": "2027-06-15T07:35:17Z",
+    "location": {
+      "lat": 40.748361,
+      "lon": -73.985721,
+      "altitude": 68.7,
+      "speed": 1.48,
+      "heading": 252,
+      "accuracy": 8.4,
+      "geofence_status": "at_office",
+      "movement_classification": "walking"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 14,
+    "timestamp": "2027-06-15T07:40:02Z",
+    "location": {
+      "lat": 40.748452,
+      "lon": -73.985763,
+      "altitude": 73.1,
+      "speed": 1.77,
+      "heading": 338,
+      "accuracy": 8.0,
+      "geofence_status": "at_office",
+      "movement_classification": "walking"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 15,
+    "timestamp": "2027-06-15T07:45:18Z",
+    "location": {
+      "lat": 40.748409,
+      "lon": -73.985697,
+      "altitude": 56.3,
+      "speed": 1.15,
+      "heading": 117,
+      "accuracy": 6.9,
+      "geofence_status": "at_office",
+      "movement_classification": "walking"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 16,
+    "timestamp": "2027-06-15T07:50:13Z",
+    "location": {
+      "lat": 40.748355,
+      "lon": -73.985703,
+      "altitude": 61.0,
+      "speed": 1.58,
+      "heading": 195,
+      "accuracy": 5.0,
+      "geofence_status": "at_office",
+      "movement_classification": "walking"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 17,
+    "timestamp": "2027-06-15T07:55:01Z",
+    "location": {
+      "lat": 40.748344,
+      "lon": -73.98569,
+      "altitude": 44.7,
+      "speed": 1.24,
+      "heading": 139,
+      "accuracy": 8.4,
+      "geofence_status": "at_office",
+      "movement_classification": "walking"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 18,
+    "timestamp": "2027-06-15T08:00:00Z",
+    "location": {
+      "lat": 40.748432,
+      "lon": -73.985707,
+      "altitude": 71.5,
+      "speed": 0.21,
+      "heading": 357,
+      "accuracy": 7.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 19,
+    "timestamp": "2027-06-15T08:05:02Z",
+    "location": {
+      "lat": 40.74848,
+      "lon": -73.985672,
+      "altitude": 70.3,
+      "speed": 0.08,
+      "heading": 27,
+      "accuracy": 6.3,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 20,
+    "timestamp": "2027-06-15T08:10:06Z",
+    "location": {
+      "lat": 40.748407,
+      "lon": -73.985714,
+      "altitude": 70.3,
+      "speed": 0.06,
+      "heading": 208,
+      "accuracy": 7.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [
+        {
+          "sender": "Sarah Mitchell",
+          "message": "Have a good day! Don't forget dinner reservations at 7"
+        }
+      ],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 21,
+    "timestamp": "2027-06-15T08:15:07Z",
+    "location": {
+      "lat": 40.74835,
+      "lon": -73.985684,
+      "altitude": 42.8,
+      "speed": 0.22,
+      "heading": 145,
+      "accuracy": 8.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 22,
+    "timestamp": "2027-06-15T08:20:16Z",
+    "location": {
+      "lat": 40.748426,
+      "lon": -73.985649,
+      "altitude": 41.5,
+      "speed": 0.29,
+      "heading": 25,
+      "accuracy": 6.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 23,
+    "timestamp": "2027-06-15T08:25:19Z",
+    "location": {
+      "lat": 40.748442,
+      "lon": -73.985667,
+      "altitude": 52.0,
+      "speed": 0.03,
+      "heading": 304,
+      "accuracy": 3.2,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 24,
+    "timestamp": "2027-06-15T08:30:00Z",
+    "location": {
+      "lat": 40.748388,
+      "lon": -73.98574,
+      "altitude": 55.4,
+      "speed": 0.25,
+      "heading": 228,
+      "accuracy": 6.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 25,
+    "timestamp": "2027-06-15T08:35:17Z",
+    "location": {
+      "lat": 40.748423,
+      "lon": -73.985731,
+      "altitude": 69.3,
+      "speed": 0.13,
+      "heading": 15,
+      "accuracy": 3.6,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 26,
+    "timestamp": "2027-06-15T08:40:06Z",
+    "location": {
+      "lat": 40.748383,
+      "lon": -73.985738,
+      "altitude": 70.0,
+      "speed": 0.04,
+      "heading": 189,
+      "accuracy": 4.8,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 27,
+    "timestamp": "2027-06-15T08:45:22Z",
+    "location": {
+      "lat": 40.748436,
+      "lon": -73.985638,
+      "altitude": 64.6,
+      "speed": 0.2,
+      "heading": 67,
+      "accuracy": 9.6,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 28,
+    "timestamp": "2027-06-15T08:50:20Z",
+    "location": {
+      "lat": 40.74845,
+      "lon": -73.985743,
+      "altitude": 63.8,
+      "speed": 0.23,
+      "heading": 283,
+      "accuracy": 4.9,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [
+        {
+          "sender": "Amazon Shipping",
+          "subject": "Your order has shipped \u2014 arriving Thursday"
+        }
+      ],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 29,
+    "timestamp": "2027-06-15T08:55:22Z",
+    "location": {
+      "lat": 40.74833,
+      "lon": -73.985703,
+      "altitude": 59.6,
+      "speed": 0.12,
+      "heading": 164,
+      "accuracy": 9.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 30,
+    "timestamp": "2027-06-15T09:00:17Z",
+    "location": {
+      "lat": 40.748396,
+      "lon": -73.985765,
+      "altitude": 69.8,
+      "speed": 0.03,
+      "heading": 316,
+      "accuracy": 5.6,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 31,
+    "timestamp": "2027-06-15T09:05:13Z",
+    "location": {
+      "lat": 40.748423,
+      "lon": -73.985776,
+      "altitude": 50.7,
+      "speed": 0.28,
+      "heading": 345,
+      "accuracy": 4.3,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [
+        {
+          "channel": "#engineering",
+          "sender": "Priya Kapoor",
+          "message": "PR approved, merging now"
+        },
+        {
+          "channel": "#general",
+          "sender": "Mike Chang",
+          "message": "standup in 5"
+        }
+      ],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 32,
+    "timestamp": "2027-06-15T09:10:07Z",
+    "location": {
+      "lat": 40.748391,
+      "lon": -73.985736,
+      "altitude": 57.2,
+      "speed": 0.23,
+      "heading": 122,
+      "accuracy": 5.0,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 33,
+    "timestamp": "2027-06-15T09:15:14Z",
+    "location": {
+      "lat": 40.748387,
+      "lon": -73.985762,
+      "altitude": 72.1,
+      "speed": 0.01,
+      "heading": 259,
+      "accuracy": 7.3,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [
+        {
+          "sender": "Mike Chang",
+          "subject": "Re: Refactoring proposal for auth service"
+        }
+      ],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 34,
+    "timestamp": "2027-06-15T09:20:18Z",
+    "location": {
+      "lat": 40.748472,
+      "lon": -73.98568,
+      "altitude": 63.2,
+      "speed": 0.14,
+      "heading": 44,
+      "accuracy": 7.8,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [
+        {
+          "sender": "HR Newsletter",
+          "subject": "Q2 Benefits Enrollment Reminder"
+        }
+      ],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 35,
+    "timestamp": "2027-06-15T09:25:08Z",
+    "location": {
+      "lat": 40.748371,
+      "lon": -73.985704,
+      "altitude": 44.1,
+      "speed": 0.05,
+      "heading": 186,
+      "accuracy": 9.3,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 36,
+    "timestamp": "2027-06-15T09:30:25Z",
+    "location": {
+      "lat": 40.748426,
+      "lon": -73.985633,
+      "altitude": 66.5,
+      "speed": 0.09,
+      "heading": 55,
+      "accuracy": 3.9,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 37,
+    "timestamp": "2027-06-15T09:35:27Z",
+    "location": {
+      "lat": 40.74838,
+      "lon": -73.985754,
+      "altitude": 72.4,
+      "speed": 0.25,
+      "heading": 255,
+      "accuracy": 4.2,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 38,
+    "timestamp": "2027-06-15T09:40:00Z",
+    "location": {
+      "lat": 40.748397,
+      "lon": -73.985721,
+      "altitude": 60.6,
+      "speed": 0.28,
+      "heading": 67,
+      "accuracy": 3.9,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": [
+        {
+          "platform": "LinkedIn",
+          "notification_text": "You have 3 new connection requests"
+        }
+      ]
+    }
+  },
+  {
+    "heartbeat_id": 39,
+    "timestamp": "2027-06-15T09:45:24Z",
+    "location": {
+      "lat": 40.748321,
+      "lon": -73.985767,
+      "altitude": 62.0,
+      "speed": 0.08,
+      "heading": 218,
+      "accuracy": 8.1,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 40,
+    "timestamp": "2027-06-15T09:50:25Z",
+    "location": {
+      "lat": 40.748395,
+      "lon": -73.985678,
+      "altitude": 40.6,
+      "speed": 0.29,
+      "heading": 46,
+      "accuracy": 8.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 41,
+    "timestamp": "2027-06-15T09:55:05Z",
+    "location": {
+      "lat": 40.748424,
+      "lon": -73.985734,
+      "altitude": 66.2,
+      "speed": 0.26,
+      "heading": 288,
+      "accuracy": 4.9,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 42,
+    "timestamp": "2027-06-15T10:00:22Z",
+    "location": {
+      "lat": 40.748466,
+      "lon": -73.985682,
+      "altitude": 71.7,
+      "speed": 0.13,
+      "heading": 53,
+      "accuracy": 3.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 43,
+    "timestamp": "2027-06-15T10:05:13Z",
+    "location": {
+      "lat": 40.748382,
+      "lon": -73.98569,
+      "altitude": 57.9,
+      "speed": 0.08,
+      "heading": 182,
+      "accuracy": 10.0,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 44,
+    "timestamp": "2027-06-15T10:10:10Z",
+    "location": {
+      "lat": 40.748409,
+      "lon": -73.985721,
+      "altitude": 64.5,
+      "speed": 0.24,
+      "heading": 312,
+      "accuracy": 3.6,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 45,
+    "timestamp": "2027-06-15T10:15:08Z",
+    "location": {
+      "lat": 40.748455,
+      "lon": -73.98574,
+      "altitude": 45.0,
+      "speed": 0.19,
+      "heading": 339,
+      "accuracy": 5.1,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 46,
+    "timestamp": "2027-06-15T10:20:04Z",
+    "location": {
+      "lat": 40.74843,
+      "lon": -73.985755,
+      "altitude": 53.6,
+      "speed": 0.12,
+      "heading": 211,
+      "accuracy": 4.0,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 47,
+    "timestamp": "2027-06-15T10:25:06Z",
+    "location": {
+      "lat": 40.748401,
+      "lon": -73.985625,
+      "altitude": 42.0,
+      "speed": 0.06,
+      "heading": 100,
+      "accuracy": 6.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 48,
+    "timestamp": "2027-06-15T10:30:30Z",
+    "location": {
+      "lat": 40.748352,
+      "lon": -73.985699,
+      "altitude": 45.5,
+      "speed": 0.15,
+      "heading": 228,
+      "accuracy": 5.3,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 49,
+    "timestamp": "2027-06-15T10:35:24Z",
+    "location": {
+      "lat": 40.748413,
+      "lon": -73.985753,
+      "altitude": 73.6,
+      "speed": 0.19,
+      "heading": 321,
+      "accuracy": 4.0,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 50,
+    "timestamp": "2027-06-15T10:40:10Z",
+    "location": {
+      "lat": 40.748449,
+      "lon": -73.985738,
+      "altitude": 51.2,
+      "speed": 0.15,
+      "heading": 32,
+      "accuracy": 5.1,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 51,
+    "timestamp": "2027-06-15T10:45:03Z",
+    "location": {
+      "lat": 40.74841,
+      "lon": -73.985737,
+      "altitude": 49.6,
+      "speed": 0.03,
+      "heading": 182,
+      "accuracy": 3.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 52,
+    "timestamp": "2027-06-15T10:50:02Z",
+    "location": {
+      "lat": 40.748348,
+      "lon": -73.985639,
+      "altitude": 79.9,
+      "speed": 0.05,
+      "heading": 130,
+      "accuracy": 5.8,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [
+        {
+          "channel": "#engineering",
+          "sender": "Kira Nakamura",
+          "message": "anyone tried the new Figma plugin?"
+        }
+      ],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 53,
+    "timestamp": "2027-06-15T10:55:12Z",
+    "location": {
+      "lat": 40.748402,
+      "lon": -73.985766,
+      "altitude": 45.6,
+      "speed": 0.2,
+      "heading": 288,
+      "accuracy": 5.3,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 1,
+      "new_voicemails": 1,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 54,
+    "timestamp": "2027-06-15T11:00:03Z",
+    "location": {
+      "lat": 40.748395,
+      "lon": -73.985694,
+      "altitude": 49.9,
+      "speed": 0.2,
+      "heading": 90,
+      "accuracy": 8.3,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 55,
+    "timestamp": "2027-06-15T11:05:11Z",
+    "location": {
+      "lat": 40.748439,
+      "lon": -73.985687,
+      "altitude": 42.6,
+      "speed": 0.01,
+      "heading": 5,
+      "accuracy": 10.0,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [
+        {
+          "sender": "Rachel Torres",
+          "subject": "Fwd: Leadership offsite agenda \u2014 June 20"
+        }
+      ],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 56,
+    "timestamp": "2027-06-15T11:10:27Z",
+    "location": {
+      "lat": 40.748435,
+      "lon": -73.985712,
+      "altitude": 58.4,
+      "speed": 0.11,
+      "heading": 256,
+      "accuracy": 4.1,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 57,
+    "timestamp": "2027-06-15T11:15:11Z",
+    "location": {
+      "lat": 40.74846,
+      "lon": -73.985622,
+      "altitude": 51.0,
+      "speed": 0.16,
+      "heading": 73,
+      "accuracy": 6.9,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 58,
+    "timestamp": "2027-06-15T11:20:19Z",
+    "location": {
+      "lat": 40.748361,
+      "lon": -73.985727,
+      "altitude": 54.8,
+      "speed": 0.02,
+      "heading": 226,
+      "accuracy": 6.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 59,
+    "timestamp": "2027-06-15T11:25:08Z",
+    "location": {
+      "lat": 40.748377,
+      "lon": -73.985738,
+      "altitude": 43.9,
+      "speed": 0.15,
+      "heading": 327,
+      "accuracy": 9.9,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 60,
+    "timestamp": "2027-06-15T11:30:25Z",
+    "location": {
+      "lat": 40.748398,
+      "lon": -73.985633,
+      "altitude": 42.3,
+      "speed": 0.16,
+      "heading": 80,
+      "accuracy": 3.2,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 61,
+    "timestamp": "2027-06-15T11:35:01Z",
+    "location": {
+      "lat": 40.748335,
+      "lon": -73.985756,
+      "altitude": 72.6,
+      "speed": 0.06,
+      "heading": 243,
+      "accuracy": 4.9,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 62,
+    "timestamp": "2027-06-15T11:40:23Z",
+    "location": {
+      "lat": 40.748464,
+      "lon": -73.985669,
+      "altitude": 77.0,
+      "speed": 0.17,
+      "heading": 30,
+      "accuracy": 7.8,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [
+        {
+          "channel": "#design-review",
+          "sender": "Kira Nakamura",
+          "message": "mockups updated in the shared drive"
+        }
+      ],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 63,
+    "timestamp": "2027-06-15T11:45:14Z",
+    "location": {
+      "lat": 40.748444,
+      "lon": -73.985775,
+      "altitude": 59.6,
+      "speed": 0.08,
+      "heading": 269,
+      "accuracy": 5.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 64,
+    "timestamp": "2027-06-15T11:50:17Z",
+    "location": {
+      "lat": 40.748324,
+      "lon": -73.985723,
+      "altitude": 53.0,
+      "speed": 0.03,
+      "heading": 157,
+      "accuracy": 5.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 65,
+    "timestamp": "2027-06-15T11:55:03Z",
+    "location": {
+      "lat": 40.748381,
+      "lon": -73.985642,
+      "altitude": 72.9,
+      "speed": 0.13,
+      "heading": 54,
+      "accuracy": 7.6,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 66,
+    "timestamp": "2027-06-15T12:00:29Z",
+    "location": {
+      "lat": 40.748331,
+      "lon": -73.985644,
+      "altitude": 45.6,
+      "speed": 0.24,
+      "heading": 186,
+      "accuracy": 5.1,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 67,
+    "timestamp": "2027-06-15T12:05:12Z",
+    "location": {
+      "lat": 40.748336,
+      "lon": -73.985744,
+      "altitude": 67.5,
+      "speed": 0.22,
+      "heading": 274,
+      "accuracy": 4.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": [
+        {
+          "platform": "Reddit",
+          "notification_text": "Trending in r/programming: Rust vs Go for backend services"
+        }
+      ]
+    }
+  },
+  {
+    "heartbeat_id": 68,
+    "timestamp": "2027-06-15T12:10:02Z",
+    "location": {
+      "lat": 40.748424,
+      "lon": -73.985672,
+      "altitude": 49.8,
+      "speed": 0.05,
+      "heading": 48,
+      "accuracy": 4.2,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 69,
+    "timestamp": "2027-06-15T12:15:17Z",
+    "location": {
+      "lat": 40.748376,
+      "lon": -73.985645,
+      "altitude": 68.2,
+      "speed": 0.19,
+      "heading": 156,
+      "accuracy": 5.1,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 70,
+    "timestamp": "2027-06-15T12:20:09Z",
+    "location": {
+      "lat": 40.748401,
+      "lon": -73.985701,
+      "altitude": 73.6,
+      "speed": 0.21,
+      "heading": 294,
+      "accuracy": 6.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 71,
+    "timestamp": "2027-06-15T12:25:26Z",
+    "location": {
+      "lat": 40.748458,
+      "lon": -73.985766,
+      "altitude": 72.5,
+      "speed": 0.26,
+      "heading": 305,
+      "accuracy": 4.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [
+        {
+          "sender": "Jake Mitchell",
+          "message": "Dude check out this article about the new PS6 rumors"
+        }
+      ],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 72,
+    "timestamp": "2027-06-15T12:30:20Z",
+    "location": {
+      "lat": 40.750559,
+      "lon": -73.98554,
+      "altitude": 13.3,
+      "speed": 0.21,
+      "heading": 12,
+      "accuracy": 7.7,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": null
+  },
+  {
+    "heartbeat_id": 73,
+    "timestamp": "2027-06-15T12:35:19Z",
+    "location": {
+      "lat": 40.750553,
+      "lon": -73.985526,
+      "altitude": 11.4,
+      "speed": 0.17,
+      "heading": 114,
+      "accuracy": 5.4,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 74,
+    "timestamp": "2027-06-15T12:40:28Z",
+    "location": {
+      "lat": 40.750541,
+      "lon": -73.985511,
+      "altitude": 9.5,
+      "speed": 0.03,
+      "heading": 120,
+      "accuracy": 3.5,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 75,
+    "timestamp": "2027-06-15T12:45:27Z",
+    "location": {
+      "lat": 40.750444,
+      "lon": -73.985514,
+      "altitude": 8.6,
+      "speed": 0.21,
+      "heading": 189,
+      "accuracy": 3.7,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 76,
+    "timestamp": "2027-06-15T12:50:11Z",
+    "location": {
+      "lat": 40.750515,
+      "lon": -73.985495,
+      "altitude": 14.5,
+      "speed": 0.29,
+      "heading": 23,
+      "accuracy": 3.9,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 77,
+    "timestamp": "2027-06-15T12:55:18Z",
+    "location": {
+      "lat": 40.750445,
+      "lon": -73.985528,
+      "altitude": 12.5,
+      "speed": 0.18,
+      "heading": 210,
+      "accuracy": 7.5,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": null
+  },
+  {
+    "heartbeat_id": 78,
+    "timestamp": "2027-06-15T13:00:06Z",
+    "location": {
+      "lat": 40.750439,
+      "lon": -73.985436,
+      "altitude": 11.7,
+      "speed": 0.1,
+      "heading": 92,
+      "accuracy": 4.8,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 79,
+    "timestamp": "2027-06-15T13:05:22Z",
+    "location": {
+      "lat": 40.750567,
+      "lon": -73.985529,
+      "altitude": 8.8,
+      "speed": 0.25,
+      "heading": 325,
+      "accuracy": 7.7,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 80,
+    "timestamp": "2027-06-15T13:10:02Z",
+    "location": {
+      "lat": 40.750507,
+      "lon": -73.985478,
+      "altitude": 10.3,
+      "speed": 0.21,
+      "heading": 130,
+      "accuracy": 8.3,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 81,
+    "timestamp": "2027-06-15T13:15:01Z",
+    "location": {
+      "lat": 40.748468,
+      "lon": -73.985717,
+      "altitude": 58.1,
+      "speed": 0.25,
+      "heading": 184,
+      "accuracy": 4.6,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 82,
+    "timestamp": "2027-06-15T13:20:21Z",
+    "location": {
+      "lat": 40.748479,
+      "lon": -73.985775,
+      "altitude": 69.9,
+      "speed": 0.12,
+      "heading": 281,
+      "accuracy": 4.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 83,
+    "timestamp": "2027-06-15T13:25:07Z",
+    "location": {
+      "lat": 40.748325,
+      "lon": -73.985671,
+      "altitude": 47.5,
+      "speed": 0.05,
+      "heading": 140,
+      "accuracy": 5.0,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [
+        {
+          "channel": "#random",
+          "sender": "Mike Chang",
+          "message": "anyone want to grab coffee?"
+        }
+      ],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 84,
+    "timestamp": "2027-06-15T13:30:24Z",
+    "location": {
+      "lat": 40.748479,
+      "lon": -73.985695,
+      "altitude": 79.0,
+      "speed": 0.23,
+      "heading": 0,
+      "accuracy": 3.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 85,
+    "timestamp": "2027-06-15T13:35:09Z",
+    "location": {
+      "lat": 40.748334,
+      "lon": -73.985743,
+      "altitude": 40.0,
+      "speed": 0.07,
+      "heading": 199,
+      "accuracy": 9.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 86,
+    "timestamp": "2027-06-15T13:40:02Z",
+    "location": {
+      "lat": 40.74841,
+      "lon": -73.985638,
+      "altitude": 66.6,
+      "speed": 0.18,
+      "heading": 52,
+      "accuracy": 8.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 87,
+    "timestamp": "2027-06-15T13:45:27Z",
+    "location": {
+      "lat": 40.748362,
+      "lon": -73.98574,
+      "altitude": 44.3,
+      "speed": 0.02,
+      "heading": 242,
+      "accuracy": 3.0,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 88,
+    "timestamp": "2027-06-15T13:50:07Z",
+    "location": {
+      "lat": 40.748478,
+      "lon": -73.985637,
+      "altitude": 66.1,
+      "speed": 0.21,
+      "heading": 40,
+      "accuracy": 7.3,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 89,
+    "timestamp": "2027-06-15T13:55:27Z",
+    "location": {
+      "lat": 40.748395,
+      "lon": -73.985637,
+      "altitude": 55.5,
+      "speed": 0.08,
+      "heading": 181,
+      "accuracy": 5.6,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 90,
+    "timestamp": "2027-06-15T14:00:03Z",
+    "location": {
+      "lat": 40.748403,
+      "lon": -73.985689,
+      "altitude": 78.0,
+      "speed": 0.29,
+      "heading": 272,
+      "accuracy": 6.1,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 91,
+    "timestamp": "2027-06-15T14:05:12Z",
+    "location": {
+      "lat": 40.74847,
+      "lon": -73.985632,
+      "altitude": 51.4,
+      "speed": 0.17,
+      "heading": 32,
+      "accuracy": 6.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 92,
+    "timestamp": "2027-06-15T14:10:08Z",
+    "location": {
+      "lat": 40.748476,
+      "lon": -73.985709,
+      "altitude": 56.7,
+      "speed": 0.25,
+      "heading": 271,
+      "accuracy": 7.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 93,
+    "timestamp": "2027-06-15T14:15:14Z",
+    "location": {
+      "lat": 40.748359,
+      "lon": -73.985702,
+      "altitude": 59.0,
+      "speed": 0.13,
+      "heading": 185,
+      "accuracy": 6.9,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 94,
+    "timestamp": "2027-06-15T14:20:20Z",
+    "location": {
+      "lat": 40.748388,
+      "lon": -73.98572,
+      "altitude": 58.7,
+      "speed": 0.1,
+      "heading": 325,
+      "accuracy": 7.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": [
+        {
+          "platform": "X",
+          "notification_text": "5 new posts from accounts you follow"
+        }
+      ]
+    }
+  },
+  {
+    "heartbeat_id": 95,
+    "timestamp": "2027-06-15T14:25:26Z",
+    "location": {
+      "lat": 40.7484,
+      "lon": -73.985733,
+      "altitude": 69.5,
+      "speed": 0.27,
+      "heading": 312,
+      "accuracy": 7.1,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [
+        {
+          "sender": "Bank of America Alerts",
+          "subject": "Your monthly statement is ready"
+        }
+      ],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 96,
+    "timestamp": "2027-06-15T14:30:11Z",
+    "location": {
+      "lat": 40.748462,
+      "lon": -73.985721,
+      "altitude": 44.7,
+      "speed": 0.18,
+      "heading": 11,
+      "accuracy": 3.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 97,
+    "timestamp": "2027-06-15T14:35:05Z",
+    "location": {
+      "lat": 40.748398,
+      "lon": -73.985658,
+      "altitude": 65.3,
+      "speed": 0.03,
+      "heading": 137,
+      "accuracy": 5.8,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 1,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 98,
+    "timestamp": "2027-06-15T14:40:11Z",
+    "location": {
+      "lat": 40.74843,
+      "lon": -73.985759,
+      "altitude": 70.0,
+      "speed": 0.3,
+      "heading": 288,
+      "accuracy": 4.2,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 99,
+    "timestamp": "2027-06-15T14:45:11Z",
+    "location": {
+      "lat": 40.748426,
+      "lon": -73.985674,
+      "altitude": 45.5,
+      "speed": 0.08,
+      "heading": 94,
+      "accuracy": 8.8,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [
+        {
+          "channel": "#engineering",
+          "sender": "Priya Kapoor",
+          "message": "CI is green, deploying to staging"
+        }
+      ],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 100,
+    "timestamp": "2027-06-15T14:50:06Z",
+    "location": {
+      "lat": 40.748465,
+      "lon": -73.985677,
+      "altitude": 50.6,
+      "speed": 0.14,
+      "heading": 5,
+      "accuracy": 3.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 101,
+    "timestamp": "2027-06-15T14:55:21Z",
+    "location": {
+      "lat": 40.748431,
+      "lon": -73.985771,
+      "altitude": 56.6,
+      "speed": 0.28,
+      "heading": 245,
+      "accuracy": 7.1,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 102,
+    "timestamp": "2027-06-15T15:00:08Z",
+    "location": {
+      "lat": 40.748432,
+      "lon": -73.985765,
+      "altitude": 53.8,
+      "speed": 0.2,
+      "heading": 78,
+      "accuracy": 7.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [
+        {
+          "sender": "Tom Brennan",
+          "message": "Still on for the gym at 5:30?"
+        }
+      ],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 103,
+    "timestamp": "2027-06-15T15:05:22Z",
+    "location": {
+      "lat": 40.748386,
+      "lon": -73.985691,
+      "altitude": 64.2,
+      "speed": 0.0,
+      "heading": 113,
+      "accuracy": 7.3,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 104,
+    "timestamp": "2027-06-15T15:10:29Z",
+    "location": {
+      "lat": 40.748385,
+      "lon": -73.985739,
+      "altitude": 74.1,
+      "speed": 0.06,
+      "heading": 263,
+      "accuracy": 4.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [
+        {
+          "sender": "Kira Nakamura",
+          "subject": "Design mockups v2 attached"
+        }
+      ],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 105,
+    "timestamp": "2027-06-15T15:15:21Z",
+    "location": {
+      "lat": 40.748387,
+      "lon": -73.985683,
+      "altitude": 55.9,
+      "speed": 0.21,
+      "heading": 83,
+      "accuracy": 5.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 106,
+    "timestamp": "2027-06-15T15:20:20Z",
+    "location": {
+      "lat": 40.74844,
+      "lon": -73.985645,
+      "altitude": 72.3,
+      "speed": 0.09,
+      "heading": 41,
+      "accuracy": 6.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 107,
+    "timestamp": "2027-06-15T15:25:02Z",
+    "location": {
+      "lat": 40.74836,
+      "lon": -73.985681,
+      "altitude": 73.2,
+      "speed": 0.23,
+      "heading": 211,
+      "accuracy": 9.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 108,
+    "timestamp": "2027-06-15T15:30:19Z",
+    "location": {
+      "lat": 40.748469,
+      "lon": -73.985682,
+      "altitude": 62.9,
+      "speed": 0.2,
+      "heading": 0,
+      "accuracy": 5.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 109,
+    "timestamp": "2027-06-15T15:35:20Z",
+    "location": {
+      "lat": 40.748406,
+      "lon": -73.985735,
+      "altitude": 55.0,
+      "speed": 0.27,
+      "heading": 227,
+      "accuracy": 8.6,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 110,
+    "timestamp": "2027-06-15T15:40:05Z",
+    "location": {
+      "lat": 40.74836,
+      "lon": -73.985769,
+      "altitude": 56.3,
+      "speed": 0.25,
+      "heading": 225,
+      "accuracy": 6.2,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 111,
+    "timestamp": "2027-06-15T15:45:17Z",
+    "location": {
+      "lat": 40.748428,
+      "lon": -73.985634,
+      "altitude": 54.9,
+      "speed": 0.24,
+      "heading": 67,
+      "accuracy": 9.6,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 112,
+    "timestamp": "2027-06-15T15:50:23Z",
+    "location": {
+      "lat": 40.748427,
+      "lon": -73.98574,
+      "altitude": 78.1,
+      "speed": 0.06,
+      "heading": 271,
+      "accuracy": 5.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 113,
+    "timestamp": "2027-06-15T15:55:07Z",
+    "location": {
+      "lat": 40.748457,
+      "lon": -73.985758,
+      "altitude": 75.5,
+      "speed": 0.16,
+      "heading": 326,
+      "accuracy": 3.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [
+        {
+          "channel": "#general",
+          "sender": "Rachel Torres",
+          "message": "reminder: team happy hour Friday at 5"
+        }
+      ],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 114,
+    "timestamp": "2027-06-15T16:00:05Z",
+    "location": {
+      "lat": 40.748342,
+      "lon": -73.985755,
+      "altitude": 74.9,
+      "speed": 0.17,
+      "heading": 179,
+      "accuracy": 4.0,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 115,
+    "timestamp": "2027-06-15T16:05:14Z",
+    "location": {
+      "lat": 40.748465,
+      "lon": -73.985697,
+      "altitude": 59.5,
+      "speed": 0.11,
+      "heading": 31,
+      "accuracy": 6.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 116,
+    "timestamp": "2027-06-15T16:10:12Z",
+    "location": {
+      "lat": 40.748343,
+      "lon": -73.985753,
+      "altitude": 56.2,
+      "speed": 0.28,
+      "heading": 205,
+      "accuracy": 9.8,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 117,
+    "timestamp": "2027-06-15T16:15:08Z",
+    "location": {
+      "lat": 40.748417,
+      "lon": -73.985752,
+      "altitude": 75.1,
+      "speed": 0.27,
+      "heading": 2,
+      "accuracy": 6.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": [
+        {
+          "platform": "Instagram",
+          "notification_text": "sarahm_photos posted a new story"
+        }
+      ]
+    }
+  },
+  {
+    "heartbeat_id": 118,
+    "timestamp": "2027-06-15T16:20:29Z",
+    "location": {
+      "lat": 40.748433,
+      "lon": -73.985654,
+      "altitude": 40.3,
+      "speed": 0.17,
+      "heading": 73,
+      "accuracy": 7.6,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 119,
+    "timestamp": "2027-06-15T16:25:20Z",
+    "location": {
+      "lat": 40.748401,
+      "lon": -73.985654,
+      "altitude": 67.4,
+      "speed": 0.24,
+      "heading": 183,
+      "accuracy": 3.4,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 120,
+    "timestamp": "2027-06-15T16:30:22Z",
+    "location": {
+      "lat": 40.748326,
+      "lon": -73.985742,
+      "altitude": 79.9,
+      "speed": 0.0,
+      "heading": 224,
+      "accuracy": 8.5,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [
+        {
+          "channel": "#engineering",
+          "sender": "Mike Chang",
+          "message": "pushed the config fix, can someone review?"
+        }
+      ],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 121,
+    "timestamp": "2027-06-15T16:35:17Z",
+    "location": {
+      "lat": 40.748475,
+      "lon": -73.98569,
+      "altitude": 78.4,
+      "speed": 0.23,
+      "heading": 24,
+      "accuracy": 6.2,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": null
+  },
+  {
+    "heartbeat_id": 122,
+    "timestamp": "2027-06-15T16:40:07Z",
+    "location": {
+      "lat": 40.748352,
+      "lon": -73.985662,
+      "altitude": 48.1,
+      "speed": 0.26,
+      "heading": 162,
+      "accuracy": 4.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [
+        {
+          "sender": "Priya Kapoor",
+          "subject": "Re: Sprint retrospective action items"
+        }
+      ],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 123,
+    "timestamp": "2027-06-15T16:45:21Z",
+    "location": {
+      "lat": 40.748432,
+      "lon": -73.985706,
+      "altitude": 48.4,
+      "speed": 0.21,
+      "heading": 323,
+      "accuracy": 7.1,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [
+        {
+          "sender": "Sarah Mitchell",
+          "message": "Running 10 min late, meet you there"
+        }
+      ],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 124,
+    "timestamp": "2027-06-15T16:50:10Z",
+    "location": {
+      "lat": 40.748322,
+      "lon": -73.985713,
+      "altitude": 65.2,
+      "speed": 0.04,
+      "heading": 191,
+      "accuracy": 6.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 125,
+    "timestamp": "2027-06-15T16:55:26Z",
+    "location": {
+      "lat": 40.748381,
+      "lon": -73.985734,
+      "altitude": 46.7,
+      "speed": 0.19,
+      "heading": 334,
+      "accuracy": 8.7,
+      "geofence_status": "at_office",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 126,
+    "timestamp": "2027-06-15T17:00:24Z",
+    "location": {
+      "lat": 40.748241,
+      "lon": -73.985874,
+      "altitude": 8.2,
+      "speed": 10.54,
+      "heading": 226,
+      "accuracy": 9.0,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 127,
+    "timestamp": "2027-06-15T17:05:24Z",
+    "location": {
+      "lat": 40.754571,
+      "lon": -73.983958,
+      "altitude": 10.2,
+      "speed": 6.28,
+      "heading": 18,
+      "accuracy": 8.5,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 128,
+    "timestamp": "2027-06-15T17:10:01Z",
+    "location": {
+      "lat": 40.760728,
+      "lon": -73.982311,
+      "altitude": 11.0,
+      "speed": 4.54,
+      "heading": 10,
+      "accuracy": 7.4,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 129,
+    "timestamp": "2027-06-15T17:15:07Z",
+    "location": {
+      "lat": 40.76661,
+      "lon": -73.980553,
+      "altitude": 13.6,
+      "speed": 4.1,
+      "heading": 13,
+      "accuracy": 15.0,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 130,
+    "timestamp": "2027-06-15T17:20:26Z",
+    "location": {
+      "lat": 40.773051,
+      "lon": -73.978659,
+      "altitude": 13.2,
+      "speed": 0.63,
+      "heading": 20,
+      "accuracy": 10.5,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 131,
+    "timestamp": "2027-06-15T17:25:01Z",
+    "location": {
+      "lat": 40.779041,
+      "lon": -73.977036,
+      "altitude": 9.6,
+      "speed": 9.5,
+      "heading": 8,
+      "accuracy": 14.8,
+      "geofence_status": null,
+      "movement_classification": "driving"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 132,
+    "timestamp": "2027-06-15T17:30:25Z",
+    "location": {
+      "lat": 40.785144,
+      "lon": -73.975399,
+      "altitude": 12.3,
+      "speed": 0.22,
+      "heading": 22,
+      "accuracy": 5.5,
+      "geofence_status": "at_home",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 133,
+    "timestamp": "2027-06-15T17:35:10Z",
+    "location": {
+      "lat": 40.785135,
+      "lon": -73.975478,
+      "altitude": 14.5,
+      "speed": 0.28,
+      "heading": 267,
+      "accuracy": 8.8,
+      "geofence_status": "at_home",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 134,
+    "timestamp": "2027-06-15T17:40:12Z",
+    "location": {
+      "lat": 40.785143,
+      "lon": -73.975388,
+      "altitude": 11.0,
+      "speed": 0.2,
+      "heading": 89,
+      "accuracy": 3.7,
+      "geofence_status": "at_home",
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 135,
+    "timestamp": "2027-06-15T17:45:08Z",
+    "location": {
+      "lat": 40.782371,
+      "lon": -73.96798,
+      "altitude": 14.7,
+      "speed": 3.48,
+      "heading": 105,
+      "accuracy": 6.9,
+      "geofence_status": null,
+      "movement_classification": "running"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 136,
+    "timestamp": "2027-06-15T17:50:02Z",
+    "location": {
+      "lat": 40.780983,
+      "lon": -73.967055,
+      "altitude": 23.8,
+      "speed": 2.88,
+      "heading": 151,
+      "accuracy": 4.7,
+      "geofence_status": null,
+      "movement_classification": "running"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 137,
+    "timestamp": "2027-06-15T17:55:06Z",
+    "location": {
+      "lat": 40.781719,
+      "lon": -73.966911,
+      "altitude": 16.5,
+      "speed": 2.76,
+      "heading": 9,
+      "accuracy": 6.5,
+      "geofence_status": null,
+      "movement_classification": "running"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 138,
+    "timestamp": "2027-06-15T18:00:29Z",
+    "location": {
+      "lat": 40.780354,
+      "lon": -73.965956,
+      "altitude": 21.4,
+      "speed": 2.7,
+      "heading": 143,
+      "accuracy": 7.3,
+      "geofence_status": null,
+      "movement_classification": "running"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 139,
+    "timestamp": "2027-06-15T18:05:30Z",
+    "location": {
+      "lat": 40.780366,
+      "lon": -73.965985,
+      "altitude": 12.3,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 3.9,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 140,
+    "timestamp": "2027-06-15T18:10:18Z",
+    "location": {
+      "lat": 40.78033,
+      "lon": -73.965967,
+      "altitude": 13.1,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 5.5,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 141,
+    "timestamp": "2027-06-15T18:15:28Z",
+    "location": {
+      "lat": 40.780325,
+      "lon": -73.965953,
+      "altitude": 17.4,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 6.3,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 142,
+    "timestamp": "2027-06-15T18:20:22Z",
+    "location": {
+      "lat": 40.780342,
+      "lon": -73.965944,
+      "altitude": 18.0,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 7.9,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 143,
+    "timestamp": "2027-06-15T18:25:10Z",
+    "location": {
+      "lat": 40.78037,
+      "lon": -73.96598,
+      "altitude": 15.7,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 4.3,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 144,
+    "timestamp": "2027-06-15T18:30:06Z",
+    "location": {
+      "lat": 40.780325,
+      "lon": -73.96597,
+      "altitude": 17.9,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 6.8,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 145,
+    "timestamp": "2027-06-15T18:35:20Z",
+    "location": {
+      "lat": 40.780355,
+      "lon": -73.965959,
+      "altitude": 18.0,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 5.6,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 146,
+    "timestamp": "2027-06-15T18:40:15Z",
+    "location": {
+      "lat": 40.780351,
+      "lon": -73.965943,
+      "altitude": 17.6,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 6.5,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 147,
+    "timestamp": "2027-06-15T18:45:12Z",
+    "location": {
+      "lat": 40.780371,
+      "lon": -73.965956,
+      "altitude": 14.3,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 6.8,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 148,
+    "timestamp": "2027-06-15T18:50:28Z",
+    "location": {
+      "lat": 40.780351,
+      "lon": -73.965935,
+      "altitude": 17.3,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 4.2,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 149,
+    "timestamp": "2027-06-15T18:55:29Z",
+    "location": {
+      "lat": 40.780327,
+      "lon": -73.965961,
+      "altitude": 15.7,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 6.5,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 150,
+    "timestamp": "2027-06-15T19:00:20Z",
+    "location": {
+      "lat": 40.780355,
+      "lon": -73.965955,
+      "altitude": 12.7,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 6.6,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 151,
+    "timestamp": "2027-06-15T19:05:14Z",
+    "location": {
+      "lat": 40.780366,
+      "lon": -73.965928,
+      "altitude": 15.8,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 3.6,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 152,
+    "timestamp": "2027-06-15T19:10:04Z",
+    "location": {
+      "lat": 40.780367,
+      "lon": -73.965949,
+      "altitude": 14.0,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 4.7,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 153,
+    "timestamp": "2027-06-15T19:15:08Z",
+    "location": {
+      "lat": 40.780372,
+      "lon": -73.965933,
+      "altitude": 13.7,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 3.2,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 154,
+    "timestamp": "2027-06-15T19:20:04Z",
+    "location": {
+      "lat": 40.780342,
+      "lon": -73.96598,
+      "altitude": 17.5,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 5.2,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 155,
+    "timestamp": "2027-06-15T19:25:07Z",
+    "location": {
+      "lat": 40.78038,
+      "lon": -73.965945,
+      "altitude": 14.8,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 3.2,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 156,
+    "timestamp": "2027-06-15T19:30:23Z",
+    "location": {
+      "lat": 40.780336,
+      "lon": -73.965965,
+      "altitude": 16.2,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 4.4,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 157,
+    "timestamp": "2027-06-15T19:35:17Z",
+    "location": {
+      "lat": 40.780366,
+      "lon": -73.965946,
+      "altitude": 16.5,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 5.3,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 158,
+    "timestamp": "2027-06-15T19:40:17Z",
+    "location": {
+      "lat": 40.780377,
+      "lon": -73.965959,
+      "altitude": 14.1,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 5.3,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  },
+  {
+    "heartbeat_id": 159,
+    "timestamp": "2027-06-15T19:45:08Z",
+    "location": {
+      "lat": 40.780359,
+      "lon": -73.965939,
+      "altitude": 15.3,
+      "speed": 0.0,
+      "heading": 143,
+      "accuracy": 4.2,
+      "geofence_status": null,
+      "movement_classification": "stationary"
+    },
+    "comms": {
+      "new_emails": [],
+      "new_slack_messages": [],
+      "new_missed_calls": 0,
+      "new_voicemails": 0,
+      "new_sms": [],
+      "new_notifications": []
+    }
+  }
+]

@@ -32,22 +32,15 @@ repos:
     hooks:
       - id: gitleaks
 
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.15.0
-    hooks:
-      - id: mypy
-        args:
-          - --install-types
-          - --non-interactive
-          - --check-untyped-defs
-          - --disallow-incomplete-defs
-          - --ignore-missing-imports
-          - --warn-redundant-casts
-          - --warn-unreachable
-          - --explicit-package-bases
-
   - repo: local
     hooks:
+      - id: mypy
+        name: mypy
+        entry: uv run mypy src/
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true
       - id: pip-audit
         name: pip-audit
         entry: uv run pip-audit --local --ignore-vuln CVE-2025-69872

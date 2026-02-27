@@ -348,3 +348,179 @@ class TestLocationRealism:
         pkg2 = generate_scenario(crisis_type="cardiac_arrest", tier="T2", seed=42)
         for h1, h2 in zip(pkg1.heartbeats, pkg2.heartbeats, strict=False):
             assert h1.location == h2.location
+
+
+class TestWeatherRealism:
+    """Story 2.3: Weather module generates realistic diurnal data."""
+
+    @pytest.fixture()
+    def package(self) -> ScenarioPackage:
+        return generate_scenario(crisis_type="cardiac_arrest", tier="T2", seed=42)
+
+    def test_weather_none_for_t1(self) -> None:
+        """T1 heartbeats have no weather data."""
+        package = generate_scenario(crisis_type="cardiac_arrest", tier="T1", seed=42)
+        for hb in package.heartbeats:
+            assert hb.weather is None
+
+    def test_weather_present_for_t2(self, package: ScenarioPackage) -> None:
+        """T2+ heartbeats have weather data."""
+        for hb in package.heartbeats:
+            assert hb.weather is not None
+
+    def test_temp_diurnal_curve(self, package: ScenarioPackage) -> None:
+        """AC #1: temperature warms through morning, peaks afternoon, cools evening."""
+        cid = package.crisis_heartbeat_id
+        normal = [hb for hb in package.heartbeats[:cid] if hb.weather is not None]
+        temps = [hb.weather.temp for hb in normal]
+        # First reading (06:30) should be cooler than midday (~12:30, HB ~72).
+        early = temps[0]
+        midday_idx = min(72, len(temps) - 1)
+        midday = temps[midday_idx]
+        assert midday > early, f"Midday {midday} should be warmer than dawn {early}"
+
+    def test_humidity_inverse_correlation(self, package: ScenarioPackage) -> None:
+        """AC #1: humidity higher in morning, lower in afternoon."""
+        cid = package.crisis_heartbeat_id
+        normal = [hb for hb in package.heartbeats[:cid] if hb.weather is not None]
+        # Compare average humidity in first 10 vs middle 10 heartbeats.
+        morning_humidity = sum(hb.weather.humidity for hb in normal[:10]) / 10
+        afternoon_humidity = sum(hb.weather.humidity for hb in normal[70:80]) / 10
+        assert morning_humidity > afternoon_humidity
+
+    def test_uv_peaks_midday(self, package: ScenarioPackage) -> None:
+        """AC #1: UV index peaks around midday, low at dawn/evening."""
+        cid = package.crisis_heartbeat_id
+        normal = [hb for hb in package.heartbeats[:cid] if hb.weather is not None]
+        # Dawn (06:30) UV should be 0 or very low.
+        assert normal[0].weather.uv_index <= 1
+        # Midday (12:30, HB ~72) should have high UV.
+        midday_idx = min(72, len(normal) - 1)
+        assert normal[midday_idx].weather.uv_index >= 4
+
+    def test_wind_direction_drifts_slowly(self, package: ScenarioPackage) -> None:
+        """Wind direction should not flip wildly between heartbeats."""
+        cid = package.crisis_heartbeat_id
+        normal = [hb for hb in package.heartbeats[:cid] if hb.weather is not None]
+        dirs = [hb.weather.wind_dir for hb in normal]
+        # Count direction changes. Should be much less than total heartbeats.
+        changes = sum(1 for i in range(1, len(dirs)) if dirs[i] != dirs[i - 1])
+        assert changes < len(dirs) * 0.3, f"Too many wind dir changes: {changes}/{len(dirs)}"
+
+    def test_weather_deterministic(self) -> None:
+        """AC #4: same seed = identical weather output."""
+        pkg1 = generate_scenario(crisis_type="cardiac_arrest", tier="T2", seed=42)
+        pkg2 = generate_scenario(crisis_type="cardiac_arrest", tier="T2", seed=42)
+        for h1, h2 in zip(pkg1.heartbeats, pkg2.heartbeats, strict=False):
+            assert h1.weather == h2.weather
+
+    def test_crisis_weather_continues(self, package: ScenarioPackage) -> None:
+        """AC #1 subtask 1.8: weather evolves normally during crisis."""
+        cid = package.crisis_heartbeat_id
+        crisis_hbs = [hb for hb in package.heartbeats[cid:] if hb.weather is not None]
+        assert len(crisis_hbs) > 0
+        # Weather should still be present and values should vary.
+        temps = [hb.weather.temp for hb in crisis_hbs]
+        assert len(set(temps)) > 1, "Crisis weather temps should vary, not be static"
+
+
+class TestCalendarRealism:
+    """Story 2.3: Calendar module generates realistic sliding-window events."""
+
+    @pytest.fixture()
+    def package(self) -> ScenarioPackage:
+        return generate_scenario(crisis_type="cardiac_arrest", tier="T3", seed=42)
+
+    def test_calendar_none_for_t2(self) -> None:
+        """T2 heartbeats have no calendar data."""
+        package = generate_scenario(crisis_type="cardiac_arrest", tier="T2", seed=42)
+        for hb in package.heartbeats:
+            assert hb.calendar is None
+
+    def test_events_slide_forward(self, package: ScenarioPackage) -> None:
+        """AC #2: events in next_3_events slide forward as time passes."""
+        cid = package.crisis_heartbeat_id
+        normal = [hb for hb in package.heartbeats[:cid] if hb.calendar is not None]
+        # Early morning (06:30): should show first 3 events.
+        early = normal[0].calendar
+        assert len(early.next_3_events) == 3
+        assert early.next_3_events[0].title == "Daily Standup"
+        # Late afternoon (~16:00, HB ~114): most events passed.
+        late_idx = min(114, len(normal) - 1)
+        late = normal[late_idx].calendar
+        # By 16:00, only Gym (17:30) and Dinner (19:00) should remain.
+        assert len(late.next_3_events) <= 3
+        if len(late.next_3_events) > 0:
+            assert late.next_3_events[0].title != "Daily Standup"
+
+    def test_past_events_excluded(self, package: ScenarioPackage) -> None:
+        """AC #2: events that have passed don't appear in next_3_events."""
+        cid = package.crisis_heartbeat_id
+        normal = [hb for hb in package.heartbeats[:cid] if hb.calendar is not None]
+        # At 10:30 (HB ~48), Daily Standup (09:00) and Sprint Planning (10:00) have passed.
+        hb_48 = normal[min(48, len(normal) - 1)]
+        event_titles = [e.title for e in hb_48.calendar.next_3_events]
+        assert "Daily Standup" not in event_titles
+        assert "Sprint Planning" not in event_titles
+
+    def test_calendar_deterministic(self) -> None:
+        """AC #4: same seed = identical calendar output."""
+        pkg1 = generate_scenario(crisis_type="cardiac_arrest", tier="T3", seed=42)
+        pkg2 = generate_scenario(crisis_type="cardiac_arrest", tier="T3", seed=42)
+        for h1, h2 in zip(pkg1.heartbeats, pkg2.heartbeats, strict=False):
+            assert h1.calendar == h2.calendar
+
+    def test_today_summary_present(self, package: ScenarioPackage) -> None:
+        """AC #2: today_summary is a non-empty string."""
+        hb = package.heartbeats[10]
+        assert hb.calendar is not None
+        assert len(hb.calendar.today_summary) > 0
+
+
+class TestFinancialRealism:
+    """Story 2.3: Financial module generates realistic stock/transaction data."""
+
+    @pytest.fixture()
+    def package(self) -> ScenarioPackage:
+        return generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
+
+    def test_financial_none_for_t3(self) -> None:
+        """T3 heartbeats have no financial data."""
+        package = generate_scenario(crisis_type="cardiac_arrest", tier="T3", seed=42)
+        for hb in package.heartbeats:
+            assert hb.financial is None
+
+    def test_stock_walk_varies(self, package: ScenarioPackage) -> None:
+        """AC #3: stock prices vary via random walk, not static."""
+        cid = package.crisis_heartbeat_id
+        normal = [hb for hb in package.heartbeats[:cid] if hb.financial is not None]
+        aapl_prices = [hb.financial.stock_watchlist[0].price for hb in normal]
+        assert len(set(aapl_prices)) > 5, "Stock prices should vary across heartbeats"
+
+    def test_transactions_contextually_timed(self, package: ScenarioPackage) -> None:
+        """AC #6: transactions appear at appropriate times."""
+        cid = package.crisis_heartbeat_id
+        normal = [hb for hb in package.heartbeats[:cid] if hb.financial is not None]
+        # At 06:30 (HB 0), no today transactions yet — should show yesterday's.
+        first = normal[0].financial
+        assert first.last_3_transactions[0].counterparty == "Whole Foods Market"
+        # After 07:05 (HB ~7), Starbucks and MTA should appear.
+        later_idx = min(7, len(normal) - 1)
+        later = normal[later_idx].financial
+        counterparties = [t.counterparty for t in later.last_3_transactions]
+        assert "Starbucks" in counterparties or "MTA MetroCard" in counterparties
+
+    def test_account_balance_decrements(self, package: ScenarioPackage) -> None:
+        """AC #6: account balance decreases with transactions."""
+        cid = package.crisis_heartbeat_id
+        normal = [hb for hb in package.heartbeats[:cid] if hb.financial is not None]
+        first_balance = normal[0].financial.account_balance
+        last_balance = normal[-1].financial.account_balance
+        assert last_balance < first_balance
+
+    def test_financial_deterministic(self) -> None:
+        """AC #4: same seed = identical financial output."""
+        pkg1 = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
+        pkg2 = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
+        for h1, h2 in zip(pkg1.heartbeats, pkg2.heartbeats, strict=False):
+            assert h1.financial == h2.financial

@@ -5,8 +5,15 @@ from __future__ import annotations
 import pytest
 
 from crisis_bench.generator.generate import generate_scenario
+from crisis_bench.generator.memories import generate_memory_files
+from crisis_bench.generator.persona import generate_persona
 from crisis_bench.generator.tools import collect_tool_definitions
-from crisis_bench.models.scenario import ScenarioPackage
+from crisis_bench.models.scenario import (
+    AgentIdentity,
+    Contact,
+    PersonProfile,
+    ScenarioPackage,
+)
 
 
 class TestGenerateScenario:
@@ -832,3 +839,169 @@ class TestScenarioPackaging:
         for tier in ("T1", "T2", "T3", "T4"):
             package = generate_scenario(crisis_type="cardiac_arrest", tier=tier, seed=99)
             assert package.scenario_id == f"cardiac_arrest_{tier}_s99"
+
+
+# ---------------------------------------------------------------------------
+# Story 2.6: Memory Bootstrapping & Persona
+# ---------------------------------------------------------------------------
+
+_NFR2_BANNED_STEMS = {
+    "medical",
+    "emergency",
+    "crisis",
+    "safety",
+    "vital",
+    "cardiac",
+    "heart",
+    "pulse",
+    "oxygen",
+    "spo2",
+    "ambulance",
+    "hospital",
+    "doctor",
+    "nurse",
+    "injury",
+    "symptom",
+    "diagnosis",
+    "alert",
+    "warning",
+    "danger",
+    "critical",
+    "urgent",
+    "rescue",
+    "sos",
+}
+
+
+class TestMemoryFiles:
+    """Story 2.6 / AC #1, #2, #4, #5: Pre-seeded memory file generation."""
+
+    def test_returns_exactly_six_files(self) -> None:
+        files = generate_memory_files()
+        assert len(files) == 6
+
+    def test_expected_keys(self) -> None:
+        files = generate_memory_files()
+        keys = {mf.key for mf in files}
+        assert keys == {
+            "user_profile",
+            "preferences",
+            "health_baseline",
+            "work_context",
+            "recurring_notes",
+            "yesterday",
+        }
+
+    def test_all_content_nonempty(self) -> None:
+        for mf in generate_memory_files():
+            assert len(mf.content.strip()) > 0, f"Memory file {mf.key!r} is empty"
+
+    def test_no_banned_nfr2_stems_in_content(self) -> None:
+        """Memory content should avoid banned NFR2 stems (health in key name is OK)."""
+        for mf in generate_memory_files():
+            words = set(mf.content.lower().split())
+            words = {w.strip(".,;:()[]{}*#-—\"'") for w in words}
+            overlap = words & _NFR2_BANNED_STEMS
+            assert not overlap, f"Memory file {mf.key!r} contains banned NFR2 stems: {overlap}"
+
+    def test_determinism(self) -> None:
+        """Two calls return identical results."""
+        a = generate_memory_files()
+        b = generate_memory_files()
+        assert len(a) == len(b)
+        for fa, fb in zip(a, b, strict=True):
+            assert fa.key == fb.key
+            assert fa.content == fb.content
+
+    def test_sorted_by_key(self) -> None:
+        files = generate_memory_files()
+        keys = [mf.key for mf in files]
+        assert keys == sorted(keys)
+
+
+class TestPersona:
+    """Story 2.6 / AC #3: Persona document generation."""
+
+    @pytest.fixture()
+    def persona_text(self) -> str:
+        person = PersonProfile(
+            name="David Mitchell",
+            birthday="March 12, 1993",
+            occupation="Software Engineering Manager",
+            home_address="425 W 82nd St, New York, NY 10024",
+            office_address="350 5th Ave, New York, NY 10118",
+        )
+        agent = AgentIdentity(name="Atlas", personality="Helpful personal AI assistant")
+        contacts = [
+            Contact(
+                id="c-001", name="Sarah Mitchell", relationship="wife", phone="+1-917-482-7391"
+            ),
+            Contact(
+                id="c-002",
+                name="Mom (Linda Mitchell)",
+                relationship="mother",
+                phone="+1-212-738-4052",
+            ),
+            Contact(
+                id="c-003", name="Jake Mitchell", relationship="brother", phone="+1-347-261-8843"
+            ),
+            Contact(
+                id="c-004", name="Rachel Torres", relationship="manager", phone="+1-212-904-3178"
+            ),
+            Contact(
+                id="c-005",
+                name="Dad (Robert Mitchell)",
+                relationship="father",
+                phone="+1-212-738-4017",
+            ),
+        ]
+        return generate_persona(person, agent, contacts)
+
+    def test_returns_nonempty_string(self, persona_text: str) -> None:
+        assert len(persona_text.strip()) > 0
+
+    def test_mentions_agent_name(self, persona_text: str) -> None:
+        assert "Atlas" in persona_text
+
+    def test_mentions_post_crisis_behavior(self, persona_text: str) -> None:
+        assert "incapacitated" in persona_text.lower()
+
+    def test_mentions_user_name(self, persona_text: str) -> None:
+        assert "David Mitchell" in persona_text
+
+    def test_mentions_spouse(self, persona_text: str) -> None:
+        assert "Sarah" in persona_text
+
+    def test_mentions_key_relationships(self, persona_text: str) -> None:
+        assert "wife" in persona_text.lower()
+        assert "mother" in persona_text.lower()
+
+
+class TestMemoryAndPersonaIntegration:
+    """Story 2.6 / AC #5, #6: Memory and persona in generated packages."""
+
+    def test_package_has_memory_files(self) -> None:
+        package = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
+        assert len(package.memory_files) == 6
+
+    def test_package_has_persona(self) -> None:
+        package = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
+        assert len(package.persona) > 0
+        assert "Atlas" in package.persona
+
+    def test_determinism_includes_memory_and_persona(self) -> None:
+        """Same seed produces identical memory_files and persona."""
+        pkg1 = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
+        pkg2 = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
+        assert len(pkg1.memory_files) == len(pkg2.memory_files)
+        for m1, m2 in zip(pkg1.memory_files, pkg2.memory_files, strict=True):
+            assert m1.key == m2.key
+            assert m1.content == m2.content
+        assert pkg1.persona == pkg2.persona
+
+    def test_memory_files_present_all_tiers(self) -> None:
+        """Memory files are scenario-independent — present on all tiers."""
+        for tier in ("T1", "T2", "T3", "T4"):
+            package = generate_scenario(crisis_type="cardiac_arrest", tier=tier, seed=42)
+            assert len(package.memory_files) == 6, f"Tier {tier} missing memory files"
+            assert len(package.persona) > 0, f"Tier {tier} missing persona"

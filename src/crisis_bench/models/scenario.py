@@ -320,4 +320,5 @@ class ScenarioPackage(BaseModel):
         description="Tool definitions for this noise tier"
     )
     memory_files: list[MemoryFile] = Field(description="Pre-seeded memory files")
+    persona: str = Field(description="User Simulator persona document content")
     manifest: ScenarioManifest = Field(description="Package manifest with content hash")

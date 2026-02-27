@@ -11,6 +11,8 @@ if TYPE_CHECKING:
     import random
     from pathlib import Path
 
+from crisis_bench.generator.memories import generate_memory_files
+from crisis_bench.generator.persona import generate_persona
 from crisis_bench.generator.schedule import (
     CARDIAC_ARREST_SCHEDULE,
     PersonSchedule,
@@ -285,7 +287,8 @@ def generate_scenario(
         agent_identity=_DEFAULT_AGENT,
         heartbeats=heartbeats,
         tool_definitions=collect_tool_definitions(tier),
-        memory_files=[],  # placeholder — Story 2.6
+        memory_files=generate_memory_files(),
+        persona=generate_persona(_DEFAULT_PERSON, _DEFAULT_AGENT, list(_DEFAULT_CONTACTS)),
         manifest=ScenarioManifest(
             content_hash=content_hash,
             generator_version="0.1.0",
@@ -341,7 +344,7 @@ def _write_scenario(package: ScenarioPackage, output_path: Path) -> None:
 
     # scenario.json — metadata without heartbeats/tools/memories
     scenario_meta = package.model_dump(
-        exclude={"heartbeats", "tool_definitions", "memory_files", "manifest"}
+        exclude={"heartbeats", "tool_definitions", "memory_files", "persona", "manifest"}
     )
     (output_path / "scenario.json").write_text(json.dumps(scenario_meta, indent=2) + "\n")
 
@@ -355,7 +358,11 @@ def _write_scenario(package: ScenarioPackage, output_path: Path) -> None:
         json.dumps([td.model_dump() for td in package.tool_definitions], indent=2) + "\n"
     )
 
-    # memories/ directory with .gitkeep
+    # persona.md — User Simulator configuration
+    (output_path / "persona.md").write_text(package.persona, encoding="utf-8")
+
+    # memories/ directory with individual memory files
     memories_dir = output_path / "memories"
     memories_dir.mkdir(exist_ok=True)
-    (memories_dir / ".gitkeep").touch()
+    for mf in package.memory_files:
+        (memories_dir / f"{mf.key}.md").write_text(mf.content, encoding="utf-8")

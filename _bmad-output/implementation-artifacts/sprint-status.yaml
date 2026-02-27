@@ -55,7 +55,7 @@ development_status:
   2-3-weather-calendar-financial-module-generators: done
   2-4-communications-module-generator: review
   2-5-crisis-injector-scenario-packaging: review
-  2-6-memory-bootstrapping-example-scenario: backlog
+  2-6-memory-bootstrapping-example-scenario: review
   epic-2-retrospective: optional
 
   # Epic 3: Benchmark Execution Engine

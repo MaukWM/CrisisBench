@@ -147,7 +147,7 @@ class PersonSchedule:
         stamps: list[str] = []
         current = start_dt
         while current <= self._post_crisis_end:
-            stamps.append(current.strftime("%Y-%m-%dT%H:%M:%SZ"))
+            stamps.append(current.strftime("%Y-%m-%dT%H:%MZ"))
             current += timedelta(minutes=HEARTBEAT_INTERVAL_MINUTES)
         return stamps
 

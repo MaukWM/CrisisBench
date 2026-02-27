@@ -104,15 +104,16 @@ class TestHealthRealism:
         return generate_scenario(crisis_type="cardiac_arrest", tier="T1", seed=42)
 
     def test_crisis_skin_temp_declines(self, package: ScenarioPackage) -> None:
-        """Skin temp should monotonically decrease during crisis (cooling body)."""
+        """Skin temp should decrease overall during crisis (exponential cooling).
+
+        With ±0.05°C noise, individual pairs may not be strictly monotone,
+        but the overall drop over 20 heartbeats should be >1°C.
+        """
         cid = package.crisis_heartbeat_id
         crisis_temps = [
             hb.health.skin_temp for hb in package.heartbeats[cid:] if hb.health is not None
         ]
         assert len(crisis_temps) >= 10
-        for i in range(1, len(crisis_temps)):
-            assert crisis_temps[i] <= crisis_temps[i - 1]
-        # Over 20 heartbeats at -0.1°C each, expect >1°C total drop.
         assert crisis_temps[0] - crisis_temps[-1] > 1.0
 
     def test_crisis_blood_glucose_drifts_up(self, package: ScenarioPackage) -> None:
@@ -168,6 +169,55 @@ class TestHealthRealism:
         assert any(d > 0 for d in deltas), "Expected at least one body battery recovery"
         # Net trend should be downward.
         assert batteries[-1] < batteries[0]
+
+    def test_spo2_has_range_beyond_96_99(self, package: ScenarioPackage) -> None:
+        """SpO2 should occasionally read outside the old 96-99 range."""
+        cid = package.crisis_heartbeat_id
+        spo2_values = [hb.health.spo2 for hb in package.heartbeats[:cid] if hb.health is not None]
+        has_outlier = any(v < 96 or v > 99 for v in spo2_values)
+        assert has_outlier, "Expected at least one SpO2 outside 96-99"
+
+    def test_ecg_has_occasional_artifacts(self, package: ScenarioPackage) -> None:
+        """Normal blocks should occasionally produce ECG artifacts."""
+        cid = package.crisis_heartbeat_id
+        ecg_values = [
+            hb.health.ecg_summary for hb in package.heartbeats[:cid] if hb.health is not None
+        ]
+        non_normal = [e for e in ecg_values if e != "normal sinus rhythm"]
+        assert len(non_normal) > 0, "Expected at least one ECG artifact during normal"
+
+    def test_crisis_cooling_decelerates(self, package: ScenarioPackage) -> None:
+        """Exponential cooling: first-half temp drop > second-half temp drop."""
+        cid = package.crisis_heartbeat_id
+        crisis_temps = [
+            hb.health.skin_temp for hb in package.heartbeats[cid:] if hb.health is not None
+        ]
+        mid = len(crisis_temps) // 2
+        first_half_drop = crisis_temps[0] - crisis_temps[mid]
+        second_half_drop = crisis_temps[mid] - crisis_temps[-1]
+        assert first_half_drop > second_half_drop
+
+    def test_glucose_dips_during_running(self) -> None:
+        """Blood glucose should dip during running vs preceding sedentary block."""
+        package = generate_scenario(crisis_type="cardiac_arrest", tier="T1", seed=42)
+        cid = package.crisis_heartbeat_id
+        normal_hbs = [hb for hb in package.heartbeats[:cid] if hb.health is not None]
+        # Find running heartbeats (last 4 before crisis: 17:45-18:05 = 4 heartbeats).
+        # The preceding "home" block has 3 heartbeats (17:30-17:45).
+        # Compare average glucose in running vs the few heartbeats before it.
+        running_glucose = [hb.health.blood_glucose for hb in normal_hbs[-4:]]
+        pre_running_glucose = [hb.health.blood_glucose for hb in normal_hbs[-7:-4]]
+        assert sum(running_glucose) / len(running_glucose) < sum(pre_running_glucose) / len(
+            pre_running_glucose
+        )
+
+    def test_blood_glucose_precision_varies(self, package: ScenarioPackage) -> None:
+        """At least one glucose reading should be a whole number (precision variation)."""
+        all_glucose = [
+            hb.health.blood_glucose for hb in package.heartbeats if hb.health is not None
+        ]
+        whole_numbers = [g for g in all_glucose if g == int(g)]
+        assert len(whole_numbers) > 0, "Expected at least one whole-number glucose"
 
     def test_hr_micro_spikes_during_sedentary(self, package: ScenarioPackage) -> None:
         """At least one HR should spike above the block's max range during sedentary work."""

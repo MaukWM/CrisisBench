@@ -51,7 +51,7 @@ class TestHeartbeatTimestamps:
     def test_starts_at_0630(self) -> None:
         schedule = PersonSchedule(blocks=CARDIAC_ARREST_SCHEDULE, seed=42)
         stamps = schedule.heartbeat_timestamps()
-        assert stamps[0].endswith("T06:30:00Z")
+        assert stamps[0].endswith("T06:30Z")
 
     def test_pre_crisis_heartbeat_count(self) -> None:
         """06:30 to 18:05 = 693 min / 5 = 138.6 → ~139 heartbeats before crisis."""
@@ -59,7 +59,7 @@ class TestHeartbeatTimestamps:
         stamps = schedule.heartbeat_timestamps()
 
         # Find crisis timestamp (18:05:00)
-        crisis_idx = next(i for i, s in enumerate(stamps) if "T18:05:00Z" in s)
+        crisis_idx = next(i for i, s in enumerate(stamps) if "T18:05Z" in s)
         # Heartbeat at 06:30 is index 0, 18:05 should be around index 139.
         assert crisis_idx == 139
 

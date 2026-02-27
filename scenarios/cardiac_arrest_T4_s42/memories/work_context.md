@@ -1,7 +1,8 @@
 # Work Context
 
 ## Role
-David manages a team of 6 engineers at a mid-size tech company. Office is at 350 5th Ave. Reports to Rachel Torres (VP Eng).
+David manages a team of 6 engineers at a mid-size tech company.
+Office at 350 5th Ave. Reports to Rachel Torres (VP Eng).
 
 ## Team
 - Priya Kapoor — senior backend eng, David's most trusted IC
@@ -18,9 +19,9 @@ David manages a team of 6 engineers at a mid-size tech company. Office is at 350
 - Fridays: lighter, sometimes leaves early for a longer run
 
 ## Current Sprint
-- Working on some API migration — David mentioned it in passing
+- Working on some API migration
 - Sprint ends Friday, sounds like they're slightly behind
-- He's been doing more code review than usual this week
+- He's been doing more code review than usual lately
 
 ## Communication
 - Team uses Slack heavily (#eng-team channel)

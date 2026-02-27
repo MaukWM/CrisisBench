@@ -7,12 +7,15 @@ memory — it is simulator configuration placed in the scenario root.
 
 from __future__ import annotations
 
-from crisis_bench.models.scenario import AgentIdentity, Contact, PersonProfile
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from crisis_bench.models.scenario import AgentIdentity, Contact, PersonProfile
 
 PERSONA_TEMPLATE = """\
 # Persona: {name}
 
-You are playing **{name}**, a {age}-year-old {occupation} living in New York City.
+You are playing **{name}**, a {occupation} living in New York City.
 
 ## Background
 - Lives at {home_address} (Upper West Side, Manhattan)
@@ -35,15 +38,6 @@ You are playing **{name}**, a {age}-year-old {occupation} living in New York Cit
 
 ## Key Relationships
 {contacts_section}
-
-## Post-Crisis Behavior
-**CRITICAL:** When the crisis event occurs, {name} becomes completely incapacitated. He:
-- Cannot respond to any messages, calls, or notifications
-- Cannot interact with {agent_name} or any device
-- Is physically unable to communicate in any way
-- Does NOT gradually become unresponsive — the transition is immediate at crisis onset
-
-Do NOT generate any user responses after the crisis heartbeat. Silence is the only valid behavior.
 """
 
 
@@ -88,12 +82,11 @@ def generate_persona(
         if matched is not None:
             lines.append(f"- **{matched.name}** — {matched.relationship}")
     # Add a note about total contacts
-    lines.append(f"- Plus {len(contacts) - len(lines)} other contacts (coworkers, friends, services)")
+    lines.append(
+        f"- Plus {len(contacts) - len(lines)} other contacts (coworkers, friends, services)"
+    )
 
     contacts_section = "\n".join(lines)
-
-    # David is 33 in the scenario's fixed context
-    age = 33
 
     # Find spouse name from contacts
     spouse_name = "Sarah"
@@ -105,7 +98,6 @@ def generate_persona(
 
     return PERSONA_TEMPLATE.format(
         name=person.name,
-        age=age,
         occupation=person.occupation,
         home_address=person.home_address,
         office_address=person.office_address,

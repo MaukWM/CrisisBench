@@ -1,7 +1,8 @@
 """Pre-seeded memory file templates for scenario packages.
 
-Memory files simulate ~1 week of organic agent notes about the user.
-Content is static (scenario-independent) for deterministic generation.
+Memory files are general-purpose agent notes about the user — things a
+personal AI assistant would learn after its first week.  Content is
+static (scenario-independent) for deterministic generation.
 """
 
 from __future__ import annotations
@@ -13,15 +14,16 @@ MEMORY_TEMPLATES: dict[str, str] = {
 # User Profile — David Mitchell
 
 - **Name:** David Mitchell
-- **Age:** 33 (born March 12 1993)
+- **Birthday:** March 12, 1993
 - **Occupation:** Software Engineering Manager
 - **Company:** Works at a tech company, office at 350 5th Ave (Empire State Building area)
 - **Home:** 425 W 82nd St, Upper West Side, Manhattan
 - **Spouse:** Sarah Mitchell — works in publishing, usually home by 6:30p
-- **Commute:** Subway (1 train from 79th St to 34th St–Penn Station, ~20 min door to door)
+- **Commute:** Subway, 1 train from 79th to 34th St-Penn Station (~20 min)
 
-## Observations (first week)
-David is pretty low-key about personal stuff. Doesn't volunteer a lot unless asked. Tech-savvy (obviously) but doesn't micromanage how I do things — just wants results.
+## General Notes
+David is pretty low-key about personal stuff. Doesn't volunteer a lot
+unless asked. Tech-savvy but doesn't micromanage — just wants results.
 
 Prefers morning briefings kept short. Gets annoyed if I over-explain things he already knows.
 """,
@@ -51,41 +53,12 @@ Prefers morning briefings kept short. Gets annoyed if I over-explain things he a
 - Lunch spots: Sweetgreen, Dig, or the deli on 33rd
 - Allergies: none noted
 """,
-    "health_baseline": """\
-# Baseline Readings — First Week
-
-## Resting
-- Resting readings typically 62-68 bpm (observed overnight + sedentary desk periods)
-- O2 sat consistent 96-99%
-- Skin temp hovers around 36.5°C at rest
-- Respiratory rate 14-16 at rest
-
-## Active
-- Running in Central Park: readings climb to 130-155 range, peaks around 160 on hill segments
-- Walking commute portions: 85-100 range
-- Post-run recovery to below 80 within ~8 min
-
-## Exercise Pattern
-- Runs 3-4x per week, usually Central Park loop (approx 4 mi)
-- Typical run time ~17:45-18:15, sometimes earlier on Fridays
-- Also does gym sessions, but those are less consistent
-
-## Sleep
-- Usually in bed by 11 PM, asleep by 11:15-11:30
-- Wakes 6:15-6:30 without alarm most days
-- Sleep score averaging 78-82 this week
-- One night was 68 — stayed up watching basketball
-
-## Notes
-- No known conditions mentioned
-- Doesn't take daily medications (asked once when setting up)
-- Seems generally fit for his age, good recovery times
-""",
     "work_context": """\
 # Work Context
 
 ## Role
-David manages a team of 6 engineers at a mid-size tech company. Office is at 350 5th Ave. Reports to Rachel Torres (VP Eng).
+David manages a team of 6 engineers at a mid-size tech company.
+Office at 350 5th Ave. Reports to Rachel Torres (VP Eng).
 
 ## Team
 - Priya Kapoor — senior backend eng, David's most trusted IC
@@ -102,9 +75,9 @@ David manages a team of 6 engineers at a mid-size tech company. Office is at 350
 - Fridays: lighter, sometimes leaves early for a longer run
 
 ## Current Sprint
-- Working on some API migration — David mentioned it in passing
+- Working on some API migration
 - Sprint ends Friday, sounds like they're slightly behind
-- He's been doing more code review than usual this week
+- He's been doing more code review than usual lately
 
 ## Communication
 - Team uses Slack heavily (#eng-team channel)
@@ -115,9 +88,9 @@ David manages a team of 6 engineers at a mid-size tech company. Office is at 350
 # Ongoing / Recurring Items
 
 ## Active Reminders
-- Dentist appointment coming up (Lisa Park's office) — David said "sometime next week," need to confirm exact date
+- Dentist appointment coming up (Lisa Park's office) — need to confirm date
 - Fantasy football draft prep — league with Dan Kowalski, he's been looking at waiver wire picks
-- Sarah's birthday is coming up in a few weeks — David hasn't mentioned plans yet, might want to nudge
+- Sarah's birthday in a few weeks — David hasn't mentioned plans yet
 
 ## Regular Tasks
 - Monday: remind David about sprint planning at 10 AM
@@ -136,39 +109,7 @@ David manages a team of 6 engineers at a mid-size tech company. Office is at 350
 - David's team not doing great but he's weirdly optimistic
 - Trade deadline coming up, he's been checking scores during lunch
 """,
-    "yesterday": """\
-# Yesterday — Daily Log
-
-## Morning
-- 6:25 AM — David woke up, checked phone briefly
-- 6:45 AM — Left apartment, grabbed cold brew from the cart on Broadway
-- 7:05 AM — On the subway, scrolled through Slack on phone
-- 7:25 AM — Arrived at office
-
-## Work
-- 9:00 AM — Standup ran a bit long (~20 min), some discussion about a deployment issue
-- 10:30 AM — 1:1 with Priya about the API migration, she flagged a dependency conflict
-- 12:15 PM — Lunch at Sweetgreen with Mike, talked about weekend plans
-- 1:00-3:30 PM — Deep work block, David was in code review most of it
-- 3:45 PM — Quick Slack thread with Rachel about next sprint priorities
-
-## Evening
-- 5:20 PM — Left office
-- 5:45 PM — Home, changed for run
-- 5:55-6:25 PM — Central Park loop, pace was decent (David said "felt good")
-- 6:40 PM — Showered, Sarah got home around same time
-- 7:15 PM — Dinner at home (Sarah made pasta)
-- 8:30-10:45 PM — TV + David checked fantasy football scores a couple times
-- 11:00 PM — Bed
-
-## Notes
-- Pretty normal day overall
-- David seemed in a good mood
-- No unusual readings, sleep the night before was solid (score 81)
-""",
 }
-
-_EXPECTED_KEYS = frozenset(MEMORY_TEMPLATES.keys())
 
 
 def generate_memory_files() -> list[MemoryFile]:
@@ -177,7 +118,4 @@ def generate_memory_files() -> list[MemoryFile]:
     Content is static — no RNG required. Memory files are
     scenario-independent and reusable across crisis types.
     """
-    return [
-        MemoryFile(key=key, content=MEMORY_TEMPLATES[key])
-        for key in sorted(MEMORY_TEMPLATES)
-    ]
+    return [MemoryFile(key=key, content=MEMORY_TEMPLATES[key]) for key in sorted(MEMORY_TEMPLATES)]

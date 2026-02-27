@@ -1,9 +1,9 @@
 # Ongoing / Recurring Items
 
 ## Active Reminders
-- Dentist appointment coming up (Lisa Park's office) — David said "sometime next week," need to confirm exact date
+- Dentist appointment coming up (Lisa Park's office) — need to confirm date
 - Fantasy football draft prep — league with Dan Kowalski, he's been looking at waiver wire picks
-- Sarah's birthday is coming up in a few weeks — David hasn't mentioned plans yet, might want to nudge
+- Sarah's birthday in a few weeks — David hasn't mentioned plans yet
 
 ## Regular Tasks
 - Monday: remind David about sprint planning at 10 AM

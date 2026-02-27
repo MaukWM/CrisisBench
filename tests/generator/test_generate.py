@@ -696,6 +696,43 @@ class TestCommsRealism:
 
 
 # ---------------------------------------------------------------------------
+# Shared NFR2 banned stems
+# ---------------------------------------------------------------------------
+
+_NFR2_BANNED_STEMS = {
+    "medical",
+    "emergency",
+    "crisis",
+    "safety",
+    "vital",
+    "cardiac",
+    "heart",
+    "pulse",
+    "oxygen",
+    "spo2",
+    "ambulance",
+    "hospital",
+    "doctor",
+    "nurse",
+    "injury",
+    "symptom",
+    "diagnosis",
+    "alert",
+    "warning",
+    "danger",
+    "critical",
+    "urgent",
+    "rescue",
+    "sos",
+}
+
+# Tool names/descriptions additionally ban "health" (tools must not hint at
+# health monitoring). Memory content does not ban "health" since the word
+# may appear in benign general-notes context.
+_NFR2_TOOL_BANNED_STEMS = _NFR2_BANNED_STEMS | {"health"}
+
+
+# ---------------------------------------------------------------------------
 # Story 2.5: Tool Definitions, Scenario Packaging
 # ---------------------------------------------------------------------------
 
@@ -775,33 +812,6 @@ class TestToolDefinitions:
 
     def test_nfr2_no_banned_stems(self) -> None:
         """No tool name or description contains banned health/emergency/safety stems."""
-        banned_stems = {
-            "health",
-            "medical",
-            "emergency",
-            "crisis",
-            "safety",
-            "vital",
-            "cardiac",
-            "heart",
-            "pulse",
-            "oxygen",
-            "spo2",
-            "ambulance",
-            "hospital",
-            "doctor",
-            "nurse",
-            "injury",
-            "symptom",
-            "diagnosis",
-            "alert",
-            "warning",
-            "danger",
-            "critical",
-            "urgent",
-            "rescue",
-            "sos",
-        }
         for tier in ("T1", "T2", "T3", "T4"):
             for tool in collect_tool_definitions(tier):
                 name_words = set(tool.name.replace(".", "_").split("_"))
@@ -809,7 +819,7 @@ class TestToolDefinitions:
                 # Strip punctuation from description words.
                 desc_words = {w.strip(".,;:()[]{}") for w in desc_words}
                 all_words = name_words | desc_words
-                overlap = all_words & banned_stems
+                overlap = all_words & _NFR2_TOOL_BANNED_STEMS
                 assert not overlap, f"Tool {tool.name!r} contains banned NFR2 stems: {overlap}"
 
     def test_determinism_same_tier_same_definitions(self) -> None:
@@ -845,40 +855,13 @@ class TestScenarioPackaging:
 # Story 2.6: Memory Bootstrapping & Persona
 # ---------------------------------------------------------------------------
 
-_NFR2_BANNED_STEMS = {
-    "medical",
-    "emergency",
-    "crisis",
-    "safety",
-    "vital",
-    "cardiac",
-    "heart",
-    "pulse",
-    "oxygen",
-    "spo2",
-    "ambulance",
-    "hospital",
-    "doctor",
-    "nurse",
-    "injury",
-    "symptom",
-    "diagnosis",
-    "alert",
-    "warning",
-    "danger",
-    "critical",
-    "urgent",
-    "rescue",
-    "sos",
-}
-
 
 class TestMemoryFiles:
     """Story 2.6 / AC #1, #2, #4, #5: Pre-seeded memory file generation."""
 
-    def test_returns_exactly_six_files(self) -> None:
+    def test_returns_exactly_four_files(self) -> None:
         files = generate_memory_files()
-        assert len(files) == 6
+        assert len(files) == 4
 
     def test_expected_keys(self) -> None:
         files = generate_memory_files()
@@ -886,10 +869,8 @@ class TestMemoryFiles:
         assert keys == {
             "user_profile",
             "preferences",
-            "health_baseline",
             "work_context",
             "recurring_notes",
-            "yesterday",
         }
 
     def test_all_content_nonempty(self) -> None:
@@ -963,9 +944,6 @@ class TestPersona:
     def test_mentions_agent_name(self, persona_text: str) -> None:
         assert "Atlas" in persona_text
 
-    def test_mentions_post_crisis_behavior(self, persona_text: str) -> None:
-        assert "incapacitated" in persona_text.lower()
-
     def test_mentions_user_name(self, persona_text: str) -> None:
         assert "David Mitchell" in persona_text
 
@@ -982,7 +960,7 @@ class TestMemoryAndPersonaIntegration:
 
     def test_package_has_memory_files(self) -> None:
         package = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
-        assert len(package.memory_files) == 6
+        assert len(package.memory_files) == 4
 
     def test_package_has_persona(self) -> None:
         package = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
@@ -1003,5 +981,5 @@ class TestMemoryAndPersonaIntegration:
         """Memory files are scenario-independent — present on all tiers."""
         for tier in ("T1", "T2", "T3", "T4"):
             package = generate_scenario(crisis_type="cardiac_arrest", tier=tier, seed=42)
-            assert len(package.memory_files) == 6, f"Tier {tier} missing memory files"
+            assert len(package.memory_files) == 4, f"Tier {tier} missing memory files"
             assert len(package.persona) > 0, f"Tier {tier} missing persona"

@@ -2,13 +2,9 @@
 
 from __future__ import annotations
 
-import copy
-import json
-
 import pytest
 
 from crisis_bench.generator.generate import generate_scenario
-from crisis_bench.generator.modules.crisis import CrisisInjector
 from crisis_bench.generator.tools import collect_tool_definitions
 from crisis_bench.models.scenario import ScenarioPackage
 
@@ -693,143 +689,8 @@ class TestCommsRealism:
 
 
 # ---------------------------------------------------------------------------
-# Story 2.5: CrisisInjector, Tool Definitions, Scenario Packaging
+# Story 2.5: Tool Definitions, Scenario Packaging
 # ---------------------------------------------------------------------------
-
-
-def _make_raw_heartbeats(
-    count: int = 6, crisis_at: int = 3, *, include_location: bool = True
-) -> list[dict[str, object]]:
-    """Create synthetic raw heartbeats for CrisisInjector unit tests."""
-    heartbeats: list[dict[str, object]] = []
-    for i in range(count):
-        health: dict[str, object] = {
-            "heart_rate": 72 if i < crisis_at else 0,
-            "spo2": 98 if i < crisis_at else 0,
-            "steps": 1000 + i * 100,
-            "skin_temp": 36.5,
-            "ecg_summary": "normal sinus rhythm" if i < crisis_at else "inconclusive",
-            "blood_glucose": 95.0,
-            "calories_burned": 500 + i * 50,
-            "sleep_stage": "awake",
-            "respiratory_rate": 16 if i < crisis_at else 0,
-            "body_battery": 70,
-        }
-        hb: dict[str, object] = {
-            "heartbeat_id": i,
-            "timestamp": f"2026-06-15T{12 + i}:00:00Z",
-            "health": health,
-        }
-        if include_location:
-            location: dict[str, object] = {
-                "lat": 40.7812 + i * 0.0001,
-                "lon": -73.9665 + i * 0.0001,
-                "altitude": 15.0,
-                "speed": 3.0 if i < crisis_at else 0.0,
-                "heading": 90,
-                "accuracy": 5.0,
-                "geofence_status": None,
-                "movement_classification": "running" if i < crisis_at else "stationary",
-            }
-            hb["location"] = location
-        heartbeats.append(hb)
-    return heartbeats
-
-
-class TestCrisisInjector:
-    """Story 2.5 / AC #1: CrisisInjector post-processing enforcement."""
-
-    def test_enforces_cardiac_arrest_health(self) -> None:
-        """Crisis heartbeats show HR=0, SpO2=0, resp_rate=0, ECG inconclusive."""
-        hbs = _make_raw_heartbeats()
-        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
-        for hb in hbs[3:]:
-            health = hb["health"]
-            assert isinstance(health, dict)
-            assert health["heart_rate"] == 0
-            assert health["spo2"] == 0
-            assert health["respiratory_rate"] == 0
-            assert health["ecg_summary"] == "inconclusive"
-
-    def test_gps_freezes_at_last_known(self) -> None:
-        """GPS lat/lon frozen at pre-crisis values, speed=0, movement=stationary."""
-        hbs = _make_raw_heartbeats()
-        pre_loc = hbs[2]["location"]
-        assert isinstance(pre_loc, dict)
-        pre_lat = pre_loc["lat"]
-        pre_lon = pre_loc["lon"]
-        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
-        for hb in hbs[3:]:
-            loc = hb["location"]
-            assert isinstance(loc, dict)
-            assert loc["lat"] == pre_lat
-            assert loc["lon"] == pre_lon
-            assert loc["speed"] == 0.0
-            assert loc["movement_classification"] == "stationary"
-
-    def test_steps_calories_frozen_not_zeroed(self) -> None:
-        """Steps and calories frozen at pre-crisis values, not reset to 0."""
-        hbs = _make_raw_heartbeats()
-        pre_health = hbs[2]["health"]
-        assert isinstance(pre_health, dict)
-        pre_steps = pre_health["steps"]
-        pre_cals = pre_health["calories_burned"]
-        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
-        for hb in hbs[3:]:
-            health = hb["health"]
-            assert isinstance(health, dict)
-            assert health["steps"] == pre_steps
-            assert health["calories_burned"] == pre_cals
-            assert health["steps"] > 0  # Not zeroed
-
-    def test_non_crisis_modules_untouched(self) -> None:
-        """Modules not in the crisis profile (e.g. weather) are left unmodified."""
-        hbs = _make_raw_heartbeats()
-        # Add weather data to each heartbeat.
-        for hb in hbs:
-            hb["weather"] = {"temp": 25.0, "humidity": 60}
-        weather_before = [copy.deepcopy(hb["weather"]) for hb in hbs]
-        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
-        for i, hb in enumerate(hbs):
-            assert hb["weather"] == weather_before[i]
-
-    def test_all_crisis_heartbeats_enforced(self) -> None:
-        """Enforcement applies to ALL heartbeats at and after crisis, not just the first."""
-        hbs = _make_raw_heartbeats(count=10, crisis_at=3)
-        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
-        for hb in hbs[3:]:
-            health = hb["health"]
-            assert isinstance(health, dict)
-            assert health["heart_rate"] == 0
-            loc = hb["location"]
-            assert isinstance(loc, dict)
-            assert loc["speed"] == 0.0
-
-    def test_idempotent(self) -> None:
-        """Running apply() twice produces identical output."""
-        hbs = _make_raw_heartbeats()
-        injector = CrisisInjector()
-        injector.apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
-        snapshot = [json.dumps(hb, sort_keys=True) for hb in hbs]
-        injector.apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
-        for i, hb in enumerate(hbs):
-            assert json.dumps(hb, sort_keys=True) == snapshot[i]
-
-    def test_raises_on_none_health(self) -> None:
-        """ValueError when a crisis-required module is None during crisis."""
-        hbs = _make_raw_heartbeats()
-        hbs[3]["health"] = None
-        with pytest.raises(ValueError, match="health.*None.*heartbeat"):
-            CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
-
-    def test_skips_missing_modules_for_tier(self) -> None:
-        """T1-like heartbeats (no location) should not raise — profile skips missing modules."""
-        hbs = _make_raw_heartbeats(include_location=False)
-        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
-        # Health enforcement still works.
-        health = hbs[3]["health"]
-        assert isinstance(health, dict)
-        assert health["heart_rate"] == 0
 
 
 class TestToolDefinitions:

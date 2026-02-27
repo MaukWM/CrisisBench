@@ -1,16 +1,16 @@
-# Story 2.5: Crisis Injector & Scenario Packaging
+# Story 2.5: Tool Definitions & Scenario Packaging
 
-Status: review
+Status: in-progress
 
 ## Story
 
 As a **researcher**,
-I want the crisis injector to overwrite module data at the trigger heartbeat, and the full scenario to be packaged as a directory with manifest,
-So that I have a complete, reproducible, distributable scenario package.
+I want tool definitions populated in `tools.json` per noise tier, and the full scenario packaged as a distributable directory with manifest,
+So that I have a complete, reproducible, distributable scenario package with realistic tool sets.
 
 ## Acceptance Criteria
 
-1. **Given** crisis_type `cardiac_arrest` and crisis_heartbeat_id ~140, **When** CrisisInjector runs, **Then** health module data at and after crisis heartbeat shows HR=0, SpO2=0, steps=0, GPS frozen at last known position.
+1. ~~**Given** crisis_type `cardiac_arrest` and crisis_heartbeat_id ~140, **When** CrisisInjector runs, **Then** health module data at and after crisis heartbeat shows HR=0, SpO2=0, steps=0, GPS frozen at last known position.~~ **DEFERRED** — Existing generator crisis logic (HealthGenerator, LocationGenerator) already produces correct crisis data. CrisisInjector post-processing reverted during code review — the blunt FREEZE mechanism overwrote realistic GPS drift and lacked support for parameterized evolution (e.g., skin temp cooling curves). Will revisit when expanding to multiple crisis types.
 
 2. **Given** a completed generation run, **When** the scenario is packaged, **Then** it creates a directory with `manifest.json`, `scenario.json`, `heartbeats.json`, `memories/`, and `tools.json`.
 
@@ -24,90 +24,47 @@ So that I have a complete, reproducible, distributable scenario package.
 
 ## Tasks / Subtasks
 
-- [x] Task 1: Create `CrisisInjector` in `src/crisis_bench/generator/modules/crisis.py` (AC: #1)
-  - [x] 1.1: Define `CARDIAC_ARREST_PROFILE` dict mapping module names to crisis override rules (health: HR=0, SpO2=0, steps frozen, respiratory_rate=0, ecg="inconclusive"; location: GPS frozen at last coords, speed=0, movement="stationary")
-  - [x] 1.2: Implement `CrisisInjector` class with `apply(raw_heartbeats, crisis_heartbeat_id, crisis_type)` method
-  - [x] 1.3: Post-processing logic: iterate heartbeats at and after crisis_heartbeat_id, enforce profile overrides on raw dicts. Raise `ValueError` if any module required by the crisis profile is `None` — this indicates a generation pipeline bug (the protected zone should have prevented module drops near crisis)
-  - [x] 1.4: Make extensible: crisis_type maps to a profile dict, so adding new crisis types (CO poisoning, fire) only requires a new profile
+- [ ] ~~Task 1: Create `CrisisInjector` in `src/crisis_bench/generator/modules/crisis.py` (AC: #1)~~ **REVERTED** — see Review Notes
+  - [ ] ~~1.1-1.4~~ **REVERTED**
 
 - [x] Task 2: Create tool definitions in `src/crisis_bench/generator/tools.py` (AC: #4, #5, #6)
-  - [x] 2.1: Define `_CORE_TOOLS` list — 9 ToolDefinition objects for always-available tools (these all have handler backing in Epic 3): `make_call`, `send_message`, `read_memory`, `write_memory`, `list_memories`, `get_contacts`, `get_conversations`, `query_device`, `get_recent_updates`
+  - [x] 2.1: Define `_CORE_TOOLS` list — 9 ToolDefinition objects for always-available tools: `make_call`, `send_message`, `read_memory`, `write_memory`, `list_memories`, `get_contacts`, `get_conversations`, `query_device`, `get_recent_updates`
   - [x] 2.2: Define `_TIER_TOOLS` dict mapping tiers to additional tool definitions:
     - T2+: `get_forecast` (weather)
-    - T3+: `list_events` (calendar); no additional comms tools (comms arrive via heartbeat push)
+    - T3+: `list_events` (calendar)
     - T4+: `get_balance`, `get_transactions` (financial)
-  - [x] 2.3: Source MCP tool definitions from real MCP servers via `tools/list` protocol. Initial delivery: Wikipedia + Spotify servers. Connect to running MCP servers (e.g., `npx @modelcontextprotocol/server-*`), call `tools/list`, capture the real tool schemas (names, descriptions, inputSchema/parameters). Store captured definitions in a static catalog file `src/crisis_bench/generator/mcp_tool_catalog.json` committed to the repo. The `collect_tool_definitions()` function loads MCP tools from this catalog. Adding more MCP servers later = run capture against new server, append to catalog.
-  - [x] 2.4: Implement `collect_tool_definitions(tier: NoiseTier) -> list[ToolDefinition]` — returns a **deterministic, sorted** list of core + tier-specific + MCP tools based on tier:
-    - T1: core only (9 tools)
-    - T2: core + T2 tools (10)
-    - T3: core + T2 + T3 tools + MCP tools (variable based on captured servers)
-    - T4: core + all tier tools + all MCP tools
-  - [x] 2.5: Audit ALL tool names and descriptions for NFR2 compliance: zero health/emergency/safety/medical language
-  - [x] 2.6: (Optional) Create a capture script `scripts/capture_mcp_tools.py` that connects to a running MCP server, calls `tools/list`, and appends the results to `mcp_tool_catalog.json` for easy expansion
+  - [x] 2.3: MCP tool definitions stored in static catalog `src/crisis_bench/generator/mcp_tool_catalog.json`. **Note**: Current definitions are plausible hand-authored schemas (Wikipedia + Spotify), not captured from real MCP servers. Accepted for now — can be replaced with real captures later via a capture script.
+  - [x] 2.4: Implement `collect_tool_definitions(tier: NoiseTier) -> list[ToolDefinition]` — deterministic sorted list. Tool counts: T1=9, T2=10, T3=16, T4=18.
+  - [x] 2.5: All tool names and descriptions pass NFR2 audit (zero banned stems)
+  - [ ] ~~2.6: (Optional) Create capture script~~ Skipped — MCP catalog authored directly
 
-- [x] Task 3: Integrate CrisisInjector and tool definitions into `generate.py` (AC: #1, #2, #3, #4)
-  - [x] 3.1: Import `CrisisInjector` from `crisis_bench.generator.modules.crisis`
+- [x] Task 3: Integrate tool definitions into `generate.py` (AC: #2, #3, #4)
+  - [ ] ~~3.1: Import `CrisisInjector`~~ **REVERTED**
   - [x] 3.2: Import `collect_tool_definitions` from `crisis_bench.generator.tools`
-  - [x] 3.3: After the `for hb_id, ts in enumerate(timestamps)` loop completes, before `_build_heartbeat()` conversion, call `CrisisInjector().apply(raw_heartbeats, crisis_hb_index, crisis_type)`
-  - [x] 3.4: Replace `tool_definitions=[]` (line 286) with `tool_definitions=collect_tool_definitions(tier)`
-  - [x] 3.5: Verify `_write_scenario()` already writes `tools.json` correctly (it does — line 353-355)
+  - [ ] ~~3.3: Call `CrisisInjector().apply()`~~ **REVERTED**
+  - [x] 3.4: Replace `tool_definitions=[]` with `tool_definitions=collect_tool_definitions(tier)`
+  - [x] 3.5: `_write_scenario()` already writes `tools.json` correctly
 
-- [x] Task 4: Update `generator/modules/__init__.py`
-  - [x] 4.1: Add `crisis` import line
+- [ ] ~~Task 4: Update `generator/modules/__init__.py`~~ **REVERTED** — crisis import removed
 
-- [x] Task 5: Write tests in `tests/generator/test_generate.py` (AC: #1-6)
-  - [x] 5.1: `TestCrisisInjector` class:
-    - Test cardiac arrest profile enforces HR=0, SpO2=0 at crisis heartbeat
-    - Test GPS freezes at last known position
-    - Test steps/calories frozen (not reset to 0 — frozen at last pre-crisis value)
-    - Test non-health modules continue normally (weather, calendar, comms, financial)
-    - Test crisis enforcement works for all heartbeats AFTER crisis, not just the crisis heartbeat
-    - Test idempotency: running CrisisInjector twice on the same raw_heartbeats produces identical output
-    - Test ValueError raised if a crisis-required module (e.g., health) is None at crisis heartbeat
-  - [x] 5.2: `TestToolDefinitions` class:
-    - Test tier monotonic progression: len(T1) < len(T2) < len(T3) < len(T4)
-    - Test all 9 core tools present on every tier
-    - Test T2 adds get_forecast, T3 adds list_events, T4 adds get_balance + get_transactions
-    - Test all core tools are flat-named (no dots)
-    - Test all MCP tools are dotted (contain at least one dot)
-    - Test NFR2 programmatically: no tool name or description contains banned stems (use BANNED_STEMS set, split on underscores and whitespace, assert no intersection)
-    - Test determinism: same tier = same definitions (order-stable)
-  - [x] 5.3: `TestScenarioPackaging` class:
-    - Test tools.json is non-empty for all tiers
-    - Test manifest.json has valid SHA-256 hash
-    - Test scenario_id format: `{crisis_type}_{tier}_s{seed}`
+- [x] Task 5: Write tests in `tests/generator/test_generate.py` (AC: #4-6)
+  - [ ] ~~5.1: `TestCrisisInjector` class~~ **REVERTED** — 8 tests removed
+  - [x] 5.2: `TestToolDefinitions` class (10 tests): tier progression, core tools on every tier, flat/dotted naming, NFR2 banned stems, determinism
+  - [x] 5.3: `TestScenarioPackaging` class (3 tests): tools.json non-empty, manifest SHA-256, scenario_id format
 
-- [x] Task 6: Run `uv run pre-commit run --all-files` and fix any issues
+- [x] Task 6: Run `uv run pre-commit run --all-files` — all 12 hooks pass
 
 ## Dev Notes
 
-### CrisisInjector Architecture
+### CrisisInjector — DEFERRED
 
-The architecture (`architecture.md`) specifies `crisis.py` as `CrisisInjector — overwrites module data at trigger`. Currently, crisis behavior is embedded in individual generators:
+The architecture specifies `crisis.py` as `CrisisInjector — overwrites module data at trigger`. An initial implementation was built and reverted during code review. Issues identified:
 
-- `HealthGenerator` (`health.py:180-230`): Checks `block.hr_range == (0, 0)` to produce crisis vitals (HR=0, SpO2=0, ecg="inconclusive", skin_temp cooling, glucose drift up, steps/calories frozen, body_battery frozen)
-- `LocationGenerator` (`location.py:280-320`): Checks `block.activity == "CRISIS"` to freeze GPS with micro-drift
+1. **GPS drift destruction**: The `_FREEZE` sentinel on lat/lon overwrote the realistic sub-meter GPS drift that `LocationGenerator._crisis()` produces, creating perfectly static coordinates (a synthetic tell)
+2. **No parameterized evolution**: Crisis profiles need to support evolution functions (e.g., skin temp cooling curve), not just static overrides. The blunt FREEZE/value mechanism cannot express this.
+3. **Redundant for single scenario type**: Existing generator crisis logic (`HealthGenerator._generate_crisis()`, `LocationGenerator._crisis()`) already correctly produces cardiac arrest data with realistic behavior (cooling, glucose drift, GPS jitter)
 
-The CrisisInjector is a **post-processing enforcement layer** that runs AFTER all generators, BEFORE Pydantic model conversion. It:
-1. Defines crisis profiles as data (not logic scattered across generators)
-2. Enforces critical crisis signals are correct (safety net)
-3. Makes adding new crisis types trivial (just add a new profile dict)
-
-**IMPORTANT**: Do NOT refactor existing generators to remove their crisis logic. The CrisisInjector is additive — it verifies and enforces, it does not replace. Generators keep their internal crisis handling. The CrisisInjector catches anything generators might miss and provides a centralized crisis definition.
-
-**CrisisInjector insertion point in pipeline** (`generate.py`):
-```
-generators produce raw_heartbeats  (line ~261)
-→ CrisisInjector.apply(raw_heartbeats, crisis_hb_index, crisis_type)  ← NEW
-→ _build_heartbeat() converts to Pydantic models  (line 266)
-→ content hash computed  (line 269-270)
-```
-
-The CrisisInjector modifies raw dicts in-place before they become frozen Pydantic models.
-
-**Error handling**: If any module required by the crisis profile is `None` at or after the crisis heartbeat, the CrisisInjector MUST raise `ValueError`. This indicates a generation pipeline bug — the protected zone (±10 HBs of crisis, no module drops) should have prevented it. Fail loud, never silently skip.
-
-**Idempotency**: Since generators already handle crisis internally, the CrisisInjector overwrites with the same values. Running it twice must produce identical output. This is a testable invariant.
+**When to revisit**: When expanding beyond cardiac_arrest to other crisis types (CO poisoning, fire, etc.). The CrisisInjector concept is sound but needs a richer profile system — parameterized evolution functions per field rather than static value/freeze overrides.
 
 ### Tool Definitions Design
 
@@ -131,11 +88,11 @@ Tool definitions populate `tools.json` in the scenario package. These are the to
 
 **Why NOT `create_note`, `list_notes`, `set_reminder`, `dismiss_reminder`**: These have no handler backing in the architecture. Notes are achieved via `write_memory`/`read_memory`. Reminders come from the calendar module — the agent reads them, doesn't create them. Only define tools that will actually work at runtime.
 
-**MCP tool definitions — sourced from real servers**: MCP tool definitions are captured from real MCP servers via the `tools/list` protocol method. This gives authentic tool schemas (names, descriptions, parameters) matching what the servers actually advertise. During v0.5 execution, the runner's `McpHandler` returns `{"status": "error", "message": "Service unavailable"}` without connecting — but the agent sees real tool definitions. In v1.0, the runner connects to live servers.
+**MCP tool definitions — plausible hand-authored schemas**: Current MCP tool catalog contains hand-authored definitions for Wikipedia (search, get_page) and Spotify (search, get_track, get_playlist) servers. These are plausible approximations, not captured from real servers. Accepted for now — can be replaced with authentic captures later. During v0.5 execution, the runner's `McpHandler` returns `{"status": "error", "message": "Service unavailable"}` without connecting.
 
-**Initial MCP scope**: Wikipedia + Spotify servers. These are well-documented reference implementations from `github.com/modelcontextprotocol/servers`. The framework supports adding more servers by capturing their `tools/list` output and appending to the catalog file.
+**Initial MCP scope**: Wikipedia + Spotify servers. The framework supports adding more servers by appending to the catalog file.
 
-**MCP tool catalog storage**: Captured definitions stored in `src/crisis_bench/generator/mcp_tool_catalog.json` (committed to repo). The `collect_tool_definitions()` function loads MCP tools from this static file. No runtime MCP dependency during generation — fully reproducible.
+**MCP tool catalog storage**: Stored in `src/crisis_bench/generator/mcp_tool_catalog.json` (committed to repo). The `collect_tool_definitions()` function loads MCP tools from this static file with `@functools.cache` (parsed once, reused). No runtime MCP dependency during generation — fully reproducible.
 
 **Tool definitions location**: Create `src/crisis_bench/generator/tools.py` (NOT in `modules/` — tool definitions are not a heartbeat generator, they're a static catalog). The `collect_tool_definitions(tier)` function returns a **deterministic, sorted** list. Tool definition order must be stable for reproducibility — if comparing two `tools.json` files for the same tier, they must be byte-identical.
 
@@ -169,7 +126,7 @@ Use neutral alternatives:
 
 ### RNG Impact
 
-The CrisisInjector does NOT consume any RNG calls — it's a post-processing step modifying existing data. Tool definitions are static (no RNG). Therefore, adding this story does NOT affect determinism of existing generators. The content hash WILL change because the CrisisInjector may modify heartbeat values (enforcement corrections), but seed-to-seed determinism is preserved.
+Tool definitions are static (no RNG). Adding tool definitions does NOT affect determinism of existing generators — no RNG calls are consumed. Content hash is unchanged from the pre-story state since the CrisisInjector (which would have modified heartbeat values) has been reverted.
 
 ### Existing Wiring (Already Done)
 
@@ -216,15 +173,12 @@ Pattern: Each generator story produces 1 new module file + registration + tests.
 ### Project Structure Notes
 
 New files:
-- `src/crisis_bench/generator/modules/crisis.py` — CrisisInjector class
 - `src/crisis_bench/generator/tools.py` — Tool definitions catalog and `collect_tool_definitions()`
-- `src/crisis_bench/generator/mcp_tool_catalog.json` — Static MCP tool definitions captured from real servers
-- `scripts/capture_mcp_tools.py` — (Optional) Script to capture `tools/list` from running MCP servers
+- `src/crisis_bench/generator/mcp_tool_catalog.json` — Static MCP tool definitions (hand-authored)
 
 Modified files:
-- `src/crisis_bench/generator/generate.py` — Import CrisisInjector + tools, wire into pipeline, replace tool_definitions placeholder
-- `src/crisis_bench/generator/modules/__init__.py` — Add crisis import
-- `tests/generator/test_generate.py` — Add TestCrisisInjector, TestToolDefinitions, TestScenarioPackaging classes
+- `src/crisis_bench/generator/generate.py` — Import tools, replace `tool_definitions=[]` placeholder
+- `tests/generator/test_generate.py` — Add TestToolDefinitions, TestScenarioPackaging classes
 
 ### References
 
@@ -250,29 +204,35 @@ Claude Opus 4.6
 
 ### Debug Log References
 
-No debug issues encountered. All 90 tests passed on first run, all 12 pre-commit hooks passed.
+No debug issues encountered. 101 tests pass, all 12 pre-commit hooks pass.
 
 ### Completion Notes List
 
-- **Task 1**: Created `CrisisInjector` with `CARDIAC_ARREST_PROFILE` data-driven enforcement. Profile uses `_FREEZE` sentinel for fields that should retain pre-crisis values (steps, calories, body_battery, lat, lon). Extensible via `_CRISIS_PROFILES` dict — new crisis types only need a new profile entry. Raises `ValueError` if a crisis-required module is `None` (pipeline bug detection). Skips modules not present in the heartbeat (tier-appropriate). Idempotent by design.
-- **Task 2**: Created 9 core `ToolDefinition` objects (all flat-named), 4 tier-specific tools (T2: `get_forecast`, T3: `list_events`, T4: `get_balance`/`get_transactions`), and 5 MCP tools from static catalog (Wikipedia: `search`/`get_page`, Spotify: `search`/`get_track`/`get_playlist`). All dotted-named for MCP. `collect_tool_definitions()` returns deterministic sorted list. Tool counts: T1=9, T2=10, T3=16, T4=18. All names and descriptions pass NFR2 audit (zero banned stems). Task 2.6 (optional capture script) skipped — MCP tool catalog created directly with realistic definitions.
-- **Task 3**: Wired `CrisisInjector` into `generate.py` pipeline between raw heartbeat generation and Pydantic model conversion. Replaced `tool_definitions=[]` placeholder with `collect_tool_definitions(tier)`.
-- **Task 4**: Added `crisis` import to `generator/modules/__init__.py`.
-- **Task 5**: Added 22 new tests across 3 test classes (TestCrisisInjector: 8 tests, TestToolDefinitions: 10 tests, TestScenarioPackaging: 3 tests). Total test count: 90 (68 existing + 22 new). Zero regressions.
-- **Task 6**: All pre-commit hooks pass (ruff, ruff-format, mypy, codespell, gitleaks, pip-audit).
+- **Task 1**: **REVERTED** — CrisisInjector was implemented but reverted during code review. Issues: (1) `_FREEZE` sentinel on GPS lat/lon killed realistic sub-meter drift from LocationGenerator, creating perfectly static coordinates (synthetic tell). (2) No support for parameterized evolution functions (e.g., skin temp cooling curves). (3) Redundant for single cardiac_arrest scenario type — generators already produce correct crisis data. Deferred to multi-scenario expansion.
+- **Task 2**: Created 9 core `ToolDefinition` objects (all flat-named), 4 tier-specific tools (T2: `get_forecast`, T3: `list_events`, T4: `get_balance`/`get_transactions`), and 5 MCP tools from hand-authored catalog (Wikipedia: `search`/`get_page`, Spotify: `search`/`get_track`/`get_playlist`). All dotted-named for MCP. `collect_tool_definitions()` returns deterministic sorted list with `@functools.cache` on MCP catalog loading. Tool counts: T1=9, T2=10, T3=16, T4=18. All names and descriptions pass NFR2 audit (zero banned stems).
+- **Task 3**: Replaced `tool_definitions=[]` placeholder with `collect_tool_definitions(tier)` in generate.py. CrisisInjector wiring reverted.
+- **Task 4**: **REVERTED** — crisis import removed from modules/__init__.py.
+- **Task 5**: 13 new tests across 2 test classes (TestToolDefinitions: 10 tests, TestScenarioPackaging: 3 tests). Total test count: 101. Zero regressions. CrisisInjector tests (8) removed during revert.
+- **Task 6**: All 12 pre-commit hooks pass.
+
+### Review Notes
+
+Code review performed 2026-02-27 by Mauk. Key decisions:
+- **CrisisInjector reverted**: Existing generator crisis logic (HealthGenerator._generate_crisis, LocationGenerator._crisis) already produces correct, realistic crisis data including skin temp cooling curves, glucose drift, and sub-meter GPS jitter. The CrisisInjector's blunt FREEZE mechanism destroyed this realism. Deferred to future multi-crisis-type expansion with proper parameterized evolution support.
+- **MCP catalog accepted as-is**: Hand-authored definitions accepted for now. Can be replaced with real `tools/list` captures later.
+- **Additional fixes**: Stale "placeholder" comment removed from generate.py. MCP catalog loading cached with `@functools.cache`.
 
 ### Change Log
 
-- 2026-02-27: Story 2.5 implementation complete — CrisisInjector enforcement layer, tool definitions catalog with MCP support, pipeline integration, and 22 new tests.
+- 2026-02-27: Initial implementation — CrisisInjector + tool definitions + 22 tests.
+- 2026-02-27: Code review revert — CrisisInjector removed (GPS drift destruction, no parameterized evolution). Tool definitions and packaging retained. Net: +13 tests, +2 new files.
 
 ### File List
 
 New files:
-- src/crisis_bench/generator/modules/crisis.py
 - src/crisis_bench/generator/tools.py
 - src/crisis_bench/generator/mcp_tool_catalog.json
 
 Modified files:
 - src/crisis_bench/generator/generate.py
-- src/crisis_bench/generator/modules/__init__.py
 - tests/generator/test_generate.py

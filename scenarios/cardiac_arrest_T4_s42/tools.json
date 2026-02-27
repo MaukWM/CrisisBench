@@ -1,1 +1,234 @@
-[]
+[
+  {
+    "name": "get_balance",
+    "description": "Retrieve the current account balance",
+    "parameters": [
+      {
+        "name": "account",
+        "type": "string",
+        "description": "Account identifier",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "get_contacts",
+    "description": "Retrieve the full contact list with names, relationships, and phone numbers",
+    "parameters": []
+  },
+  {
+    "name": "get_conversations",
+    "description": "Retrieve recent message conversation threads",
+    "parameters": [
+      {
+        "name": "count",
+        "type": "integer",
+        "description": "Number of recent conversations to return",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "get_forecast",
+    "description": "Retrieve the current weather forecast for a location",
+    "parameters": [
+      {
+        "name": "location",
+        "type": "string",
+        "description": "Location name or coordinates for the forecast",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "get_recent_updates",
+    "description": "Retrieve the last N data update payloads from the device",
+    "parameters": [
+      {
+        "name": "count",
+        "type": "integer",
+        "description": "Number of recent updates to return",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "get_transactions",
+    "description": "Retrieve recent account transactions",
+    "parameters": [
+      {
+        "name": "count",
+        "type": "integer",
+        "description": "Number of recent transactions to return",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "list_events",
+    "description": "List calendar events for a given date",
+    "parameters": [
+      {
+        "name": "date",
+        "type": "string",
+        "description": "Date in ISO 8601 format (YYYY-MM-DD)",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "list_memories",
+    "description": "List all stored memory file keys",
+    "parameters": []
+  },
+  {
+    "name": "make_call",
+    "description": "Initiate a phone call to the specified number",
+    "parameters": [
+      {
+        "name": "number",
+        "type": "string",
+        "description": "Phone number to call",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "query_device",
+    "description": "Query the current sensor readings from a connected device",
+    "parameters": [
+      {
+        "name": "device_id",
+        "type": "string",
+        "description": "Device identifier to query",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "read_memory",
+    "description": "Read the contents of a stored memory file by key",
+    "parameters": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Memory file key to read",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "send_message",
+    "description": "Send a text message to a contact",
+    "parameters": [
+      {
+        "name": "contact_id",
+        "type": "string",
+        "description": "Contact identifier to message",
+        "required": true
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "description": "Message text to send",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "spotify.get_playlist",
+    "description": "Get the list of tracks in a playlist by playlist identifier",
+    "parameters": [
+      {
+        "name": "playlist_id",
+        "type": "string",
+        "description": "Spotify playlist identifier",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "spotify.get_track",
+    "description": "Get details about a specific track including title, artist, album, and duration",
+    "parameters": [
+      {
+        "name": "track_id",
+        "type": "string",
+        "description": "Spotify track identifier",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "spotify.search",
+    "description": "Search the Spotify catalog for tracks, albums, or artists matching a query",
+    "parameters": [
+      {
+        "name": "query",
+        "type": "string",
+        "description": "Search query text",
+        "required": true
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": "Type of item to search for: track, album, or artist",
+        "required": false
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of results to return",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "wikipedia.get_page",
+    "description": "Retrieve the full content of a Wikipedia page by its exact title",
+    "parameters": [
+      {
+        "name": "title",
+        "type": "string",
+        "description": "Exact Wikipedia page title",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "wikipedia.search",
+    "description": "Search Wikipedia articles by query string and return matching titles with summaries",
+    "parameters": [
+      {
+        "name": "query",
+        "type": "string",
+        "description": "Search query text",
+        "required": true
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of results to return",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "write_memory",
+    "description": "Write content to a memory file, creating or overwriting by key",
+    "parameters": [
+      {
+        "name": "key",
+        "type": "string",
+        "description": "Memory file key to write",
+        "required": true
+      },
+      {
+        "name": "content",
+        "type": "string",
+        "description": "Content to store in the memory file",
+        "required": true
+      }
+    ]
+  }
+]

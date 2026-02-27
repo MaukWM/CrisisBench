@@ -10,6 +10,7 @@ real MCP servers via ``tools/list``.
 
 from __future__ import annotations
 
+import functools
 import json
 from pathlib import Path
 
@@ -196,8 +197,13 @@ _TIER_TOOLS: dict[str, list[ToolDefinition]] = {
 _CATALOG_PATH = Path(__file__).parent / "mcp_tool_catalog.json"
 
 
-def _load_mcp_tools() -> list[ToolDefinition]:
-    """Load MCP tool definitions from the static catalog file."""
+@functools.cache
+def _load_mcp_tools() -> tuple[ToolDefinition, ...]:
+    """Load MCP tool definitions from the static catalog file.
+
+    Cached at module level — the catalog is a static committed file.
+    Returns a tuple (hashable) for cache compatibility.
+    """
     raw = json.loads(_CATALOG_PATH.read_text())
     tools: list[ToolDefinition] = []
     for entry in raw:
@@ -217,7 +223,7 @@ def _load_mcp_tools() -> list[ToolDefinition]:
                 parameters=params,
             )
         )
-    return tools
+    return tuple(tools)
 
 
 # ---------------------------------------------------------------------------

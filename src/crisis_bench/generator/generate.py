@@ -11,7 +11,6 @@ if TYPE_CHECKING:
     import random
     from pathlib import Path
 
-from crisis_bench.generator.modules.crisis import CrisisInjector
 from crisis_bench.generator.schedule import (
     CARDIAC_ARREST_SCHEDULE,
     PersonSchedule,
@@ -262,9 +261,6 @@ def generate_scenario(
                 payload[mod_name] = result
         raw_heartbeats.append(payload)
 
-    # 2b. Post-processing enforcement — verify crisis signals are correct.
-    CrisisInjector().apply(raw_heartbeats, crisis_hb_index, crisis_type)
-
     crisis_heartbeat_id: int = crisis_hb_index
 
     # 3. Build frozen Pydantic models.
@@ -354,7 +350,7 @@ def _write_scenario(package: ScenarioPackage, output_path: Path) -> None:
         json.dumps([hb.model_dump() for hb in package.heartbeats], indent=2) + "\n"
     )
 
-    # tools.json — placeholder
+    # tools.json
     (output_path / "tools.json").write_text(
         json.dumps([td.model_dump() for td in package.tool_definitions], indent=2) + "\n"
     )

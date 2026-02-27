@@ -135,16 +135,16 @@ _DEFAULT_CONTACTS: list[Contact] = [
     Contact(
         id="contact-012",
         name="Samantha Wells",
-        relationship="personal trainer",
+        relationship="friend",
         phone="+1-718-430-8856",
     ),
     Contact(
-        id="contact-013", name="Carlos Rivera", relationship="barber", phone="+1-347-685-2019"
+        id="contact-013", name="Carlos Rivera", relationship="friend", phone="+1-347-685-2019"
     ),
     Contact(
         id="contact-014",
-        name="Dr. James Chen",
-        relationship="primary care physician",
+        name="James Chen",
+        relationship="friend",
         phone="+1-212-639-4700",
     ),
     Contact(
@@ -156,7 +156,7 @@ _DEFAULT_CONTACTS: list[Contact] = [
     Contact(
         id="contact-016",
         name="Dan Kowalski",
-        relationship="fantasy football league",
+        relationship="friend",
         phone="+1-718-294-7763",
     ),
     Contact(
@@ -168,6 +168,9 @@ _DEFAULT_CONTACTS: list[Contact] = [
     ),
     Contact(
         id="contact-020", name="Deepak Mehta", relationship="accountant", phone="+1-646-902-3387"
+    ),
+    Contact(
+        id="contact-021", name="Donald Vera", relationship="friend", phone="+1-334-910-4518"
     ),
 ]
 

@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+from typing import TYPE_CHECKING
+
 import click
+
+if TYPE_CHECKING:
+    from crisis_bench.models.scenario import NoiseTier
 
 
 @click.group()
@@ -12,10 +18,52 @@ def main() -> None:
 
 
 @main.command()
-def generate() -> None:
+@click.option(
+    "--crisis",
+    default="cardiac_arrest",
+    show_default=True,
+    help="Crisis type to simulate.",
+)
+@click.option(
+    "--tier",
+    type=click.Choice(["T1", "T2", "T3", "T4"], case_sensitive=True),
+    default="T4",
+    show_default=True,
+    help="Noise tier controlling module inclusion.",
+)
+@click.option("--seed", type=int, default=42, show_default=True, help="Random seed.")
+@click.option(
+    "--date",
+    "scenario_date",
+    type=str,
+    default=None,
+    help="Scenario date as YYYY-MM-DD (>= 2027). Default: 2027-06-15.",
+)
+@click.option(
+    "--output",
+    type=click.Path(path_type=Path),
+    default=Path("scenarios"),
+    show_default=True,
+    help="Output directory for generated scenario.",
+)
+def generate(crisis: str, tier: str, seed: int, scenario_date: str | None, output: Path) -> None:
     """Generate scenario packages."""
-    click.echo("Not implemented yet")
-    raise SystemExit(1)
+    from datetime import date
+    from typing import cast
+
+    from crisis_bench.generator.generate import generate_scenario
+
+    parsed_date = date.fromisoformat(scenario_date) if scenario_date else None
+    scenario_dir = output / f"{crisis}_{tier}_s{seed}"
+    package = generate_scenario(
+        crisis_type=crisis,
+        tier=cast("NoiseTier", tier),
+        seed=seed,
+        output_path=scenario_dir,
+        scenario_date=parsed_date,
+    )
+    click.echo(f"Scenario written to {scenario_dir}")
+    click.echo(f"Content hash: {package.manifest.content_hash}")
 
 
 @main.command()

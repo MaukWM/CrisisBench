@@ -5,6 +5,8 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
+NoiseTier = Literal["T1", "T2", "T3", "T4"]
+
 # ---------------------------------------------------------------------------
 # Module data models (Task 1)
 # ---------------------------------------------------------------------------
@@ -307,9 +309,7 @@ class ScenarioPackage(BaseModel):
     version: str = Field(description="Scenario format version")
     seed: int = Field(description="Random seed used for generation")
     crisis_type: str = Field(description="Type of crisis simulated")
-    noise_tier: Literal["T1", "T2", "T3", "T4"] = Field(
-        description="Noise tier controlling module inclusion"
-    )
+    noise_tier: NoiseTier = Field(description="Noise tier controlling module inclusion")
     crisis_heartbeat_id: int = Field(description="Heartbeat ID when crisis occurs")
     person: PersonProfile = Field(description="Simulated user profile")
     contacts: list[Contact] = Field(description="User's contact list")

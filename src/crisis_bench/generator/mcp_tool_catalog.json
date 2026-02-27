@@ -1,0 +1,80 @@
+[
+  {
+    "name": "wikipedia.search",
+    "description": "Search Wikipedia articles by query string and return matching titles with summaries",
+    "parameters": [
+      {
+        "name": "query",
+        "type": "string",
+        "description": "Search query text",
+        "required": true
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of results to return",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "wikipedia.get_page",
+    "description": "Retrieve the full content of a Wikipedia page by its exact title",
+    "parameters": [
+      {
+        "name": "title",
+        "type": "string",
+        "description": "Exact Wikipedia page title",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "spotify.search",
+    "description": "Search the Spotify catalog for tracks, albums, or artists matching a query",
+    "parameters": [
+      {
+        "name": "query",
+        "type": "string",
+        "description": "Search query text",
+        "required": true
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "description": "Type of item to search for: track, album, or artist",
+        "required": false
+      },
+      {
+        "name": "limit",
+        "type": "integer",
+        "description": "Maximum number of results to return",
+        "required": false
+      }
+    ]
+  },
+  {
+    "name": "spotify.get_track",
+    "description": "Get details about a specific track including title, artist, album, and duration",
+    "parameters": [
+      {
+        "name": "track_id",
+        "type": "string",
+        "description": "Spotify track identifier",
+        "required": true
+      }
+    ]
+  },
+  {
+    "name": "spotify.get_playlist",
+    "description": "Get the list of tracks in a playlist by playlist identifier",
+    "parameters": [
+      {
+        "name": "playlist_id",
+        "type": "string",
+        "description": "Spotify playlist identifier",
+        "required": true
+      }
+    ]
+  }
+]

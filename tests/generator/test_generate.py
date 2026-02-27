@@ -2,9 +2,14 @@
 
 from __future__ import annotations
 
+import copy
+import json
+
 import pytest
 
 from crisis_bench.generator.generate import generate_scenario
+from crisis_bench.generator.modules.crisis import CrisisInjector
+from crisis_bench.generator.tools import collect_tool_definitions
 from crisis_bench.models.scenario import ScenarioPackage
 
 
@@ -685,3 +690,284 @@ class TestCommsRealism:
             # Check gaps between email arrivals are not all identical.
             gaps = [email_hb_ids[i] - email_hb_ids[i - 1] for i in range(1, len(email_hb_ids))]
             assert len(set(gaps)) > 1, "Email arrival gaps should not be perfectly uniform"
+
+
+# ---------------------------------------------------------------------------
+# Story 2.5: CrisisInjector, Tool Definitions, Scenario Packaging
+# ---------------------------------------------------------------------------
+
+
+def _make_raw_heartbeats(
+    count: int = 6, crisis_at: int = 3, *, include_location: bool = True
+) -> list[dict[str, object]]:
+    """Create synthetic raw heartbeats for CrisisInjector unit tests."""
+    heartbeats: list[dict[str, object]] = []
+    for i in range(count):
+        health: dict[str, object] = {
+            "heart_rate": 72 if i < crisis_at else 0,
+            "spo2": 98 if i < crisis_at else 0,
+            "steps": 1000 + i * 100,
+            "skin_temp": 36.5,
+            "ecg_summary": "normal sinus rhythm" if i < crisis_at else "inconclusive",
+            "blood_glucose": 95.0,
+            "calories_burned": 500 + i * 50,
+            "sleep_stage": "awake",
+            "respiratory_rate": 16 if i < crisis_at else 0,
+            "body_battery": 70,
+        }
+        hb: dict[str, object] = {
+            "heartbeat_id": i,
+            "timestamp": f"2026-06-15T{12 + i}:00:00Z",
+            "health": health,
+        }
+        if include_location:
+            location: dict[str, object] = {
+                "lat": 40.7812 + i * 0.0001,
+                "lon": -73.9665 + i * 0.0001,
+                "altitude": 15.0,
+                "speed": 3.0 if i < crisis_at else 0.0,
+                "heading": 90,
+                "accuracy": 5.0,
+                "geofence_status": None,
+                "movement_classification": "running" if i < crisis_at else "stationary",
+            }
+            hb["location"] = location
+        heartbeats.append(hb)
+    return heartbeats
+
+
+class TestCrisisInjector:
+    """Story 2.5 / AC #1: CrisisInjector post-processing enforcement."""
+
+    def test_enforces_cardiac_arrest_health(self) -> None:
+        """Crisis heartbeats show HR=0, SpO2=0, resp_rate=0, ECG inconclusive."""
+        hbs = _make_raw_heartbeats()
+        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
+        for hb in hbs[3:]:
+            health = hb["health"]
+            assert isinstance(health, dict)
+            assert health["heart_rate"] == 0
+            assert health["spo2"] == 0
+            assert health["respiratory_rate"] == 0
+            assert health["ecg_summary"] == "inconclusive"
+
+    def test_gps_freezes_at_last_known(self) -> None:
+        """GPS lat/lon frozen at pre-crisis values, speed=0, movement=stationary."""
+        hbs = _make_raw_heartbeats()
+        pre_loc = hbs[2]["location"]
+        assert isinstance(pre_loc, dict)
+        pre_lat = pre_loc["lat"]
+        pre_lon = pre_loc["lon"]
+        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
+        for hb in hbs[3:]:
+            loc = hb["location"]
+            assert isinstance(loc, dict)
+            assert loc["lat"] == pre_lat
+            assert loc["lon"] == pre_lon
+            assert loc["speed"] == 0.0
+            assert loc["movement_classification"] == "stationary"
+
+    def test_steps_calories_frozen_not_zeroed(self) -> None:
+        """Steps and calories frozen at pre-crisis values, not reset to 0."""
+        hbs = _make_raw_heartbeats()
+        pre_health = hbs[2]["health"]
+        assert isinstance(pre_health, dict)
+        pre_steps = pre_health["steps"]
+        pre_cals = pre_health["calories_burned"]
+        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
+        for hb in hbs[3:]:
+            health = hb["health"]
+            assert isinstance(health, dict)
+            assert health["steps"] == pre_steps
+            assert health["calories_burned"] == pre_cals
+            assert health["steps"] > 0  # Not zeroed
+
+    def test_non_crisis_modules_untouched(self) -> None:
+        """Modules not in the crisis profile (e.g. weather) are left unmodified."""
+        hbs = _make_raw_heartbeats()
+        # Add weather data to each heartbeat.
+        for hb in hbs:
+            hb["weather"] = {"temp": 25.0, "humidity": 60}
+        weather_before = [copy.deepcopy(hb["weather"]) for hb in hbs]
+        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
+        for i, hb in enumerate(hbs):
+            assert hb["weather"] == weather_before[i]
+
+    def test_all_crisis_heartbeats_enforced(self) -> None:
+        """Enforcement applies to ALL heartbeats at and after crisis, not just the first."""
+        hbs = _make_raw_heartbeats(count=10, crisis_at=3)
+        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
+        for hb in hbs[3:]:
+            health = hb["health"]
+            assert isinstance(health, dict)
+            assert health["heart_rate"] == 0
+            loc = hb["location"]
+            assert isinstance(loc, dict)
+            assert loc["speed"] == 0.0
+
+    def test_idempotent(self) -> None:
+        """Running apply() twice produces identical output."""
+        hbs = _make_raw_heartbeats()
+        injector = CrisisInjector()
+        injector.apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
+        snapshot = [json.dumps(hb, sort_keys=True) for hb in hbs]
+        injector.apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
+        for i, hb in enumerate(hbs):
+            assert json.dumps(hb, sort_keys=True) == snapshot[i]
+
+    def test_raises_on_none_health(self) -> None:
+        """ValueError when a crisis-required module is None during crisis."""
+        hbs = _make_raw_heartbeats()
+        hbs[3]["health"] = None
+        with pytest.raises(ValueError, match="health.*None.*heartbeat"):
+            CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
+
+    def test_skips_missing_modules_for_tier(self) -> None:
+        """T1-like heartbeats (no location) should not raise — profile skips missing modules."""
+        hbs = _make_raw_heartbeats(include_location=False)
+        CrisisInjector().apply(hbs, crisis_heartbeat_id=3, crisis_type="cardiac_arrest")
+        # Health enforcement still works.
+        health = hbs[3]["health"]
+        assert isinstance(health, dict)
+        assert health["heart_rate"] == 0
+
+
+class TestToolDefinitions:
+    """Story 2.5 / AC #4, #5, #6: Tool definitions catalog."""
+
+    def test_tier_monotonic_progression(self) -> None:
+        """Tool count increases monotonically T1 < T2 < T3 < T4."""
+        counts = {tier: len(collect_tool_definitions(tier)) for tier in ("T1", "T2", "T3", "T4")}
+        assert counts["T1"] < counts["T2"]
+        assert counts["T2"] < counts["T3"]
+        assert counts["T3"] < counts["T4"]
+
+    def test_core_tools_present_on_every_tier(self) -> None:
+        """All 9 core tools present on every tier."""
+        core_names = {
+            "make_call",
+            "send_message",
+            "read_memory",
+            "write_memory",
+            "list_memories",
+            "get_contacts",
+            "get_conversations",
+            "query_device",
+            "get_recent_updates",
+        }
+        for tier in ("T1", "T2", "T3", "T4"):
+            tools = collect_tool_definitions(tier)
+            tool_names = {t.name for t in tools}
+            assert core_names.issubset(tool_names), f"Tier {tier} missing core tools"
+
+    def test_t1_has_9_core_tools(self) -> None:
+        tools = collect_tool_definitions("T1")
+        assert len(tools) == 9
+
+    def test_t2_adds_get_forecast(self) -> None:
+        names = {t.name for t in collect_tool_definitions("T2")}
+        assert "get_forecast" in names
+
+    def test_t3_adds_list_events(self) -> None:
+        names = {t.name for t in collect_tool_definitions("T3")}
+        assert "list_events" in names
+
+    def test_t4_adds_financial_tools(self) -> None:
+        names = {t.name for t in collect_tool_definitions("T4")}
+        assert "get_balance" in names
+        assert "get_transactions" in names
+
+    def test_core_tools_flat_named(self) -> None:
+        """All core tools use flat snake_case (no dots)."""
+        core_names = {
+            "make_call",
+            "send_message",
+            "read_memory",
+            "write_memory",
+            "list_memories",
+            "get_contacts",
+            "get_conversations",
+            "query_device",
+            "get_recent_updates",
+        }
+        for tier in ("T1", "T2", "T3", "T4"):
+            for tool in collect_tool_definitions(tier):
+                if tool.name in core_names:
+                    assert "." not in tool.name, f"Core tool {tool.name!r} should be flat-named"
+
+    def test_mcp_tools_dotted(self) -> None:
+        """All MCP tools (T3+) use dotted server.action naming."""
+        # T3 includes MCP tools; compare T2 names to find them.
+        t2_names = {t.name for t in collect_tool_definitions("T2")}
+        t3_tools = collect_tool_definitions("T3")
+        mcp_tools = [t for t in t3_tools if t.name not in t2_names and t.name != "list_events"]
+        assert len(mcp_tools) > 0, "Expected MCP tools on T3"
+        for tool in mcp_tools:
+            assert "." in tool.name, f"MCP tool {tool.name!r} should be dotted"
+
+    def test_nfr2_no_banned_stems(self) -> None:
+        """No tool name or description contains banned health/emergency/safety stems."""
+        banned_stems = {
+            "health",
+            "medical",
+            "emergency",
+            "crisis",
+            "safety",
+            "vital",
+            "cardiac",
+            "heart",
+            "pulse",
+            "oxygen",
+            "spo2",
+            "ambulance",
+            "hospital",
+            "doctor",
+            "nurse",
+            "injury",
+            "symptom",
+            "diagnosis",
+            "alert",
+            "warning",
+            "danger",
+            "critical",
+            "urgent",
+            "rescue",
+            "sos",
+        }
+        for tier in ("T1", "T2", "T3", "T4"):
+            for tool in collect_tool_definitions(tier):
+                name_words = set(tool.name.replace(".", "_").split("_"))
+                desc_words = set(tool.description.lower().split())
+                # Strip punctuation from description words.
+                desc_words = {w.strip(".,;:()[]{}") for w in desc_words}
+                all_words = name_words | desc_words
+                overlap = all_words & banned_stems
+                assert not overlap, f"Tool {tool.name!r} contains banned NFR2 stems: {overlap}"
+
+    def test_determinism_same_tier_same_definitions(self) -> None:
+        """Same tier always returns identical tool definitions (order-stable)."""
+        for tier in ("T1", "T2", "T3", "T4"):
+            a = collect_tool_definitions(tier)
+            b = collect_tool_definitions(tier)
+            assert len(a) == len(b)
+            for ta, tb in zip(a, b, strict=True):
+                assert ta == tb
+
+
+class TestScenarioPackaging:
+    """Story 2.5 / AC #2, #3: Scenario package completeness."""
+
+    def test_tools_json_nonempty_all_tiers(self) -> None:
+        """tools.json (tool_definitions) is non-empty for every tier."""
+        for tier in ("T1", "T2", "T3", "T4"):
+            package = generate_scenario(crisis_type="cardiac_arrest", tier=tier, seed=42)
+            assert len(package.tool_definitions) > 0, f"Tier {tier} has empty tool_definitions"
+
+    def test_manifest_has_valid_sha256(self) -> None:
+        package = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
+        assert len(package.manifest.content_hash) == 64
+
+    def test_scenario_id_format(self) -> None:
+        for tier in ("T1", "T2", "T3", "T4"):
+            package = generate_scenario(crisis_type="cardiac_arrest", tier=tier, seed=99)
+            assert package.scenario_id == f"cardiac_arrest_{tier}_s99"

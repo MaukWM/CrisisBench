@@ -11,10 +11,12 @@ if TYPE_CHECKING:
     import random
     from pathlib import Path
 
+from crisis_bench.generator.modules.crisis import CrisisInjector
 from crisis_bench.generator.schedule import (
     CARDIAC_ARREST_SCHEDULE,
     PersonSchedule,
 )
+from crisis_bench.generator.tools import collect_tool_definitions
 from crisis_bench.models.scenario import (
     AgentIdentity,
     CalendarData,
@@ -260,6 +262,9 @@ def generate_scenario(
                 payload[mod_name] = result
         raw_heartbeats.append(payload)
 
+    # 2b. Post-processing enforcement — verify crisis signals are correct.
+    CrisisInjector().apply(raw_heartbeats, crisis_hb_index, crisis_type)
+
     crisis_heartbeat_id: int = crisis_hb_index
 
     # 3. Build frozen Pydantic models.
@@ -283,7 +288,7 @@ def generate_scenario(
         contacts=list(_DEFAULT_CONTACTS),
         agent_identity=_DEFAULT_AGENT,
         heartbeats=heartbeats,
-        tool_definitions=[],  # placeholder — Story 2.5
+        tool_definitions=collect_tool_definitions(tier),
         memory_files=[],  # placeholder — Story 2.6
         manifest=ScenarioManifest(
             content_hash=content_hash,

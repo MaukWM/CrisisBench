@@ -124,7 +124,7 @@ class CommsGenerator:
         Returns only events that arrived since the previous heartbeat.
         """
         # Consume 1 RNG call for consistency (comms is scripted data).
-        _unused = rng.random()  # noqa: F841
+        _unused = rng.random()
 
         # Lazy init on first call.
         if self._email_times is None:

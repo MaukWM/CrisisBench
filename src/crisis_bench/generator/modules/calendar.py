@@ -37,7 +37,7 @@ _RAW_EVENTS: list[tuple[str, str, str, list[str]]] = [
 _RAW_REMINDERS: list[tuple[str, str]] = [
     ("08:00", "Review PR from Priya"),
     ("12:00", "Take vitamins"),
-    ("17:00", "Pick up dry cleaning"),
+    ("17:00", "Mentos"),
 ]
 
 

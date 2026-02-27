@@ -14,100 +14,66 @@ MEMORY_TEMPLATES: dict[str, str] = {
 # User Profile — David Mitchell
 
 - **Name:** David Mitchell
-- **Birthday:** March 12, 1993
+- **Birthday:** March 12, 1993 (turning 34 this year)
 - **Occupation:** Software Engineering Manager
-- **Company:** Works at a tech company, office at 350 5th Ave (Empire State Building area)
-- **Home:** 425 W 82nd St, Upper West Side, Manhattan
-- **Spouse:** Sarah Mitchell — works in publishing, usually home by 6:30p
-- **Commute:** Subway, 1 train from 79th to 34th St-Penn Station (~20 min)
+- **Company:** Mid-size tech company, office near Empire State Building (350 5th Ave)
+- **Home:** Upper West Side, 425 W 82nd St
+- **Spouse:** Sarah Mitchell — she's in publishing, usually gets home around 6:30
+- **Commute:** Takes the 1 train, 79th St to 34th St-Penn Station. About 20 min door to door
 
-## General Notes
-David is pretty low-key about personal stuff. Doesn't volunteer a lot
-unless asked. Tech-savvy but doesn't micromanage — just wants results.
+## Things I've Picked Up
+He doesn't really share personal stuff unprompted. If I ask too many follow-up
+questions he just goes "yeah" and moves on. Learned to keep briefings tight.
 
-Prefers morning briefings kept short. Gets annoyed if I over-explain things he already knows.
+Definitely knows his way around tech — doesn't need me to explain how things
+work, just tell him what happened and what needs his attention.
+
+Gets a bit short in the afternoon if the day's been meeting-heavy.
 """,
     "preferences": """\
-# Preferences & Settings
-
-## Communication Style
-- Keep messages brief. David hates walls of text
-- No emojis in work contexts, occasional 👍 is fine for personal
-- If something's time-sensitive just say so upfront, don't bury it
-- He reads Slack on phone during commute — short msgs work better then
-
-## Notifications
-- Morning summary: ~6:30 AM (he wakes 6:15-6:30)
-- Don't interrupt meetings unless it's Sarah or his mom calling
-- Batch low-priority notifications
-- Weekend: lighter touch, no work stuff unless he asks
-
-## Scheduling
-- Prefers meetings clustered in the morning so afternoons are free for deep work
-- Lunch usually 12:00-12:45, likes to leave the building
-- No meetings after 4 PM if possible
-- Gym/run most days 5:30-6:30 PM
-
-## Food & Misc
-- Coffee: large cold brew, black (Starbucks or the cart on 34th)
-- Lunch spots: Sweetgreen, Dig, or the deli on 33rd
-- Allergies: none noted
-""",
-    "work_context": """\
-# Work Context
-
-## Role
-David manages a team of 6 engineers at a mid-size tech company.
-Office at 350 5th Ave. Reports to Rachel Torres (VP Eng).
-
-## Team
-- Priya Kapoor — senior backend eng, David's most trusted IC
-- Mike Chang — mid-level, frontend focused
-- Kira Nakamura — design eng, cross-functional with product
-- 3 others mentioned less frequently
-
-## Typical Schedule
-- 9:00 AM — Daily standup (15 min)
-- 10:00 AM — Sprint planning (Mon) or ad-hoc 1:1s
-- 12:00-12:45 PM — Lunch break
-- 1:00 PM — Team sync or code review block
-- 2:00-4:30 PM — Focus time (David blocks this on calendar)
-- Fridays: lighter, sometimes leaves early for a longer run
-
-## Current Sprint
-- Working on some API migration
-- Sprint ends Friday, sounds like they're slightly behind
-- He's been doing more code review than usual lately
+# How David Likes Things
 
 ## Communication
-- Team uses Slack heavily (#eng-team channel)
-- David checks email ~3x/day, not constantly
-- Prefers Slack DMs over email for quick questions
+- No emojis for work stuff. Thumbs up is fine in personal chats
+- During his commute he's on his phone so keep it extra brief
+
+## Notifications
+- Do NOT interrupt meetings. Only exception: Sarah or his mom calling
+- Batch the low-priority stuff, he'll check when he checks
+- Weekends: barely bother him unless he asks. No work notifications
+""",
+    "work_context": """\
+# Work Stuff
+
+## Role
+Manages a team of 6 engineers. Reports to Rachel Torres (VP Eng).
+
+## Current Sprint
+- Some API migration project.
+
+## How He Communicates at Work
+- Slack all day (#engineering is the main channel)
+- Email maybe 3x a day, doesn't live in his inbox
+- If he needs something quick he'll Slack DM, not email
 """,
     "recurring_notes": """\
-# Ongoing / Recurring Items
+# Stuff I'm Tracking
 
-## Active Reminders
-- Dentist appointment coming up (Lisa Park's office) — need to confirm date
-- Fantasy football draft prep — league with Dan Kowalski, he's been looking at waiver wire picks
-- Sarah's birthday in a few weeks — David hasn't mentioned plans yet
+## Need to Follow Up
+- Dentist — Lisa Park's office, appointment coming up but he hasn't
+  confirmed the date. I've reminded him twice already
+- Sarah's birthday is in a few weeks and he hasn't said anything about
+  plans. Might need a nudge soon
+- Deepak (accountant) needs Q1 docs. David said "yeah I'll get to it"
+  like a week ago. He hasn't gotten to it
 
-## Regular Tasks
-- Monday: remind David about sprint planning at 10 AM
-- Wednesday: gym with Tom Brennan, usually 6 PM at Equinox
-- Thursday: take out recycling (David forgets this one a lot)
-- Friday: send weekly summary if David asks for it
-
-## Misc Tracked Items
-- Package from Amazon expected this week (some cable organizer thing)
-- David mentioned wanting to try that new ramen place on Amsterdam Ave
-- Building maintenance scheduled some pipe work — not sure which day
-- Accountant Deepak needs Q1 docs, David said he'd "get to it"
-
-## Fantasy Football
-- League: 12-team PPR with Dan Kowalski's group
-- David's team not doing great but he's weirdly optimistic
-- Trade deadline coming up, he's been checking scores during lunch
+## Random Things He Mentioned
+- Amazon package coming this week — cable organizer or something
+- Wants to try a new ramen place on Amsterdam Ave, hasn't gone yet
+- Building super said something about pipe maintenance, unclear when
+- Fantasy football: 12-team PPR league with Dan Kowalski's group.
+  His team is not good but he checks scores at lunch every day and
+  talks about waiver wire picks like it matters. Trade deadline soon
 """,
 }
 

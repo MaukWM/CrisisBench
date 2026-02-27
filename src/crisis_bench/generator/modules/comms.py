@@ -44,22 +44,40 @@ _EMAIL_EVENTS: list[tuple[str, str, str]] = [
 # Scripted Slack messages: (HH:MM, channel, sender, message).
 # Work hours only (09:00-17:30). Clusters around standup and meetings.
 _SLACK_EVENTS: list[tuple[str, str, str, str]] = [
-    ("09:02", "#engineering", "Priya Kapoor", "PR approved, merging now"),
-    ("09:03", "#general", "Mike Chang", "standup in 5"),
-    ("10:47", "#engineering", "Kira Nakamura", "anyone tried the new Figma plugin?"),
-    ("11:38", "#design-review", "Kira Nakamura", "mockups updated in the shared drive"),
-    ("13:22", "#random", "Mike Chang", "anyone want to grab coffee?"),
-    ("14:41", "#engineering", "Priya Kapoor", "CI is green, deploying to staging"),
-    ("15:53", "#general", "Rachel Torres", "reminder: team happy hour Friday at 5"),
-    ("16:28", "#engineering", "Mike Chang", "pushed the config fix, can someone review?"),
+    ("09:02", "#engineering", "Priya Kapoor", "merged the PR from yday, will deploy after standup"),
+    ("09:03", "#general", "Mike Chang", "sry can't make standup today"),
+    (
+        "09:05",
+        "#engineering",
+        "Kira Nakamura",
+        "aight no worries",
+    ),
+    (
+        "11:38",
+        "#design-review",
+        "Kira Nakamura",
+        "updated mockups are in the drive, same folder as before",
+    ),
+    ("13:22", "#random", "Mike Chang", "https://www.youtube.com/watch?v=TiQm5Fh5NjE"),
+    ("14:41", "#engineering", "Priya Kapoor", "customer page on staging seems to be broken, mike can you check it out?"),
+    ("14:46", "#engineering", "Mike Chang", "yep on ti"),
+    ("15:53", "#general", "Rachel Torres", "reminder — happy hour friday at 5, no excuses🕺🕺🕺"),
+    (
+        "16:28",
+        "#engineering",
+        "Mike Chang",
+        "btw customer page issue is fixed! was just an issue with one of our dependencies which needed a quick version bump",
+    ),
 ]
 
 # Scripted SMS messages: (HH:MM, sender, message).
 _SMS_EVENTS: list[tuple[str, str, str]] = [
-    ("08:06", "Sarah Mitchell", "Have a good day! Don't forget dinner reservations at 7"),
-    ("12:22", "Jake Mitchell", "Dude check out this article about the new PS6 rumors"),
-    ("14:58", "Tom Brennan", "Still on for the gym at 5:30?"),
-    ("16:44", "Sarah Mitchell", "Running 10 min late, meet you there"),
+    ("08:06", "Sarah Mitchell", "dont forget i'm making slop@7 so don't be late :)"),
+    ("12:22", "Jake Mitchell", "new ps6 leak on beebom👀"),
+    ("14:58", "Tom Brennan", "https://www.youtube.com/watch?v=PrSzdTjSwIA"),
+    ("14:58", "Tom Brennan", "can't stop listening to this mix"),
+    ("16:44", "Sarah Mitchell", "i just realised"),
+    ("16:44", "Sarah Mitchell", "i NEED to find my nintendo ds again that shit was goated"),
 ]
 
 # Scripted missed call events: (HH:MM, caller_description).
@@ -76,11 +94,11 @@ _VOICEMAIL_EVENTS: list[tuple[str]] = [
 
 # Scripted social notifications: (HH:MM, platform, notification_text).
 _SOCIAL_EVENTS: list[tuple[str, str, str]] = [
-    ("07:22", "Instagram", "tom_brennan liked your photo"),
+    ("07:22", "Instagram", "tom_brennan and 2 others liked your photo"),
     ("09:38", "LinkedIn", "You have 3 new connection requests"),
-    ("12:04", "Reddit", "Trending in r/programming: Rust vs Go for backend services"),
-    ("14:16", "X", "5 new posts from accounts you follow"),
-    ("16:11", "Instagram", "sarahm_photos posted a new story"),
+    ("12:04", "Reddit", 'Trending in r/programming: "Rust vs Go — the debate that won\'t die"'),
+    ("14:16", "X", "5 new posts from people you follow"),
+    ("16:11", "Instagram", "sarahm_photos posted a story"),
 ]
 
 

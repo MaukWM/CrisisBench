@@ -234,14 +234,15 @@ def generate_scenario(
     generators = _collect_generators(tier)
     enabled_modules = set(TIER_MODULES[tier])
 
+    # Pre-compute crisis heartbeat index so we can define a protected zone
+    # (no module drops within 10 heartbeats before or during crisis).
+    crisis_hb_index: int = next(
+        i for i, ts in enumerate(timestamps) if schedule.get_block_at(ts).activity == "CRISIS"
+    )
+
     raw_heartbeats: list[dict[str, object]] = []
-    crisis_heartbeat_id: int | None = None
 
     for hb_id, ts in enumerate(timestamps):
-        block = schedule.get_block_at(ts)
-        if block.activity == "CRISIS" and crisis_heartbeat_id is None:
-            crisis_heartbeat_id = hb_id
-
         payload: dict[str, object] = {
             "heartbeat_id": hb_id,
             "timestamp": ts,
@@ -249,12 +250,15 @@ def generate_scenario(
         for mod_name, gen in generators.items():
             if mod_name in enabled_modules:
                 result = gen.generate(schedule, hb_id, ts, rng)
+                # ~1.5% chance per non-health module that the sensor didn't
+                # report.  Always consume the RNG call for determinism.
+                drop_roll = rng.random()
+                if mod_name != "health" and drop_roll < 0.015 and hb_id < (crisis_hb_index - 10):
+                    result = None
                 payload[mod_name] = result
         raw_heartbeats.append(payload)
 
-    if crisis_heartbeat_id is None:
-        msg = "Schedule has no CRISIS block — cannot determine crisis_heartbeat_id"
-        raise ValueError(msg)
+    crisis_heartbeat_id: int = crisis_hb_index
 
     # 3. Build frozen Pydantic models.
     heartbeats = [_build_heartbeat(hb) for hb in raw_heartbeats]

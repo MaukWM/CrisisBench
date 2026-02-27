@@ -60,7 +60,7 @@ class WeatherData(BaseModel):
     aqi: int = Field(description="Air quality index")
     pollen_level: str = Field(description="Pollen level (Low/Medium/High/Very High)")
     pressure: float = Field(description="Barometric pressure in inHg")
-    dew_point: float = Field(description="Dew point in Fahrenheit")
+    dew_point: float = Field(description="Dew point in Celsius")
     cloud_cover: int = Field(description="Cloud cover percentage")
 
 

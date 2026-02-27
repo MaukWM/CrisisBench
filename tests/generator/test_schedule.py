@@ -8,7 +8,6 @@ import pytest
 
 from crisis_bench.generator.schedule import (
     CARDIAC_ARREST_SCHEDULE,
-    HEARTBEAT_INTERVAL_MINUTES,
     LOCATIONS,
     PersonSchedule,
 )
@@ -25,41 +24,41 @@ class TestPersonScheduleDeterminism:
         ts2 = s2.heartbeat_timestamps()
         assert ts1 == ts2
 
-    def test_different_seed_same_timestamps(self) -> None:
-        """Timestamps depend on schedule, not seed — should still match."""
+    def test_different_seed_different_jitter(self) -> None:
+        """Timestamps now include seed-dependent jitter — different seeds diverge."""
         s1 = PersonSchedule(blocks=CARDIAC_ARREST_SCHEDULE, seed=1)
         s2 = PersonSchedule(blocks=CARDIAC_ARREST_SCHEDULE, seed=999)
 
-        assert s1.heartbeat_timestamps() == s2.heartbeat_timestamps()
+        assert s1.heartbeat_timestamps() != s2.heartbeat_timestamps()
 
 
 class TestHeartbeatTimestamps:
     """Validate 5-minute intervals and count."""
 
-    def test_interval_is_five_minutes(self) -> None:
+    def test_interval_is_approximately_five_minutes(self) -> None:
+        """With jitter, intervals should be ~4:30 to ~5:30 (270-330s)."""
         schedule = PersonSchedule(blocks=CARDIAC_ARREST_SCHEDULE, seed=42)
         stamps = schedule.heartbeat_timestamps()
 
-        # All timestamps should be parseable and 5 minutes apart.
         from datetime import datetime
 
         dts = [datetime.fromisoformat(s.replace("Z", "+00:00")) for s in stamps]
         for i in range(1, len(dts)):
             delta = (dts[i] - dts[i - 1]).total_seconds()
-            assert delta == HEARTBEAT_INTERVAL_MINUTES * 60
+            assert 270 <= delta <= 330, f"Interval {i}: {delta}s outside 270-330s range"
 
     def test_starts_at_0630(self) -> None:
         schedule = PersonSchedule(blocks=CARDIAC_ARREST_SCHEDULE, seed=42)
         stamps = schedule.heartbeat_timestamps()
-        assert stamps[0].endswith("T06:30Z")
+        assert "T06:30:" in stamps[0]
 
     def test_pre_crisis_heartbeat_count(self) -> None:
         """06:30 to 18:05 = 693 min / 5 = 138.6 → ~139 heartbeats before crisis."""
         schedule = PersonSchedule(blocks=CARDIAC_ARREST_SCHEDULE, seed=42)
         stamps = schedule.heartbeat_timestamps()
 
-        # Find crisis timestamp (18:05:00)
-        crisis_idx = next(i for i, s in enumerate(stamps) if "T18:05Z" in s)
+        # Find crisis timestamp (18:05:xx with jitter)
+        crisis_idx = next(i for i, s in enumerate(stamps) if "T18:05:" in s)
         # Heartbeat at 06:30 is index 0, 18:05 should be around index 139.
         assert crisis_idx == 139
 

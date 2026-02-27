@@ -141,13 +141,21 @@ class PersonSchedule:
     # ------------------------------------------------------------------
 
     def heartbeat_timestamps(self) -> list[str]:
-        """Return ISO 8601 timestamps at 5-minute intervals from first block
-        start through the post-crisis window end."""
+        """Return ISO 8601 timestamps at ~5-minute intervals from first block
+        start through the post-crisis window end.
+
+        Each timestamp has 0-30 seconds of random jitter added (using
+        ``self.rng``) so intervals vary between ~4:30 and ~5:30 — real
+        wearables don't report at perfect 5-minute marks.  The loop still
+        advances by exactly ``HEARTBEAT_INTERVAL_MINUTES`` internally so
+        generators see consistent spacing.
+        """
         start_dt = self._to_datetime(self.blocks[0].start_time)
         stamps: list[str] = []
         current = start_dt
         while current <= self._post_crisis_end:
-            stamps.append(current.strftime("%Y-%m-%dT%H:%MZ"))
+            jitter = timedelta(seconds=self.rng.randint(0, 30))
+            stamps.append((current + jitter).strftime("%Y-%m-%dT%H:%M:%SZ"))
             current += timedelta(minutes=HEARTBEAT_INTERVAL_MINUTES)
         return stamps
 

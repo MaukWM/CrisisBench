@@ -1,6 +1,6 @@
 # Story 2.3: Weather, Calendar & Financial Module Generators
 
-Status: review
+Status: done
 
 ## Story
 

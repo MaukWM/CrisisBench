@@ -47,6 +47,47 @@ def _parse_time(s: str) -> time:
     return time(int(parts[0]), int(parts[1]))
 
 
+_SOCIAL_KEYWORDS = ("lunch", "dinner", "gym", "coffee", "drinks")
+
+
+def _format_casual_time(time_24h: str) -> str:
+    """Convert '14:30' to '2:30pm', '12:00' to 'noon'."""
+    h, m = time_24h.split(":")
+    hour, minute = int(h), int(m)
+    if hour == 12 and minute == 0:
+        return "noon"
+    suffix = "am" if hour < 12 else "pm"
+    display = hour if hour <= 12 else hour - 12
+    if display == 0:
+        display = 12
+    return f"{display}:{minute:02d}{suffix}" if minute else f"{display}{suffix}"
+
+
+def _build_today_summary(events: list[tuple[str, str, str, list[str]]]) -> str:
+    """Generate a natural-language summary from the scripted events list."""
+    highlighted: set[int] = set()
+    notable_parts: list[str] = []
+
+    # Find notable social/personal events to highlight separately.
+    for i, (time_str, title, _loc, _att) in enumerate(events):
+        if any(kw in title.lower() for kw in _SOCIAL_KEYWORDS):
+            highlighted.add(i)
+            notable_parts.append(f"{title.lower()} at {_format_casual_time(time_str)}")
+
+    # Count remaining events as "meetings".
+    meeting_count = sum(1 for i, e in enumerate(events) if i not in highlighted and e[3])
+    solo_count = sum(1 for i, e in enumerate(events) if i not in highlighted and not e[3])
+
+    parts: list[str] = []
+    if meeting_count:
+        parts.append(f"{meeting_count} meetings")
+    if solo_count:
+        parts.append(f"{solo_count} block{'s' if solo_count > 1 else ''}")
+    parts.extend(notable_parts)
+
+    return ", ".join(parts)
+
+
 class CalendarGenerator:
     """Generate calendar data for each heartbeat.
 
@@ -145,7 +186,5 @@ class CalendarGenerator:
         self._reminders = reminders
         self._reminder_times = reminder_times
 
-        # Static today_summary.
-        self._today_summary = (
-            "3 meetings, lunch with Tom at 12:30, design review at 2pm, dinner with Sarah at 7pm"
-        )
+        # Generate today_summary from the events list.
+        self._today_summary = _build_today_summary(_RAW_EVENTS)

@@ -2,10 +2,11 @@
 
 Stateful generator producing financial data:
 - Stock watchlist with seeded random walks from plausible 2027-era base values
-- Crypto prices with higher-volatility random walks
+  (frozen outside regular market hours 09:30-16:00)
+- Crypto prices with higher-volatility random walks (24/7)
 - Scripted transactions with contextually appropriate timing
 - Account balance decrementing with each transaction
-- Static pending charges
+- Pending charges that settle during the day
 - Spending vs budget summary
 
 During crisis, financial data continues evolving — markets don't know
@@ -23,28 +24,33 @@ if TYPE_CHECKING:
     from crisis_bench.generator.schedule import PersonSchedule
 
 # Stock watchlist: (ticker, plausible 2027 base price).
+# Mix of blue-chip, biotech, mid-cap, and niche picks.
 _STOCK_WATCHLIST: list[tuple[str, float]] = [
-    ("AAPL", 245.0),
-    ("GOOGL", 195.0),
-    ("TSLA", 310.0),
-    ("MSFT", 480.0),
-    ("AMZN", 220.0),
+    ("AAPL", 245.0),  # Apple — blue chip
+    ("SAVA", 28.0),  # Cassava Sciences — biotech micro-cap
+    ("AXON", 420.0),  # Axon Enterprise — mid-cap defense/law enforcement tech
+    ("PLTR", 55.0),  # Palantir Technologies — mid-cap data analytics
+    ("SOFI", 18.0),  # SoFi Technologies — small-cap fintech
 ]
 
+# Regular market hours (scenario timestamps treated as local NYC time).
+_MARKET_OPEN_HOUR = 9.5  # 09:30
+_MARKET_CLOSE_HOUR = 16.0  # 16:00
+
 # Crypto watchlist: (symbol, plausible 2027 base price).
+# Single asset avoids the correlated-pair tell of BTC+ETH moving in lockstep.
 _CRYPTO_WATCHLIST: list[tuple[str, float]] = [
-    ("BTC", 95000.0),
-    ("ETH", 4800.0),
+    ("SOL", 250.0),
 ]
 
 # Scripted transactions: (HH:MM, counterparty, amount, category).
-# Negative amounts = spending.
+# All transactions count toward budget — no P2P transfers.
 _RAW_TRANSACTIONS: list[tuple[str, str, float, str]] = [
     ("06:50", "Starbucks", -5.75, "food_and_drink"),
     ("07:05", "MTA MetroCard", -2.90, "transportation"),
+    ("10:20", "Duane Reade", -8.47, "health_and_beauty"),
     ("12:35", "Bibimbap House", -18.50, "food_and_drink"),
     ("13:45", "Amazon", -34.99, "shopping"),
-    ("15:20", "Venmo - Jake Mitchell", -50.00, "transfer"),
 ]
 
 # Yesterday's transactions (shown before today's first transaction).
@@ -54,10 +60,11 @@ _YESTERDAY_TRANSACTIONS: list[dict[str, object]] = [
     {"counterparty": "Spotify Premium", "amount": -10.99, "category": "subscription"},
 ]
 
-# Static pending charges.
-_PENDING_CHARGES: list[dict[str, object]] = [
-    {"merchant": "Netflix", "amount": 15.99},
-    {"merchant": "Spotify Premium", "amount": 10.99},
+# Pending charges with optional settle time.
+# (merchant, amount, settle_hour_or_none)
+_PENDING_CHARGES: list[tuple[str, float, float | None]] = [
+    ("Netflix", 15.99, None),  # stays pending all day
+    ("Spotify Premium", 10.99, 10.0),  # posts at 10:00
 ]
 
 # Starting account balance and monthly budget.
@@ -71,6 +78,13 @@ def _parse_time(s: str) -> time:
     """Parse 'HH:MM' into a ``datetime.time``."""
     parts = s.split(":")
     return time(int(parts[0]), int(parts[1]))
+
+
+def _timestamp_to_hours(timestamp: str) -> float:
+    """Extract fractional hours from ISO 8601 timestamp."""
+    time_part = timestamp.split("T")[1].rstrip("Z")
+    parts = time_part.split(":")
+    return int(parts[0]) + int(parts[1]) / 60.0
 
 
 class FinancialGenerator:
@@ -99,7 +113,7 @@ class FinancialGenerator:
         """Produce one heartbeat's financial data.
 
         Consumes exactly 8 RNG calls per heartbeat for determinism:
-        5 stock walks + 2 crypto walks + 1 spare.
+        5 stock walks + 1 crypto walk + 2 spare.
         """
         # Lazy init on first call.
         if self._stock_prices is None:
@@ -109,19 +123,25 @@ class FinancialGenerator:
         assert self._crypto_prices is not None
         assert self._transactions is not None
 
+        hour = _timestamp_to_hours(timestamp)
+        market_open = _MARKET_OPEN_HOUR <= hour < _MARKET_CLOSE_HOUR
+
         # 5 stock random walks (0.1% volatility per 5-min interval).
+        # Always consume RNG for determinism; only apply when market is open.
         for i in range(len(_STOCK_WATCHLIST)):
             step = rng.gauss(0, 0.001)
-            self._stock_prices[i] *= 1.0 + step
-            self._stock_prices[i] = round(self._stock_prices[i], 2)
+            if market_open:
+                self._stock_prices[i] *= 1.0 + step
+                self._stock_prices[i] = round(self._stock_prices[i], 2)
 
-        # 2 crypto random walks (0.2% volatility).
+        # 2 crypto random walks (0.35% volatility per 5-min, ~5% daily) — trades 24/7.
         for i in range(len(_CRYPTO_WATCHLIST)):
-            step = rng.gauss(0, 0.002)
+            step = rng.gauss(0, 0.0035)
             self._crypto_prices[i] *= 1.0 + step
             self._crypto_prices[i] = round(self._crypto_prices[i], 2)
 
-        # 1 spare RNG call for determinism.
+        # 2 spare RNG calls for determinism.
+        _unused = rng.random()
         _unused = rng.random()
 
         # Process any transactions that have occurred by this timestamp.
@@ -151,6 +171,13 @@ class FinancialGenerator:
             for (sym, _base), price in zip(_CRYPTO_WATCHLIST, self._crypto_prices, strict=True)
         ]
 
+        # Pending charges: remove settled charges.
+        pending_charges = [
+            {"merchant": merchant, "amount": amount}
+            for merchant, amount, settle_hour in _PENDING_CHARGES
+            if settle_hour is None or hour < settle_hour
+        ]
+
         # Spending vs budget.
         total_month = _PRIOR_MONTH_SPENDING + self._total_spent_today
         pct = total_month / _MONTHLY_BUDGET * 100
@@ -161,7 +188,7 @@ class FinancialGenerator:
         return {
             "last_3_transactions": last_3,
             "account_balance": round(self._account_balance, 2),
-            "pending_charges": list(_PENDING_CHARGES),
+            "pending_charges": pending_charges,
             "stock_watchlist": stock_watchlist,
             "crypto_prices": crypto_prices,
             "spending_vs_budget": spending_vs_budget,

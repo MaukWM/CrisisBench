@@ -170,7 +170,13 @@ class HealthGenerator:
 
         # -- Cumulative steps (bursty during sedentary) --
         if block.activity in _SEDENTARY_ACTIVITIES:
-            new_steps = rng.randint(20, 80) if rng.random() < 0.3 else 0
+            roll = rng.random()
+            if roll < 0.3:
+                new_steps = rng.randint(20, 80)
+            elif roll < 0.38:
+                new_steps = 1
+            else:
+                new_steps = 0
         else:
             new_steps = rng.randint(*_STEPS_PER_HEARTBEAT[block.activity])
         self._cumulative_steps += new_steps

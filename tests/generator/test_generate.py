@@ -95,6 +95,22 @@ class TestGenerateScenario:
         reloaded = ScenarioPackage(**package.model_dump())
         assert reloaded.scenario_id == package.scenario_id
 
+    def test_occasional_missing_modules(self) -> None:
+        """Non-health modules should have occasional None heartbeats (~1.5% drop)."""
+        package = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
+        # At least one non-health module should have a None somewhere.
+        has_drop = False
+        for hb in package.heartbeats:
+            if (
+                hb.location is None
+                or hb.weather is None
+                or hb.calendar is None
+                or hb.financial is None
+            ):
+                has_drop = True
+                break
+        assert has_drop, "Expected at least one None in non-health modules"
+
 
 class TestHealthRealism:
     """Verify the 6 realism improvements produce physiologically plausible data."""
@@ -246,9 +262,9 @@ class TestLocationRealism:
             assert hb.location is None
 
     def test_location_present_for_t2(self, package: ScenarioPackage) -> None:
-        """AC #6: T2+ heartbeats have location data."""
-        for hb in package.heartbeats:
-            assert hb.location is not None
+        """AC #6: T2+ heartbeats have location data on almost every beat."""
+        present = sum(1 for hb in package.heartbeats if hb.location is not None)
+        assert present >= len(package.heartbeats) * 0.95
 
     def test_stationary_blocks_near_known_coords(self, package: ScenarioPackage) -> None:
         """AC #1: office/home GPS within ~50 m of LOCATIONS."""
@@ -364,20 +380,32 @@ class TestWeatherRealism:
             assert hb.weather is None
 
     def test_weather_present_for_t2(self, package: ScenarioPackage) -> None:
-        """T2+ heartbeats have weather data."""
-        for hb in package.heartbeats:
-            assert hb.weather is not None
+        """T2+ heartbeats have weather data on almost every beat."""
+        present = sum(1 for hb in package.heartbeats if hb.weather is not None)
+        assert present >= len(package.heartbeats) * 0.95
 
     def test_temp_diurnal_curve(self, package: ScenarioPackage) -> None:
         """AC #1: temperature warms through morning, peaks afternoon, cools evening."""
         cid = package.crisis_heartbeat_id
         normal = [hb for hb in package.heartbeats[:cid] if hb.weather is not None]
         temps = [hb.weather.temp for hb in normal]
-        # First reading (06:30) should be cooler than midday (~12:30, HB ~72).
-        early = temps[0]
+        # Dawn (06:30) should be cool (< 20°C).
+        assert temps[0] < 20.0, f"Dawn temp {temps[0]} should be below 20°C"
+        # Midday (~12:30, HB ~72) should be warmer than dawn.
         midday_idx = min(72, len(temps) - 1)
-        midday = temps[midday_idx]
-        assert midday > early, f"Midday {midday} should be warmer than dawn {early}"
+        assert temps[midday_idx] > temps[0]
+        # Peak should be in the afternoon (HB 90-130, roughly 14:00-17:30).
+        peak_idx = temps.index(max(temps))
+        assert 80 <= peak_idx <= 135, (
+            f"Peak temp at HB {peak_idx}, expected in afternoon range 80-135"
+        )
+
+    def test_temp_no_sudden_jumps(self, package: ScenarioPackage) -> None:
+        """Adjacent heartbeats should not have temperature jumps > 2°C."""
+        temps = [hb.weather.temp for hb in package.heartbeats if hb.weather is not None]
+        for i in range(1, len(temps)):
+            diff = abs(temps[i] - temps[i - 1])
+            assert diff < 2.0, f"HB {i}: temp jumped {diff:.1f}°C ({temps[i - 1]} -> {temps[i]})"
 
     def test_humidity_inverse_correlation(self, package: ScenarioPackage) -> None:
         """AC #1: humidity higher in morning, lower in afternoon."""
@@ -392,8 +420,8 @@ class TestWeatherRealism:
         """AC #1: UV index peaks around midday, low at dawn/evening."""
         cid = package.crisis_heartbeat_id
         normal = [hb for hb in package.heartbeats[:cid] if hb.weather is not None]
-        # Dawn (06:30) UV should be 0 or very low.
-        assert normal[0].weather.uv_index <= 1
+        # Dawn (06:30) UV should be 0 or very low (≤2 in mid-June, sunrise ~5:25 AM).
+        assert normal[0].weather.uv_index <= 2
         # Midday (12:30, HB ~72) should have high UV.
         midday_idx = min(72, len(normal) - 1)
         assert normal[midday_idx].weather.uv_index >= 4
@@ -524,3 +552,26 @@ class TestFinancialRealism:
         pkg2 = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
         for h1, h2 in zip(pkg1.heartbeats, pkg2.heartbeats, strict=False):
             assert h1.financial == h2.financial
+
+    def test_financial_continues_during_crisis(self, package: ScenarioPackage) -> None:
+        """Financial data (crypto at minimum) keeps evolving during crisis."""
+        cid = package.crisis_heartbeat_id
+        crisis_hbs = [hb for hb in package.heartbeats[cid:] if hb.financial is not None]
+        assert len(crisis_hbs) > 1
+        # Crypto trades 24/7 — prices should vary even during crisis.
+        sol_prices = [hb.financial.crypto_prices[0].price for hb in crisis_hbs]
+        assert len(set(sol_prices)) > 1, "Crypto prices should vary during crisis"
+
+    def test_stocks_frozen_outside_market_hours(self, package: ScenarioPackage) -> None:
+        """Stock prices should not change outside 09:30-16:00 market hours."""
+        # First few heartbeats (06:30-06:50) are pre-market.
+        # Pick the first two with financial data (occasional drops may skip one).
+        with_fin = [hb for hb in package.heartbeats[:5] if hb.financial is not None]
+        assert len(with_fin) >= 2, "Need at least 2 pre-market heartbeats with financial data"
+        first, second = with_fin[0], with_fin[1]
+        for q1, q2 in zip(
+            first.financial.stock_watchlist, second.financial.stock_watchlist, strict=True
+        ):
+            assert q1.price == q2.price, (
+                f"{q1.symbol} price changed pre-market: {q1.price} -> {q2.price}"
+            )

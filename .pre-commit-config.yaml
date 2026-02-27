@@ -26,6 +26,7 @@ repos:
     rev: v2.4.1
     hooks:
       - id: codespell
+        args: [--ignore-words-list, "EHR"]
 
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.24.0

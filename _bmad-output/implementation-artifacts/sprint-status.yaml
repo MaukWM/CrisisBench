@@ -1,0 +1,78 @@
+# generated: 2026-02-25
+# project: crisis_bench
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+#
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: 2026-02-25
+project: crisis_bench
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  # Epic 1: Project Foundation & Data Contracts
+  epic-1: done
+  1-1-project-scaffolding-quality-gates: done
+  1-2-scenario-data-models: done
+  1-3-runtime-data-models: done
+  1-4-scoring-data-models: done
+  epic-1-retrospective: optional
+
+  # Epic 2: Scenario Generation Pipeline
+  epic-2: in-progress
+  2-1-personschedule-generation-framework: done
+  2-2-health-location-module-generators: review
+  2-3-weather-calendar-financial-module-generators: review
+  2-4-communications-module-generator: backlog
+  2-5-crisis-injector-scenario-packaging: backlog
+  2-6-memory-bootstrapping-example-scenario: backlog
+  epic-2-retrospective: optional
+
+  # Epic 3: Benchmark Execution Engine
+  epic-3: backlog
+  3-1-orchestrator-shell-scenario-loading: backlog
+  3-2-system-prompt-builder-model-client: backlog
+  3-3-toolrouter-scenariodatahandler-memoryhandler: backlog
+  3-4-multi-turn-tool-loop-action-log: backlog
+  3-5-usersimhandler-human-simulator: backlog
+  3-6-mcphandler-transcript-recording: backlog
+  3-7-post-crisis-window-end-to-end-integration: backlog
+  epic-3-retrospective: optional
+
+  # Epic 4: Scoring & Evaluation
+  epic-4: backlog
+  4-1-heuristic-scorer: backlog
+  4-2-llm-as-judge-scorer: backlog
+  4-3-multi-run-pipeline-statistical-aggregation: backlog
+  4-4-leaderboard-output-reporting: backlog
+  epic-4-retrospective: optional

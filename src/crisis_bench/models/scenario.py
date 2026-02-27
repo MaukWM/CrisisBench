@@ -40,7 +40,7 @@ class LocationData(BaseModel):
     speed: float = Field(description="Speed in m/s")
     heading: int = Field(description="Compass heading in degrees 0-360")
     accuracy: float = Field(description="GPS accuracy in meters")
-    geofence_status: str = Field(description="Current geofence zone name")
+    geofence_status: str | None = Field(default=None, description="Current geofence zone name")
     movement_classification: str = Field(
         description="Movement type: stationary/walking/running/driving"
     )

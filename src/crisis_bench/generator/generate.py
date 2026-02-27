@@ -182,15 +182,13 @@ _DEFAULT_AGENT = AgentIdentity(
 def _collect_generators(
     tier: str,
 ) -> dict[str, ModuleGenerator]:
-    """Return the set of module generators enabled for *tier*.
-
-    Only the HealthGenerator exists in this story; others are stubs returning
-    ``None`` for now (stories 2.2-2.4 will fill them in).
-    """
+    """Return the set of module generators enabled for *tier*."""
     from crisis_bench.generator.modules.health import HealthGenerator
+    from crisis_bench.generator.modules.location import LocationGenerator
 
     registry: dict[str, ModuleGenerator] = {
         "health": HealthGenerator(),
+        "location": LocationGenerator(),
     }
 
     enabled = TIER_MODULES.get(tier, TIER_MODULES["T4"])

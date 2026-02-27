@@ -230,3 +230,121 @@ class TestHealthRealism:
         # With ~139 pre-crisis heartbeats and 10% spike chance during many
         # sedentary blocks, we expect at least a few spikes above 70.
         assert len(package_hrs) > 0, "Expected at least one HR spike above 70 BPM"
+
+
+class TestLocationRealism:
+    """Story 2.2: Location module generates realistic spatial data."""
+
+    @pytest.fixture()
+    def package(self) -> ScenarioPackage:
+        return generate_scenario(crisis_type="cardiac_arrest", tier="T2", seed=42)
+
+    def test_location_none_for_t1(self) -> None:
+        """AC #6: T1 heartbeats have no location data."""
+        package = generate_scenario(crisis_type="cardiac_arrest", tier="T1", seed=42)
+        for hb in package.heartbeats:
+            assert hb.location is None
+
+    def test_location_present_for_t2(self, package: ScenarioPackage) -> None:
+        """AC #6: T2+ heartbeats have location data."""
+        for hb in package.heartbeats:
+            assert hb.location is not None
+
+    def test_stationary_blocks_near_known_coords(self, package: ScenarioPackage) -> None:
+        """AC #1: office/home GPS within ~50 m of LOCATIONS."""
+        from crisis_bench.generator.schedule import LOCATIONS
+
+        # Check first 3 heartbeats (waking_up at home) and a working heartbeat.
+        for hb in package.heartbeats[:3]:
+            loc = hb.location
+            assert loc is not None
+            home = LOCATIONS["home"]
+            assert home is not None
+            assert abs(loc.lat - home[0]) < 0.001, "Home lat too far"
+            assert abs(loc.lon - home[1]) < 0.001, "Home lon too far"
+            assert loc.geofence_status == "at_home"
+            assert loc.movement_classification == "stationary"
+
+        # Working heartbeat (around HB 20, well into working block at office).
+        office_hb = package.heartbeats[20]
+        assert office_hb.location is not None
+        office = LOCATIONS["office"]
+        assert office is not None
+        assert abs(office_hb.location.lat - office[0]) < 0.001, "Office lat too far"
+        assert abs(office_hb.location.lon - office[1]) < 0.001, "Office lon too far"
+        assert office_hb.location.geofence_status == "at_office"
+
+    def test_geofence_none_for_unmapped_locations(self, package: ScenarioPackage) -> None:
+        """Geofence should be None for locations without configured zones."""
+        cid = package.crisis_heartbeat_id
+        # Running heartbeats (park) should have no geofence.
+        for hb in package.heartbeats[cid - 4 : cid]:
+            loc = hb.location
+            assert loc is not None
+            assert loc.geofence_status is None
+        # Crisis heartbeats should have no geofence.
+        for hb in package.heartbeats[cid:]:
+            loc = hb.location
+            assert loc is not None
+            assert loc.geofence_status is None
+
+    def test_commute_speed_plausible(self, package: ScenarioPackage) -> None:
+        """AC #2: transit speed plausible — allows station stops (speed 0)."""
+        # Morning commute: HB 6-11 (07:00-07:25).
+        speeds = []
+        for hb in package.heartbeats[6:12]:
+            loc = hb.location
+            assert loc is not None
+            assert 0.0 <= loc.speed <= 13.0, (
+                f"HB {hb.heartbeat_id}: speed {loc.speed} out of range"
+            )
+            assert loc.geofence_status is None
+            assert loc.movement_classification == "driving"
+            speeds.append(loc.speed)
+        avg = sum(speeds) / len(speeds)
+        assert 2.0 <= avg <= 10.0, f"Average commute speed {avg} not plausible"
+
+    def test_running_speed_plausible(self, package: ScenarioPackage) -> None:
+        """AC #3: running block speed ~2-4 m/s."""
+        cid = package.crisis_heartbeat_id
+        # Running heartbeats are the 4 just before crisis (17:45-18:05).
+        for hb in package.heartbeats[cid - 4 : cid]:
+            loc = hb.location
+            assert loc is not None
+            assert 2.0 <= loc.speed <= 4.0, f"HB {hb.heartbeat_id}: speed {loc.speed} out of range"
+            assert loc.movement_classification == "running"
+
+    def test_crisis_location_near_frozen(self, package: ScenarioPackage) -> None:
+        """AC #4: GPS stays near last position during crisis (sub-meter drift)."""
+        cid = package.crisis_heartbeat_id
+        pre_crisis = package.heartbeats[cid - 1].location
+        assert pre_crisis is not None
+
+        for hb in package.heartbeats[cid:]:
+            loc = hb.location
+            assert loc is not None
+            # Within ~50 m (0.0005°) of pre-crisis position.
+            assert abs(loc.lat - pre_crisis.lat) < 0.0005, (
+                f"Crisis GPS lat drifted too far: {loc.lat} vs {pre_crisis.lat}"
+            )
+            assert abs(loc.lon - pre_crisis.lon) < 0.0005, (
+                f"Crisis GPS lon drifted too far: {loc.lon} vs {pre_crisis.lon}"
+            )
+            assert loc.speed == 0.0
+            assert loc.movement_classification == "stationary"
+
+    def test_crisis_accuracy_stable(self, package: ScenarioPackage) -> None:
+        """AC #4: GPS accuracy stays in reasonable outdoor range during crisis."""
+        cid = package.crisis_heartbeat_id
+        for hb in package.heartbeats[cid:]:
+            assert hb.location is not None
+            assert 1.0 <= hb.location.accuracy <= 10.0, (
+                f"Crisis accuracy {hb.location.accuracy} outside outdoor range"
+            )
+
+    def test_location_deterministic(self) -> None:
+        """AC #5: same seed = same output."""
+        pkg1 = generate_scenario(crisis_type="cardiac_arrest", tier="T2", seed=42)
+        pkg2 = generate_scenario(crisis_type="cardiac_arrest", tier="T2", seed=42)
+        for h1, h2 in zip(pkg1.heartbeats, pkg2.heartbeats, strict=False):
+            assert h1.location == h2.location

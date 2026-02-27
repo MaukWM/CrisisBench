@@ -7,3 +7,5 @@ uv run pre-commit run ...
 Fix any mypy issues immediately if issues arise in pre-commit. Audit issues should be raised with the developer.
 
 When creating __init__ files for modules, never define __all__ import simplifications, just import other files the way they are.
+
+Never use defensive `.get()` with fallback values on dicts that are guaranteed to be populated. Use direct key access (`d["key"]`) so missing keys fail loudly instead of silently returning wrong defaults.

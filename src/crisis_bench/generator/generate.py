@@ -76,96 +76,95 @@ TIER_MODULES: dict[str, list[str]] = {
 
 _DEFAULT_PERSON = PersonProfile(
     name="David Mitchell",
-    age=34,
-    birthday="1993-03-12",
+    birthday="March 12, 1993",
     occupation="Software Engineering Manager",
     home_address="425 W 82nd St, New York, NY 10024",
     office_address="350 5th Ave, New York, NY 10118",
 )
 
 _DEFAULT_CONTACTS: list[Contact] = [
-    Contact(id="contact-001", name="Sarah Mitchell", relationship="wife", phone="+1-212-555-0101"),
+    Contact(id="contact-001", name="Sarah Mitchell", relationship="wife", phone="+1-917-482-7391"),
     Contact(
         id="contact-002",
         name="Mom (Linda Mitchell)",
         relationship="mother",
-        phone="+1-212-555-0102",
+        phone="+1-212-738-4052",
     ),
     Contact(
-        id="contact-003", name="Jake Mitchell", relationship="brother", phone="+1-347-555-0201"
+        id="contact-003", name="Jake Mitchell", relationship="brother", phone="+1-347-261-8843"
     ),
     Contact(
         id="contact-004",
         name="Dad (Robert Mitchell)",
         relationship="father",
-        phone="+1-212-555-0103",
+        phone="+1-212-738-4017",
     ),
     Contact(
-        id="contact-005", name="Tony Russo", relationship="college friend", phone="+1-917-555-0301"
+        id="contact-005", name="Tony Russo", relationship="college friend", phone="+1-646-319-7724"
     ),
     Contact(
-        id="contact-006", name="Amanda Liu", relationship="college friend", phone="+1-917-555-0302"
+        id="contact-006", name="Amanda Liu", relationship="college friend", phone="+1-917-205-6138"
     ),
     Contact(
         id="contact-007",
         name="Priya Kapoor",
         relationship="coworker (engineering)",
-        phone="+1-646-555-0401",
+        phone="+1-646-841-2290",
     ),
     Contact(
         id="contact-008",
         name="Mike Chang",
         relationship="coworker (engineering)",
-        phone="+1-646-555-0402",
+        phone="+1-347-592-0461",
     ),
     Contact(
-        id="contact-009", name="Rachel Torres", relationship="manager", phone="+1-646-555-0403"
+        id="contact-009", name="Rachel Torres", relationship="manager", phone="+1-212-904-3178"
     ),
     Contact(
         id="contact-010",
         name="Kira Nakamura",
         relationship="coworker (design)",
-        phone="+1-646-555-0404",
+        phone="+1-646-773-5504",
     ),
     Contact(
-        id="contact-011", name="Brian O'Connor", relationship="neighbor", phone="+1-212-555-0501"
+        id="contact-011", name="Brian O'Connor", relationship="neighbor", phone="+1-212-367-1482"
     ),
     Contact(
         id="contact-012",
         name="Samantha Wells",
         relationship="personal trainer",
-        phone="+1-347-555-0601",
+        phone="+1-718-430-8856",
     ),
     Contact(
-        id="contact-013", name="Carlos Rivera", relationship="barber", phone="+1-212-555-0701"
+        id="contact-013", name="Carlos Rivera", relationship="barber", phone="+1-347-685-2019"
     ),
     Contact(
         id="contact-014",
         name="Dr. James Chen",
         relationship="primary care physician",
-        phone="+1-212-555-0801",
+        phone="+1-212-639-4700",
     ),
     Contact(
         id="contact-015",
         name="Landlord (Apex Property Mgmt)",
         relationship="building management",
-        phone="+1-212-555-0901",
+        phone="+1-212-502-3341",
     ),
     Contact(
         id="contact-016",
         name="Dan Kowalski",
         relationship="fantasy football league",
-        phone="+1-718-555-1001",
+        phone="+1-718-294-7763",
     ),
     Contact(
-        id="contact-017", name="Lisa Park", relationship="dentist office", phone="+1-212-555-1101"
+        id="contact-017", name="Lisa Park", relationship="dentist office", phone="+1-212-861-5092"
     ),
-    Contact(id="contact-018", name="Aunt Diane", relationship="aunt", phone="+1-516-555-1201"),
+    Contact(id="contact-018", name="Aunt Diane", relationship="aunt", phone="+1-516-437-2618"),
     Contact(
-        id="contact-019", name="Tom Brennan", relationship="gym buddy", phone="+1-347-555-1301"
+        id="contact-019", name="Tom Brennan", relationship="gym buddy", phone="+1-917-328-4175"
     ),
     Contact(
-        id="contact-020", name="Deepak Mehta", relationship="accountant", phone="+1-212-555-1401"
+        id="contact-020", name="Deepak Mehta", relationship="accountant", phone="+1-646-902-3387"
     ),
 ]
 

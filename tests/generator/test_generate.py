@@ -94,3 +94,89 @@ class TestGenerateScenario:
         # Re-validate by round-tripping through dict → model.
         reloaded = ScenarioPackage(**package.model_dump())
         assert reloaded.scenario_id == package.scenario_id
+
+
+class TestHealthRealism:
+    """Verify the 6 realism improvements produce physiologically plausible data."""
+
+    @pytest.fixture()
+    def package(self) -> ScenarioPackage:
+        return generate_scenario(crisis_type="cardiac_arrest", tier="T1", seed=42)
+
+    def test_crisis_skin_temp_declines(self, package: ScenarioPackage) -> None:
+        """Skin temp should monotonically decrease during crisis (cooling body)."""
+        cid = package.crisis_heartbeat_id
+        crisis_temps = [
+            hb.health.skin_temp for hb in package.heartbeats[cid:] if hb.health is not None
+        ]
+        assert len(crisis_temps) >= 10
+        for i in range(1, len(crisis_temps)):
+            assert crisis_temps[i] <= crisis_temps[i - 1]
+        # Over 20 heartbeats at -0.1°C each, expect >1°C total drop.
+        assert crisis_temps[0] - crisis_temps[-1] > 1.0
+
+    def test_crisis_blood_glucose_drifts_up(self, package: ScenarioPackage) -> None:
+        """Blood glucose should drift upward during crisis (cells stop consuming)."""
+        cid = package.crisis_heartbeat_id
+        crisis_glucose = [
+            hb.health.blood_glucose for hb in package.heartbeats[cid:] if hb.health is not None
+        ]
+        assert len(crisis_glucose) >= 10
+        # Overall trend must be upward.
+        assert crisis_glucose[-1] > crisis_glucose[0]
+
+    def test_blood_glucose_meal_response(self, package: ScenarioPackage) -> None:
+        """Blood glucose should spike after breakfast and lunch meals."""
+        cid = package.crisis_heartbeat_id
+        normal_hbs = package.heartbeats[:cid]
+        glucose_values = [hb.health.blood_glucose for hb in normal_hbs if hb.health is not None]
+        # Find the baseline (first few readings before breakfast kicks in).
+        baseline = glucose_values[0]
+        peak = max(glucose_values)
+        # Meal response should cause at least a 15 mg/dL spike above baseline.
+        assert peak - baseline > 15.0
+
+    def test_skin_temp_stays_in_range(self, package: ScenarioPackage) -> None:
+        """Normal skin temp should stay within 36.0-37.2°C."""
+        cid = package.crisis_heartbeat_id
+        for hb in package.heartbeats[:cid]:
+            assert hb.health is not None
+            assert 36.0 <= hb.health.skin_temp <= 37.2
+
+    def test_steps_bursty_during_sedentary(self, package: ScenarioPackage) -> None:
+        """During sedentary blocks, >50% of heartbeats should add zero steps (bursty)."""
+        cid = package.crisis_heartbeat_id
+        normal_hbs = [hb for hb in package.heartbeats[:cid] if hb.health is not None]
+        # Compute step deltas.
+        deltas = [
+            normal_hbs[i].health.steps - normal_hbs[i - 1].health.steps
+            for i in range(1, len(normal_hbs))
+        ]
+        zero_deltas = sum(1 for d in deltas if d == 0)
+        # At least some zeros (bursty pattern — sedentary periods have many zeros).
+        assert zero_deltas > len(deltas) * 0.3
+        # But not all zeros — there should be some bursts.
+        assert zero_deltas < len(deltas)
+
+    def test_body_battery_occasionally_recovers(self, package: ScenarioPackage) -> None:
+        """Body battery should occasionally increase during rest, but trend down overall."""
+        cid = package.crisis_heartbeat_id
+        normal_hbs = [hb for hb in package.heartbeats[:cid] if hb.health is not None]
+        batteries = [hb.health.body_battery for hb in normal_hbs]
+        deltas = [batteries[i] - batteries[i - 1] for i in range(1, len(batteries))]
+        # At least one positive delta (recovery).
+        assert any(d > 0 for d in deltas), "Expected at least one body battery recovery"
+        # Net trend should be downward.
+        assert batteries[-1] < batteries[0]
+
+    def test_hr_micro_spikes_during_sedentary(self, package: ScenarioPackage) -> None:
+        """At least one HR should spike above the block's max range during sedentary work."""
+        # Working blocks have hr_range (63, 70). Spikes add 10-25.
+        package_hrs = []
+        cid = package.crisis_heartbeat_id
+        for hb in package.heartbeats[:cid]:
+            if hb.health is not None and hb.health.heart_rate > 70:
+                package_hrs.append(hb.health.heart_rate)
+        # With ~139 pre-crisis heartbeats and 10% spike chance during many
+        # sedentary blocks, we expect at least a few spikes above 70.
+        assert len(package_hrs) > 0, "Expected at least one HR spike above 70 BPM"

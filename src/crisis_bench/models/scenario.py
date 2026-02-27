@@ -209,8 +209,7 @@ class PersonProfile(BaseModel):
     model_config = ConfigDict(frozen=True)
 
     name: str = Field(description="Full name")
-    age: int = Field(description="Age in years")
-    birthday: str = Field(description="Birthday as ISO 8601 date (YYYY-MM-DD)")
+    birthday: str = Field(description="Birthday in natural language (e.g. 'March 12, 1993')")
     occupation: str = Field(description="Job title or occupation")
     home_address: str = Field(description="Home street address")
     office_address: str = Field(description="Office street address")

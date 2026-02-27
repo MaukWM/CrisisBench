@@ -34,6 +34,18 @@ class TestFullPipelineDeterminism:
         ]
         assert any(diffs)
 
+    def test_stateful_health_fields_deterministic(self) -> None:
+        """Stateful fields (skin_temp, blood_glucose, body_battery) must match
+        across identical-seed runs, proving the RNG consumption order is stable."""
+        p1 = generate_scenario(crisis_type="cardiac_arrest", tier="T1", seed=99)
+        p2 = generate_scenario(crisis_type="cardiac_arrest", tier="T1", seed=99)
+        for hb1, hb2 in zip(p1.heartbeats, p2.heartbeats, strict=False):
+            assert hb1.health is not None
+            assert hb2.health is not None
+            assert hb1.health.skin_temp == hb2.health.skin_temp
+            assert hb1.health.blood_glucose == hb2.health.blood_glucose
+            assert hb1.health.body_battery == hb2.health.body_battery
+
     def test_determinism_across_tiers(self) -> None:
         """Same seed, different tiers — both produce valid packages.
 

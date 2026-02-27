@@ -90,7 +90,7 @@ def _build_schedule_constant() -> list[ActivityBlock]:
 CARDIAC_ARREST_SCHEDULE: list[ActivityBlock] = _build_schedule_constant()
 
 # Default number of post-crisis heartbeats (5-minute intervals after crisis start).
-_POST_CRISIS_HEARTBEATS = 5
+_POST_CRISIS_HEARTBEATS = 20
 
 # Heartbeat cadence in minutes.
 HEARTBEAT_INTERVAL_MINUTES = 5

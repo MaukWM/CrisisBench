@@ -220,7 +220,7 @@ class RunConfig(BaseModel):
     )
     max_tool_turns: int = Field(default=10, description="Maximum tool turns per heartbeat")
     max_post_crisis_heartbeats: int = Field(
-        default=5, description="Heartbeats to continue after crisis detection"
+        default=20, description="Heartbeats to continue after crisis detection"
     )
     action_log_window: int = Field(default=20, description="Rolling action log window size")
 

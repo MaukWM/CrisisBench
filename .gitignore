@@ -5,7 +5,6 @@ system_prompt.py
 
 # BMAD tooling
 _bmad/
-_bmad-output/
 
 # Claude Code
 .claude/

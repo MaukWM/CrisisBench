@@ -169,9 +169,7 @@ _DEFAULT_CONTACTS: list[Contact] = [
     Contact(
         id="contact-020", name="Deepak Mehta", relationship="accountant", phone="+1-646-902-3387"
     ),
-    Contact(
-        id="contact-021", name="Donald Vera", relationship="friend", phone="+1-334-910-4518"
-    ),
+    Contact(id="contact-021", name="Donald Vera", relationship="friend", phone="+1-334-910-4518"),
 ]
 
 _DEFAULT_AGENT = AgentIdentity(

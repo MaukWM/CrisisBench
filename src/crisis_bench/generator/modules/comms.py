@@ -44,7 +44,12 @@ _EMAIL_EVENTS: list[tuple[str, str, str]] = [
 # Scripted Slack messages: (HH:MM, channel, sender, message).
 # Work hours only (09:00-17:30). Clusters around standup and meetings.
 _SLACK_EVENTS: list[tuple[str, str, str, str]] = [
-    ("09:02", "#engineering", "Priya Kapoor", "merged the PR from yday, will deploy after standup"),
+    (
+        "09:02",
+        "#engineering",
+        "Priya Kapoor",
+        "merged the PR from yday, will deploy after standup",
+    ),
     ("09:03", "#general", "Mike Chang", "sry can't make standup today"),
     (
         "09:05",
@@ -59,7 +64,12 @@ _SLACK_EVENTS: list[tuple[str, str, str, str]] = [
         "updated mockups are in the drive, same folder as before",
     ),
     ("13:22", "#random", "Mike Chang", "https://www.youtube.com/watch?v=TiQm5Fh5NjE"),
-    ("14:41", "#engineering", "Priya Kapoor", "customer page on staging seems to be broken, mike can you check it out?"),
+    (
+        "14:41",
+        "#engineering",
+        "Priya Kapoor",
+        "customer page on staging seems to be broken, mike can you check it out?",
+    ),
     ("14:46", "#engineering", "Mike Chang", "yep on ti"),
     ("15:53", "#general", "Rachel Torres", "reminder — happy hour friday at 5, no excuses🕺🕺🕺"),
     (

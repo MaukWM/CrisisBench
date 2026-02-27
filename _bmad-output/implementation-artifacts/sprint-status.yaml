@@ -59,8 +59,8 @@ development_status:
   epic-2-retrospective: optional
 
   # Epic 3: Benchmark Execution Engine
-  epic-3: backlog
-  3-1-orchestrator-shell-scenario-loading: backlog
+  epic-3: in-progress
+  3-1-orchestrator-shell-scenario-loading: done
   3-2-system-prompt-builder-model-client: backlog
   3-3-toolrouter-scenariodatahandler-memoryhandler: backlog
   3-4-multi-turn-tool-loop-action-log: backlog

@@ -67,10 +67,32 @@ def generate(crisis: str, tier: str, seed: int, scenario_date: str | None, outpu
 
 
 @main.command()
-def run() -> None:
+@click.option(
+    "--scenario",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+    help="Path to scenario package directory.",
+)
+@click.option(
+    "--config",
+    required=True,
+    type=click.Path(exists=True, path_type=Path),
+    help="Path to runner configuration JSON file.",
+)
+def run(scenario: Path, config: Path) -> None:
     """Run benchmark against an LLM agent."""
-    click.echo("Not implemented yet")
-    raise SystemExit(1)
+    import asyncio
+
+    from pydantic import ValidationError
+
+    from crisis_bench.runner.run import run_benchmark
+    from crisis_bench.runner.scenario_loader import ScenarioLoadError
+
+    try:
+        asyncio.run(run_benchmark(scenario, config))
+    except (ScenarioLoadError, ValidationError) as exc:
+        click.echo(str(exc), err=True)
+        raise SystemExit(1) from exc
 
 
 @main.command()

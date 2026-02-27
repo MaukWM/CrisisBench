@@ -19,17 +19,12 @@ class HealthData(BaseModel):
     spo2: int = Field(description="Blood oxygen saturation percentage")
     steps: int = Field(description="Step count today")
     skin_temp: float = Field(description="Skin temperature in Celsius")
-    ecg_summary: str = Field(description="ECG reading summary text")  # TODO What is this?
-    blood_glucose: float = Field(
-        description="Blood glucose level mg/dL"
-    )  # TODO: Can a non invasive device read this?
+    ecg_summary: str = Field(description="ECG reading summary text")
+    blood_glucose: float = Field(description="Blood glucose level in mg/dL")
     calories_burned: int = Field(description="Calories burned since midnight")
     sleep_stage: str = Field(description="Current or last sleep stage")
     respiratory_rate: int = Field(description="Breaths per minute")
-    body_battery: int = Field(
-        description="Body battery energy level 0-100"
-    )  # TODO: Is this battery information of the device?
-    # Can we report other "mundane" device status? Just a few
+    body_battery: int = Field(description="Body battery energy level 0-100")
 
 
 class LocationData(BaseModel):
@@ -61,9 +56,7 @@ class WeatherData(BaseModel):
     wind_dir: str = Field(description="Wind direction abbreviation")
     uv_index: int = Field(description="UV index 0-11+")
     aqi: int = Field(description="Air quality index")
-    pollen_count: int = Field(
-        description="Pollen count level"
-    )  # TODO: these need units, I dont know what a number means.
+    pollen_level: str = Field(description="Pollen level (Low/Medium/High/Very High)")
     pressure: float = Field(description="Barometric pressure in inHg")
     dew_point: float = Field(description="Dew point in Fahrenheit")
     cloud_cover: int = Field(description="Cloud cover percentage")
@@ -77,9 +70,7 @@ class CalendarEvent(BaseModel):
     title: str = Field(description="Event title")
     time: str = Field(description="Event time as ISO 8601 datetime")
     location: str = Field(description="Event location")
-    attendees: list[str] = Field(
-        description="List of attendee names"
-    )  # TODO: Do we want/need this?
+    attendees: list[str] = Field(description="List of attendee names")
 
 
 class Reminder(BaseModel):
@@ -149,7 +140,7 @@ class CommsData(BaseModel):
     voicemail_count: int = Field(description="Number of voicemails")
     sms: list[Sms] = Field(description="Recent SMS messages")
     social_notifications: list[SocialNotification] = Field(
-        description="Social media notifications"  # TODO This is the only one im unsure of
+        description="Social media notifications"
     )
 
 
@@ -158,10 +149,9 @@ class Transaction(BaseModel):
 
     model_config = ConfigDict(frozen=True)
 
-    merchant: str = Field(
-        description="Merchant name"
-    )  # TODO: Merchant? Not receiver? Might need to be classified as incoming or outgoing as well
+    counterparty: str = Field(description="Transaction counterparty (merchant or individual)")
     amount: float = Field(description="Transaction amount in USD")
+    category: str = Field(description="Transaction category (incoming/outgoing")
 
 
 class PendingCharge(BaseModel):
@@ -169,7 +159,7 @@ class PendingCharge(BaseModel):
 
     model_config = ConfigDict(frozen=True)
 
-    merchant: str = Field(description="Merchant name")  # TODO: Merchant?
+    merchant: str = Field(description="Merchant name")
     amount: float = Field(description="Charge amount in USD")
 
 
@@ -218,7 +208,7 @@ class PersonProfile(BaseModel):
 
     name: str = Field(description="Full name")
     age: int = Field(description="Age in years")
-    birthday: int = 0  # TODO: Let's define a birthday field.
+    birthday: str = Field(description="Birthday as ISO 8601 date (YYYY-MM-DD)")
     occupation: str = Field(description="Job title or occupation")
     home_address: str = Field(description="Home street address")
     office_address: str = Field(description="Office street address")
@@ -239,15 +229,15 @@ class AgentIdentity(BaseModel):
     """The AI assistant's identity."""
 
     model_config = ConfigDict(frozen=True)
-    # TODO: Identity is missing stuff that openclaw has (like personality etc.)
+
     name: str = Field(description="Agent display name")
+    personality: str = Field(description="Agent personality description")
 
 
 class ToolParameter(BaseModel):
     """A single parameter in a tool definition."""
 
-    model_config = ConfigDict(frozen=True)  # TODO: Why is tool param/definition here,
-    # don't we get that for free when we define a react agent? ...
+    model_config = ConfigDict(frozen=True)
 
     name: str = Field(description="Parameter name")
     type: str = Field(description="Parameter type (string, int, etc.)")
@@ -280,17 +270,13 @@ class HeartbeatPayload(BaseModel):
     model_config = ConfigDict(frozen=True)
 
     heartbeat_id: int = Field(description="Sequential heartbeat identifier")
-    # TODO: If we do heartbeat id, the simulation MUST start with a heartbeat
-    #  1 week old. Maybe we can drop this entirely.
     timestamp: str = Field(description="Heartbeat time as ISO 8601 datetime")
-    health: HealthData | None = Field(default=None, description="Health sensor data (T1+)")
-    # TODO: Does the agent see these descriptions? or not?
-    #  Cause T1/2/3/4 is leaking information otherwise.
-    location: LocationData | None = Field(default=None, description="Location data (T2+)")
-    weather: WeatherData | None = Field(default=None, description="Weather data (T2+)")
-    calendar: CalendarData | None = Field(default=None, description="Calendar data (T3+)")
-    comms: CommsData | None = Field(default=None, description="Communications data (T3+)")
-    financial: FinancialData | None = Field(default=None, description="Financial data (T4)")
+    health: HealthData | None = Field(default=None, description="Health sensor data")
+    location: LocationData | None = Field(default=None, description="Location data")
+    weather: WeatherData | None = Field(default=None, description="Weather data")
+    calendar: CalendarData | None = Field(default=None, description="Calendar data")
+    comms: CommsData | None = Field(default=None, description="Communications data")
+    financial: FinancialData | None = Field(default=None, description="Financial data")
 
 
 class ScenarioManifest(BaseModel):
@@ -324,9 +310,7 @@ class ScenarioPackage(BaseModel):
     noise_tier: Literal["T1", "T2", "T3", "T4"] = Field(
         description="Noise tier controlling module inclusion"
     )
-    crisis_heartbeat_id: int = Field(
-        description="Heartbeat ID when crisis occurs"
-    )  # TODO: Ah this is why we need id!
+    crisis_heartbeat_id: int = Field(description="Heartbeat ID when crisis occurs")
     person: PersonProfile = Field(description="Simulated user profile")
     contacts: list[Contact] = Field(description="User's contact list")
     agent_identity: AgentIdentity = Field(description="AI assistant identity")

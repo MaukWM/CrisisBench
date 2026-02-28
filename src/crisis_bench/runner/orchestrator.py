@@ -26,12 +26,16 @@ class Orchestrator:
         self.prompt_builder = PromptBuilder(scenario)
         self.model_client = ModelClient(config, scenario.tool_definitions)
 
-    async def run(self) -> None:
+    async def run(self, *, max_heartbeats: int | None = None) -> None:
         """Iterate heartbeats in order, respecting the post-crisis window."""
         post_crisis_count = 0
         total_count = 0
 
         for hb in self.scenario.heartbeats:
+            if max_heartbeats is not None and total_count >= max_heartbeats:
+                self.log.info("max_heartbeats_reached", limit=max_heartbeats)
+                break
+
             if hb.heartbeat_id > self.scenario.crisis_heartbeat_id:
                 post_crisis_count += 1
                 if post_crisis_count > self.config.max_post_crisis_heartbeats:
@@ -56,6 +60,15 @@ class Orchestrator:
                 has_text=response.text is not None,
                 tool_call_count=len(response.tool_calls),
             )
+            if response.text:
+                self.log.info("agent_text", heartbeat_id=hb.heartbeat_id, text=response.text)
+            for tc in response.tool_calls:
+                self.log.info(
+                    "agent_tool_call",
+                    heartbeat_id=hb.heartbeat_id,
+                    tool_name=tc.name,
+                    arguments=tc.arguments,
+                )
 
             if hb.heartbeat_id == self.scenario.crisis_heartbeat_id:
                 self.log.info("crisis_heartbeat_reached", heartbeat_id=hb.heartbeat_id)

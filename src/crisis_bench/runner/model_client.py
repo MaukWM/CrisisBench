@@ -33,13 +33,27 @@ class AgentResponse:
     tool_calls: list[ParsedToolCall] = field(default_factory=list)
 
 
+def _sanitize_tool_name(name: str) -> str:
+    """Replace dots with double underscores for OpenAI API compatibility.
+
+    OpenAI requires tool names to match ``^[a-zA-Z0-9_-]+$``.
+    MCP tools use dotted names (e.g. ``spotify.search``).
+    """
+    return name.replace(".", "__")
+
+
+def _restore_tool_name(sanitized: str) -> str:
+    """Reverse ``_sanitize_tool_name`` — restore dotted MCP names."""
+    return sanitized.replace("__", ".")
+
+
 def convert_tool_definitions(tools: list[ToolDefinition]) -> list[dict[str, Any]]:
     """Convert project ToolDefinition models to OpenAI/LiteLLM function calling format."""
     return [
         {
             "type": "function",
             "function": {
-                "name": td.name,
+                "name": _sanitize_tool_name(td.name),
                 "description": td.description,
                 "parameters": {
                     "type": "object",
@@ -97,7 +111,7 @@ class ModelClient:
                 parsed_calls.append(
                     ParsedToolCall(
                         id=tc.id,
-                        name=tc.function.name,
+                        name=_restore_tool_name(tc.function.name),
                         arguments=arguments,
                     )
                 )

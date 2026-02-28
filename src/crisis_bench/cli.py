@@ -15,6 +15,9 @@ if TYPE_CHECKING:
 @click.version_option(version="0.1.0")
 def main() -> None:
     """CrisisBench - LLM agent emergency detection benchmark."""
+    from dotenv import load_dotenv
+
+    load_dotenv()
 
 
 @main.command()
@@ -79,7 +82,13 @@ def generate(crisis: str, tier: str, seed: int, scenario_date: str | None, outpu
     type=click.Path(exists=True, path_type=Path),
     help="Path to runner configuration JSON file.",
 )
-def run(scenario: Path, config: Path) -> None:
+@click.option(
+    "--max-heartbeats",
+    type=int,
+    default=None,
+    help="Stop after N heartbeats (for quick inspection runs).",
+)
+def run(scenario: Path, config: Path, max_heartbeats: int | None) -> None:
     """Run benchmark against an LLM agent."""
     import asyncio
 
@@ -89,7 +98,7 @@ def run(scenario: Path, config: Path) -> None:
     from crisis_bench.runner.scenario_loader import ScenarioLoadError
 
     try:
-        asyncio.run(run_benchmark(scenario, config))
+        asyncio.run(run_benchmark(scenario, config, max_heartbeats=max_heartbeats))
     except (ScenarioLoadError, ValidationError) as exc:
         click.echo(str(exc), err=True)
         raise SystemExit(1) from exc

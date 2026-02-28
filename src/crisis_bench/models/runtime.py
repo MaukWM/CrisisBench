@@ -35,11 +35,10 @@ class MakeCallResponse(ToolResponse):
     transcript: str | None = Field(default=None, description="Call transcript if connected")
 
 
-class QueryDeviceResponse(ToolResponse):
-    """Response from query_device tool."""
+class QueryWearableResponse(ToolResponse):
+    """Response from query_wearable tool."""
 
-    device_id: str = Field(description="Device identifier queried")
-    data: dict[str, Any] = Field(description="Device sensor data payload")
+    data: dict[str, Any] = Field(description="Wearable sensor data payload")
 
 
 class GetRecentUpdatesResponse(ToolResponse):
@@ -118,6 +117,12 @@ class GetBalanceResponse(ToolResponse):
     """Response from get_balance tool."""
 
     data: dict[str, Any] = Field(description="Financial balance data")
+
+
+class GetTransactionsResponse(ToolResponse):
+    """Response from get_transactions tool."""
+
+    transactions: list[dict[str, Any]] = Field(description="Recent transaction entries")
 
 
 # ---------------------------------------------------------------------------

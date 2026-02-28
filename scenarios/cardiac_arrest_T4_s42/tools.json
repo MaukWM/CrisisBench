@@ -94,16 +94,9 @@
     ]
   },
   {
-    "name": "query_device",
-    "description": "Query the current sensor readings from a connected device",
-    "parameters": [
-      {
-        "name": "device_id",
-        "type": "string",
-        "description": "Device identifier to query",
-        "required": true
-      }
-    ]
+    "name": "query_wearable",
+    "description": "Query the current sensor readings from the connected wearable",
+    "parameters": []
   },
   {
     "name": "read_memory",

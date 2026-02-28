@@ -17,7 +17,7 @@ from crisis_bench.runner.model_client import (
 )
 
 
-def _run(coro):  # noqa: ANN001, ANN202
+def _run(coro):
     """Run an async coroutine synchronously."""
     return asyncio.run(coro)
 
@@ -38,9 +38,7 @@ def sample_tool_definitions() -> list[ToolDefinition]:
             name="read_memory",
             description="Read a memory file",
             parameters=[
-                ToolParameter(
-                    name="key", type="string", description="Memory key", required=True
-                ),
+                ToolParameter(name="key", type="string", description="Memory key", required=True),
             ],
         ),
     ]
@@ -74,8 +72,8 @@ def mock_litellm_tool_response() -> MagicMock:
     choice.message.content = "Let me look that up."
     tc = MagicMock()
     tc.id = "call_123"
-    tc.function.name = "query_device"
-    tc.function.arguments = '{"device_id": "apple_watch"}'
+    tc.function.name = "query_wearable"
+    tc.function.arguments = "{}"
     choice.message.tool_calls = [tc]
     response.choices = [choice]
     return response
@@ -84,9 +82,7 @@ def mock_litellm_tool_response() -> MagicMock:
 class TestConvertToolDefinitions:
     """Test tool definition conversion to OpenAI format."""
 
-    def test_convert_tool_definitions(
-        self, sample_tool_definitions: list[ToolDefinition]
-    ) -> None:
+    def test_convert_tool_definitions(self, sample_tool_definitions: list[ToolDefinition]) -> None:
         result = convert_tool_definitions(sample_tool_definitions)
         assert len(result) == 2
         first = result[0]
@@ -134,8 +130,8 @@ class TestModelClient:
         tc = result.tool_calls[0]
         assert isinstance(tc, ParsedToolCall)
         assert tc.id == "call_123"
-        assert tc.name == "query_device"
-        assert tc.arguments == {"device_id": "apple_watch"}
+        assert tc.name == "query_wearable"
+        assert tc.arguments == {}
 
     @patch("litellm.acompletion", new_callable=AsyncMock)
     def test_model_client_fresh_context(

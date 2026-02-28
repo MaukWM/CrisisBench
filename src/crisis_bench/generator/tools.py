@@ -68,16 +68,9 @@ _CORE_TOOLS: list[ToolDefinition] = [
         ],
     ),
     ToolDefinition(
-        name="query_device",
-        description="Query the current sensor readings from a connected device",
-        parameters=[
-            ToolParameter(
-                name="device_id",
-                type="string",
-                description="Device identifier to query",
-                required=True,
-            ),
-        ],
+        name="query_wearable",
+        description="Query the current sensor readings from the connected wearable",
+        parameters=[],
     ),
     ToolDefinition(
         name="read_memory",

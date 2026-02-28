@@ -761,7 +761,7 @@ class TestToolDefinitions:
             "list_memories",
             "get_contacts",
             "get_conversations",
-            "query_device",
+            "query_wearable",
             "get_recent_updates",
         }
         for tier in ("T1", "T2", "T3", "T4"):
@@ -796,7 +796,7 @@ class TestToolDefinitions:
             "list_memories",
             "get_contacts",
             "get_conversations",
-            "query_device",
+            "query_wearable",
             "get_recent_updates",
         }
         for tier in ("T1", "T2", "T3", "T4"):

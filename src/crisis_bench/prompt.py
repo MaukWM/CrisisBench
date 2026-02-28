@@ -170,7 +170,7 @@ def format_pending_responses(pending: list[dict[str, str]]) -> str:
 
     lines = []
     for p in pending:
-        lines.append(f"From **{p['from']}** ({p['received_at']}): \"{p['message']}\"")
+        lines.append(f'From **{p["from"]}** ({p["received_at"]}): "{p["message"]}"')
     return "\n".join(lines)
 
 
@@ -208,10 +208,7 @@ class PromptBuilder:
         pending_responses: list[dict[str, str]],
     ) -> str:
         """Build the per-heartbeat user message."""
-        action_dicts = [
-            {"time": e.time, "summary": e.summary}
-            for e in action_log_entries
-        ]
+        action_dicts = [{"time": e.time, "summary": e.summary} for e in action_log_entries]
         action_log_section = format_action_log(
             action_dicts, total_action_count, _ACTION_LOG_WINDOW
         )

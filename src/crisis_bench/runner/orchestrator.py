@@ -139,12 +139,19 @@ class Orchestrator:
         self._llm = ChatLiteLLM(model=config.agent_model, **config.model_params)
         self._agent = create_react_agent(model=self._llm, tools=self._lc_tools)
 
-    async def run(self, *, max_heartbeats: int | None = None) -> None:
+    async def run(self, *, max_heartbeats: int | None = None, start_heartbeat: int = 0) -> None:
         """Iterate heartbeats in order, respecting the post-crisis window."""
         post_crisis_count = 0
         total_count = 0
 
+        if start_heartbeat > 0:
+            self.log.info("skipping_heartbeats", up_to=start_heartbeat)
+
         for heartbeat_index, hb in enumerate(self.scenario.heartbeats):
+            if hb.heartbeat_id < start_heartbeat:
+                self._scenario_data_handler.set_current_heartbeat(hb, heartbeat_index)
+                continue
+
             if max_heartbeats is not None and total_count >= max_heartbeats:
                 self.log.info("max_heartbeats_reached", limit=max_heartbeats)
                 break

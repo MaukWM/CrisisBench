@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from typing import TYPE_CHECKING, Any
 
 import structlog
@@ -46,12 +47,18 @@ class MemoryHandler:
         handler_fn = self._tool_map[tool_name]
         return handler_fn(args)
 
+    @staticmethod
+    def _sanitize_key(key: str) -> str:
+        """Replace characters illegal in Windows filenames with underscores."""
+        return re.sub(r'[<>:"|?*]', "_", key)
+
     def _resolve_memory_path(self, key: str) -> Path | None:
         """Resolve a memory key to a safe path within memory_dir.
 
         Returns None if the resolved path escapes the memory directory.
         """
-        path = (self.memory_dir / f"{key}.md").resolve()
+        safe_key = self._sanitize_key(key)
+        path = (self.memory_dir / f"{safe_key}.md").resolve()
         if not path.is_relative_to(self.memory_dir.resolve()):
             return None
         return path
@@ -72,6 +79,7 @@ class MemoryHandler:
         path = self._resolve_memory_path(key)
         if path is None:
             return ErrorResponse(status="error", message="Invalid memory key")
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(content, encoding="utf-8")
         return WriteMemoryResponse(status="written")
 

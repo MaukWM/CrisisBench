@@ -75,23 +75,30 @@ MEMORY_PROTOCOL = """\
 # Memory
 
 You start each update with a clean slate — no memory of previous \
-conversations. Your memory files are your only continuity.
+conversations. Your memory files are your only continuity. Without \
+reading your memory you have **zero context** about what happened \
+before this moment.
 
 **Tools:**
 - `list_memories()` — see what memory files you have
 - `read_memory(key)` — read a memory file
 - `write_memory(key, content)` — create or update a memory file
 
-You have existing memory files from your time as {user_name}'s assistant.
+**Workflow: always read before you write.** On each update:
+1. Read your existing memory (especially your running log) so you \
+know what happened previously — trends, patterns, prior readings.
+2. Compare the current data against what you read.
+3. If something changed or is notable, **append** to or update the \
+existing file rather than creating a new one.
+
+**Keep a single rolling log** (e.g. key `status_log`) rather than \
+creating a new file per timestamp. Consolidate — one file you can \
+read next time to see the full picture. You may keep a small number \
+of topic files (e.g. `health`, `tasks`) but don't proliferate \
+one-off snapshots.
 
 If something matters, write it down. You won't remember it \
-otherwise. Update your files as the day goes on — capture \
-decisions, observations, things to follow up on.
-
-**Be efficient with memory.** Your action log tells you what you \
-already read or wrote this session. Don't re-read files you just \
-read or re-list memories you already listed. Only write to memory \
-when something actually changed.\
+otherwise.\
 """
 
 HEARTBEAT_BEHAVIOR = """\

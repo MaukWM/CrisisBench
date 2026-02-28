@@ -15,9 +15,10 @@ async def run_benchmark(
     config_path: Path,
     *,
     max_heartbeats: int | None = None,
+    start_heartbeat: int = 0,
 ) -> None:
     """Load scenario and config, then run the benchmark orchestrator."""
     config = RunConfig(**json.loads(config_path.read_text(encoding="utf-8")))
     scenario = load_scenario(scenario_path)
     orchestrator = Orchestrator(scenario, config)
-    await orchestrator.run(max_heartbeats=max_heartbeats)
+    await orchestrator.run(max_heartbeats=max_heartbeats, start_heartbeat=start_heartbeat)

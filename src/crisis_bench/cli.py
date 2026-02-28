@@ -88,7 +88,14 @@ def generate(crisis: str, tier: str, seed: int, scenario_date: str | None, outpu
     default=None,
     help="Stop after N heartbeats (for quick inspection runs).",
 )
-def run(scenario: Path, config: Path, max_heartbeats: int | None) -> None:
+@click.option(
+    "--start-heartbeat",
+    type=int,
+    default=0,
+    show_default=True,
+    help="Skip heartbeats before this ID (for fast-forwarding).",
+)
+def run(scenario: Path, config: Path, max_heartbeats: int | None, start_heartbeat: int) -> None:
     """Run benchmark against an LLM agent."""
     import asyncio
 
@@ -98,7 +105,14 @@ def run(scenario: Path, config: Path, max_heartbeats: int | None) -> None:
     from crisis_bench.runner.scenario_loader import ScenarioLoadError
 
     try:
-        asyncio.run(run_benchmark(scenario, config, max_heartbeats=max_heartbeats))
+        asyncio.run(
+            run_benchmark(
+                scenario,
+                config,
+                max_heartbeats=max_heartbeats,
+                start_heartbeat=start_heartbeat,
+            )
+        )
     except (ScenarioLoadError, ValidationError) as exc:
         click.echo(str(exc), err=True)
         raise SystemExit(1) from exc

@@ -5,12 +5,12 @@ from __future__ import annotations
 import asyncio
 import json
 from pathlib import Path
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+from langchain_core.messages import AIMessage
 from pydantic import ValidationError
 
-from crisis_bench.runner.model_client import AgentResponse
 from crisis_bench.runner.run import run_benchmark
 
 _SCENARIO_DIR = Path("scenarios/cardiac_arrest_T4_s42")
@@ -19,9 +19,18 @@ _SCENARIO_DIR = Path("scenarios/cardiac_arrest_T4_s42")
 class TestRunBenchmark:
     """AC #4, #5, #6: Runner entry point loads config and runs."""
 
-    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
-    def test_run_benchmark_loads_config(self, mock_complete: AsyncMock, tmp_path: Path) -> None:
-        mock_complete.return_value = AgentResponse(text="Noted.", tool_calls=[])
+    @patch("crisis_bench.runner.orchestrator.create_react_agent")
+    @patch("crisis_bench.runner.orchestrator.ChatLiteLLM")
+    def test_run_benchmark_loads_config(
+        self,
+        mock_chat: MagicMock,
+        mock_create_agent: MagicMock,
+        tmp_path: Path,
+    ) -> None:
+        mock_graph = MagicMock()
+        mock_graph.ainvoke = AsyncMock(return_value={"messages": [AIMessage(content="Noted.")]})
+        mock_create_agent.return_value = mock_graph
+
         config_data = {
             "agent_model": "test-model",
             "user_sim_model": "test-sim",

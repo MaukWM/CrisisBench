@@ -5,9 +5,11 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import json
-from unittest.mock import AsyncMock, patch
+from typing import Any
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import structlog.testing
+from langchain_core.messages import AIMessage
 
 from crisis_bench.models.runtime import RunConfig
 from crisis_bench.models.scenario import (
@@ -21,26 +23,43 @@ from crisis_bench.models.scenario import (
     ToolDefinition,
     WearableData,
 )
-from crisis_bench.runner.model_client import AgentResponse, ParsedToolCall
 from crisis_bench.runner.orchestrator import Orchestrator
 
 
-def _run(coro):
+def _run(coro: Any) -> Any:
     """Run an async coroutine synchronously."""
     return asyncio.run(coro)
+
+
+def _mock_agent_result(text: str = "Noted.") -> dict[str, Any]:
+    """Build a mock LangGraph agent result with a single AIMessage."""
+    return {"messages": [AIMessage(content=text)]}
+
+
+def _patch_langgraph() -> tuple[Any, ...]:
+    """Return patch decorators for ChatLiteLLM and create_react_agent."""
+    return (
+        patch("crisis_bench.runner.orchestrator.ChatLiteLLM"),
+        patch("crisis_bench.runner.orchestrator.create_react_agent"),
+    )
 
 
 class TestOrchestratorHeartbeats:
     """AC #3, #7: Orchestrator iterates heartbeats and detects crisis."""
 
-    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
+    @patch("crisis_bench.runner.orchestrator.create_react_agent")
+    @patch("crisis_bench.runner.orchestrator.ChatLiteLLM")
     def test_orchestrator_iterates_heartbeats(
         self,
-        mock_complete: AsyncMock,
+        mock_chat: MagicMock,
+        mock_create_agent: MagicMock,
         small_scenario_package: ScenarioPackage,
         default_run_config: RunConfig,
     ) -> None:
-        mock_complete.return_value = AgentResponse(text="Noted.", tool_calls=[])
+        mock_graph = MagicMock()
+        mock_graph.ainvoke = AsyncMock(return_value=_mock_agent_result())
+        mock_create_agent.return_value = mock_graph
+
         config = RunConfig(
             agent_model="test",
             user_sim_model="test",
@@ -52,16 +71,20 @@ class TestOrchestratorHeartbeats:
             _run(orchestrator.run())
         heartbeat_logs = [e for e in logs if e["event"] == "heartbeat"]
         # Crisis at id=3, max_post_crisis=1 → ids 0,1,2,3,4 processed
-        # (5 total: 3 pre-crisis + crisis + 1 post-crisis)
         assert len(heartbeat_logs) == 5
 
-    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
+    @patch("crisis_bench.runner.orchestrator.create_react_agent")
+    @patch("crisis_bench.runner.orchestrator.ChatLiteLLM")
     def test_orchestrator_respects_post_crisis_limit(
         self,
-        mock_complete: AsyncMock,
+        mock_chat: MagicMock,
+        mock_create_agent: MagicMock,
         small_scenario_package: ScenarioPackage,
     ) -> None:
-        mock_complete.return_value = AgentResponse(text="Noted.", tool_calls=[])
+        mock_graph = MagicMock()
+        mock_graph.ainvoke = AsyncMock(return_value=_mock_agent_result())
+        mock_create_agent.return_value = mock_graph
+
         config = RunConfig(
             agent_model="test",
             user_sim_model="test",
@@ -72,18 +95,21 @@ class TestOrchestratorHeartbeats:
         with structlog.testing.capture_logs() as logs:
             _run(orchestrator.run())
         heartbeat_logs = [e for e in logs if e["event"] == "heartbeat"]
-        # Crisis at id=3, max_post_crisis=0 → id=4 is first post-crisis (count=1 > 0), breaks
-        # So we get heartbeats 0,1,2,3 → 4 heartbeats
         assert len(heartbeat_logs) == 4
 
-    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
+    @patch("crisis_bench.runner.orchestrator.create_react_agent")
+    @patch("crisis_bench.runner.orchestrator.ChatLiteLLM")
     def test_orchestrator_logs_crisis_detection(
         self,
-        mock_complete: AsyncMock,
+        mock_chat: MagicMock,
+        mock_create_agent: MagicMock,
         small_scenario_package: ScenarioPackage,
         default_run_config: RunConfig,
     ) -> None:
-        mock_complete.return_value = AgentResponse(text="Noted.", tool_calls=[])
+        mock_graph = MagicMock()
+        mock_graph.ainvoke = AsyncMock(return_value=_mock_agent_result())
+        mock_create_agent.return_value = mock_graph
+
         orchestrator = Orchestrator(small_scenario_package, default_run_config)
         with structlog.testing.capture_logs() as logs:
             _run(orchestrator.run())
@@ -91,14 +117,19 @@ class TestOrchestratorHeartbeats:
         assert len(crisis_logs) == 1
         assert crisis_logs[0]["heartbeat_id"] == 3
 
-    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
+    @patch("crisis_bench.runner.orchestrator.create_react_agent")
+    @patch("crisis_bench.runner.orchestrator.ChatLiteLLM")
     def test_orchestrator_logs_run_complete(
         self,
-        mock_complete: AsyncMock,
+        mock_chat: MagicMock,
+        mock_create_agent: MagicMock,
         small_scenario_package: ScenarioPackage,
         default_run_config: RunConfig,
     ) -> None:
-        mock_complete.return_value = AgentResponse(text="Noted.", tool_calls=[])
+        mock_graph = MagicMock()
+        mock_graph.ainvoke = AsyncMock(return_value=_mock_agent_result())
+        mock_create_agent.return_value = mock_graph
+
         orchestrator = Orchestrator(small_scenario_package, default_run_config)
         with structlog.testing.capture_logs() as logs:
             _run(orchestrator.run())
@@ -106,14 +137,19 @@ class TestOrchestratorHeartbeats:
         assert len(complete_logs) == 1
         assert complete_logs[0]["total_heartbeats"] == 5
 
-    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
-    def test_orchestrator_calls_model_per_heartbeat(
+    @patch("crisis_bench.runner.orchestrator.create_react_agent")
+    @patch("crisis_bench.runner.orchestrator.ChatLiteLLM")
+    def test_orchestrator_calls_agent_per_heartbeat(
         self,
-        mock_complete: AsyncMock,
+        mock_chat: MagicMock,
+        mock_create_agent: MagicMock,
         small_scenario_package: ScenarioPackage,
     ) -> None:
-        """Verify model_client.complete is called once per heartbeat."""
-        mock_complete.return_value = AgentResponse(text="Noted.", tool_calls=[])
+        """Verify agent.ainvoke is called once per heartbeat."""
+        mock_graph = MagicMock()
+        mock_graph.ainvoke = AsyncMock(return_value=_mock_agent_result())
+        mock_create_agent.return_value = mock_graph
+
         config = RunConfig(
             agent_model="test",
             user_sim_model="test",
@@ -123,30 +159,20 @@ class TestOrchestratorHeartbeats:
         orchestrator = Orchestrator(small_scenario_package, config)
         _run(orchestrator.run())
         # 5 heartbeats processed (3 pre-crisis + crisis + 1 post-crisis)
-        assert mock_complete.call_count == 5
-        # Verify system prompt and user message are passed.
-        for call in mock_complete.call_args_list:
-            args = call.args
-            assert len(args) == 2
-            assert isinstance(args[0], str)  # system_prompt
-            assert isinstance(args[1], str)  # user_message
-            assert "# Who You Are" in args[0]  # system prompt has SOUL section
+        assert mock_graph.ainvoke.call_count == 5
 
 
 class TestOrchestratorToolRouting:
-    """Verify ToolRouter + handlers are wired and route tool calls."""
+    """Verify tool routing works through the LangGraph agent."""
 
-    @patch(
-        "crisis_bench.runner.model_client.ModelClient.continue_conversation",
-        new_callable=AsyncMock,
-    )
-    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
+    @patch("crisis_bench.runner.orchestrator.create_react_agent")
+    @patch("crisis_bench.runner.orchestrator.ChatLiteLLM")
     def test_orchestrator_routes_tool_calls(
         self,
-        mock_complete: AsyncMock,
-        mock_continue: AsyncMock,
+        mock_chat: MagicMock,
+        mock_create_agent: MagicMock,
     ) -> None:
-        """Model returns a tool call → tool_router.route is invoked, then loop terminates."""
+        """Agent invocation produces tool_routed logs when tools are called by the factory."""
         heartbeats = [
             HeartbeatPayload(
                 heartbeat_id=0,
@@ -207,88 +233,49 @@ class TestOrchestratorToolRouting:
             max_post_crisis_heartbeats=0,
         )
 
-        mock_complete.return_value = AgentResponse(
-            text="Let me check.",
-            tool_calls=[
-                ParsedToolCall(id="call_1", name="query_wearable", arguments={}),
-            ],
-        )
-        mock_continue.return_value = AgentResponse(text="Done.", tool_calls=[])
+        mock_graph = MagicMock()
+        mock_graph.ainvoke = AsyncMock(return_value=_mock_agent_result("Done."))
+        mock_create_agent.return_value = mock_graph
 
         orchestrator = Orchestrator(scenario, config)
-        with structlog.testing.capture_logs() as logs:
-            _run(orchestrator.run())
 
-        routed_logs = [e for e in logs if e["event"] == "tool_routed"]
-        assert len(routed_logs) == 1
-        assert routed_logs[0]["tool_name"] == "query_wearable"
-        assert routed_logs[0]["routed_to"] == "ScenarioDataHandler"
-        assert routed_logs[0]["status"] == "ok"
+        # Set up heartbeat state so scenario data handler has data to return
+        orchestrator._scenario_data_handler.set_current_heartbeat(heartbeats[0], 0)
+        orchestrator._current_timestamp = heartbeats[0].timestamp
 
-        # Verify multi-turn: complete called once, continue_conversation called once
-        assert mock_complete.call_count == 1
-        assert mock_continue.call_count == 1
+        # Manually invoke a tool to verify routing works end-to-end
+        wearable_tool = next(t for t in orchestrator._lc_tools if t.name == "query_wearable")
+        result_json = _run(wearable_tool.ainvoke({}))
+
+        import json as json_mod
+
+        parsed = json_mod.loads(result_json)
+        assert parsed["status"] == "ok"
+
+        # Verify action log was populated
+        entries, total = orchestrator._action_log.get_window()
+        assert total == 1
+        assert entries[0].tool_name == "query_wearable"
 
 
-class TestMultiTurnToolLoop:
-    """AC #1, #2, #3, #5, #6, #7: Multi-turn tool loop behavior."""
+class TestMaxToolTurns:
+    """GraphRecursionError handling for max_tool_turns."""
 
-    @patch(
-        "crisis_bench.runner.model_client.ModelClient.continue_conversation",
-        new_callable=AsyncMock,
-    )
-    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
-    def test_multi_turn_tool_loop(
-        self,
-        mock_complete: AsyncMock,
-        mock_continue: AsyncMock,
-        small_scenario_package: ScenarioPackage,
-    ) -> None:
-        """AC #1: Agent makes tool call, results sent back, loop terminates when no more calls."""
-        config = RunConfig(
-            agent_model="test",
-            user_sim_model="test",
-            judge_model="test",
-            max_post_crisis_heartbeats=0,
-        )
-        mock_complete.return_value = AgentResponse(
-            text="Let me check.",
-            tool_calls=[ParsedToolCall(id="call_1", name="list_memories", arguments={})],
-        )
-        mock_continue.return_value = AgentResponse(text="All done.", tool_calls=[])
-
-        orchestrator = Orchestrator(small_scenario_package, config)
-        with structlog.testing.capture_logs() as logs:
-            _run(orchestrator.run(max_heartbeats=1))
-
-        # complete called once per heartbeat (turn 0), continue once (turn 1)
-        assert mock_complete.call_count == 1
-        assert mock_continue.call_count == 1
-
-        # tool_routed log should appear
-        routed_logs = [e for e in logs if e["event"] == "tool_routed"]
-        assert len(routed_logs) == 1
-        assert routed_logs[0]["tool_name"] == "list_memories"
-        assert routed_logs[0]["routed_to"] == "MemoryHandler"
-
-        # agent_response logged for both turns
-        agent_logs = [e for e in logs if e["event"] == "agent_response"]
-        assert len(agent_logs) == 2
-        assert agent_logs[0]["turn"] == 0
-        assert agent_logs[1]["turn"] == 1
-
-    @patch(
-        "crisis_bench.runner.model_client.ModelClient.continue_conversation",
-        new_callable=AsyncMock,
-    )
-    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
+    @patch("crisis_bench.runner.orchestrator.create_react_agent")
+    @patch("crisis_bench.runner.orchestrator.ChatLiteLLM")
     def test_max_tool_turns_reached(
         self,
-        mock_complete: AsyncMock,
-        mock_continue: AsyncMock,
+        mock_chat: MagicMock,
+        mock_create_agent: MagicMock,
         small_scenario_package: ScenarioPackage,
     ) -> None:
-        """AC #2: Loop stops at max_tool_turns, final tool calls executed, INFO log emitted."""
+        """AC #2: GraphRecursionError is caught and logged."""
+        from langgraph.errors import GraphRecursionError
+
+        mock_graph = MagicMock()
+        mock_graph.ainvoke = AsyncMock(side_effect=GraphRecursionError("Recursion limit reached"))
+        mock_create_agent.return_value = mock_graph
+
         config = RunConfig(
             agent_model="test",
             user_sim_model="test",
@@ -296,74 +283,47 @@ class TestMultiTurnToolLoop:
             max_tool_turns=2,
             max_post_crisis_heartbeats=0,
         )
-        # Both always return tool calls — loop should be capped at max_tool_turns
-        mock_complete.return_value = AgentResponse(
-            text="Checking...",
-            tool_calls=[ParsedToolCall(id="call_1", name="list_memories", arguments={})],
-        )
-        mock_continue.return_value = AgentResponse(
-            text="More...",
-            tool_calls=[ParsedToolCall(id="call_2", name="list_memories", arguments={})],
-        )
-
         orchestrator = Orchestrator(small_scenario_package, config)
         with structlog.testing.capture_logs() as logs:
             _run(orchestrator.run(max_heartbeats=1))
 
-        # Turn 0: complete returns tool call → turn_count=1, execute, 1<2 → loop
-        # Turn 1: continue returns tool call → turn_count=2, execute, 2>=2 → break
-        # Total: 1 complete + 1 continue = 2 model calls
-        assert mock_complete.call_count == 1
-        assert mock_continue.call_count == 1
-
-        # max_tool_turns_reached log
         max_logs = [e for e in logs if e["event"] == "max_tool_turns_reached"]
         assert len(max_logs) == 1
         assert max_logs[0]["turns"] == 2
 
-        # Tool calls from final turn are still executed (AC #2)
-        routed_logs = [e for e in logs if e["event"] == "tool_routed"]
-        assert len(routed_logs) == 2  # 1 from turn 0, 1 from turn 1
-
-    @patch(
-        "crisis_bench.runner.model_client.ModelClient.continue_conversation",
-        new_callable=AsyncMock,
-    )
-    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
+    @patch("crisis_bench.runner.orchestrator.create_react_agent")
+    @patch("crisis_bench.runner.orchestrator.ChatLiteLLM")
     def test_action_log_accumulates_across_heartbeats(
         self,
-        mock_complete: AsyncMock,
-        mock_continue: AsyncMock,
+        mock_chat: MagicMock,
+        mock_create_agent: MagicMock,
         small_scenario_package: ScenarioPackage,
     ) -> None:
         """AC #3, #5: Action log from heartbeat 1 appears in heartbeat 2's user message."""
+        mock_graph = MagicMock()
+        mock_graph.ainvoke = AsyncMock(return_value=_mock_agent_result())
+        mock_create_agent.return_value = mock_graph
+
         config = RunConfig(
             agent_model="test",
             user_sim_model="test",
             judge_model="test",
             max_post_crisis_heartbeats=0,
         )
-        # First heartbeat: tool call, then done
-        # Second heartbeat: no tool calls
-        call_count = 0
-
-        async def mock_complete_side_effect(system_prompt, user_message):
-            nonlocal call_count
-            call_count += 1
-            if call_count == 1:
-                return AgentResponse(
-                    text="Checking.",
-                    tool_calls=[ParsedToolCall(id="call_1", name="list_memories", arguments={})],
-                )
-            return AgentResponse(text="Noted.", tool_calls=[])
-
-        mock_complete.side_effect = mock_complete_side_effect
-        mock_continue.return_value = AgentResponse(text="Done.", tool_calls=[])
-
         orchestrator = Orchestrator(small_scenario_package, config)
-        _run(orchestrator.run(max_heartbeats=2))
 
-        # On the second heartbeat, complete is called with user_message containing action log
-        assert mock_complete.call_count == 2
-        second_call_user_message = mock_complete.call_args_list[1].args[1]
-        assert "Listed memory files" in second_call_user_message
+        # Manually record an action to simulate heartbeat 1 tool usage
+        orchestrator._action_log.record(
+            time="2027-06-15T10:00:00Z",
+            action_type="memory",
+            tool_name="list_memories",
+            summary="Listed memory files",
+        )
+
+        _run(orchestrator.run(max_heartbeats=1))
+
+        # The agent was invoked with messages containing the action log
+        call_args = mock_graph.ainvoke.call_args
+        messages = call_args[0][0]["messages"]
+        user_msg = messages[1]["content"]
+        assert "Listed memory files" in user_msg

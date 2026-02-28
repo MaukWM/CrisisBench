@@ -7,16 +7,15 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 import structlog
+from langchain_litellm import ChatLiteLLM
+from langgraph.errors import GraphRecursionError
+from langgraph.prebuilt import create_react_agent
 
 from crisis_bench.models.runtime import ActionLogEntry
 from crisis_bench.prompt import PromptBuilder
 from crisis_bench.runner.handlers.memory import MemoryHandler
 from crisis_bench.runner.handlers.scenario_data import ScenarioDataHandler
-from crisis_bench.runner.model_client import (
-    ModelClient,
-    build_assistant_message,
-    build_tool_result_message,
-)
+from crisis_bench.runner.tool_factory import create_langchain_tools
 from crisis_bench.runner.tool_router import ToolRouter
 
 if TYPE_CHECKING:
@@ -104,6 +103,15 @@ class ActionLog:
         return self._entries[-self._window_size :], len(self._entries)
 
 
+def _extract_final_text(result: dict[str, Any]) -> str | None:
+    """Extract the text content from the last AI message in a LangGraph result."""
+    messages = result.get("messages", [])
+    for msg in reversed(messages):
+        if getattr(msg, "type", None) == "ai" and msg.content:
+            return msg.content if isinstance(msg.content, str) else str(msg.content)
+    return None
+
+
 class Orchestrator:
     """Drives benchmark execution by iterating through scenario heartbeats."""
 
@@ -112,13 +120,24 @@ class Orchestrator:
         self.config = config
         self.log = log.bind(scenario_id=scenario.scenario_id)
         self.prompt_builder = PromptBuilder(scenario)
-        self.model_client = ModelClient(config, scenario.tool_definitions)
         self._action_log = ActionLog(config.action_log_window)
 
         self._memory_dir = Path(tempfile.mkdtemp(prefix="crisis_bench_"))
         self._scenario_data_handler = ScenarioDataHandler(scenario)
         memory_handler = MemoryHandler(self._memory_dir / "memories", scenario.memory_files)
         self.tool_router = ToolRouter(handlers=[self._scenario_data_handler, memory_handler])
+
+        self._current_timestamp: str = ""
+        self._lc_tools = create_langchain_tools(
+            tool_definitions=scenario.tool_definitions,
+            tool_router=self.tool_router,
+            action_log=self._action_log,
+            get_timestamp=lambda: self._current_timestamp,
+            classify_action=_classify_action,
+            summarize_tool_call=_summarize_tool_call,
+        )
+        self._llm = ChatLiteLLM(model=config.agent_model, **config.model_params)
+        self._agent = create_react_agent(model=self._llm, tools=self._lc_tools)
 
     async def run(self, *, max_heartbeats: int | None = None) -> None:
         """Iterate heartbeats in order, respecting the post-crisis window."""
@@ -139,6 +158,7 @@ class Orchestrator:
             total_count += 1
 
             self._scenario_data_handler.set_current_heartbeat(hb, heartbeat_index)
+            self._current_timestamp = hb.timestamp
 
             # Build user message with action log context
             window, total = self._action_log.get_window()
@@ -149,78 +169,28 @@ class Orchestrator:
                 pending_responses=[],  # Story 3.5
             )
 
-            # Build messages list for multi-turn tracking
-            messages: list[dict[str, Any]] = [
-                {"role": "system", "content": self.prompt_builder.system_prompt},
-                {"role": "user", "content": user_message},
-            ]
-
-            # Multi-turn tool loop
-            turn_count = 0
-            max_turns = self.config.max_tool_turns
-
-            while True:
-                if turn_count == 0:
-                    response = await self.model_client.complete(
-                        self.prompt_builder.system_prompt,
-                        user_message,
-                    )
-                else:
-                    response = await self.model_client.continue_conversation(messages)
-
-                self.log.info(
-                    "agent_response",
-                    heartbeat_id=hb.heartbeat_id,
-                    turn=turn_count,
-                    has_text=response.text is not None,
-                    tool_call_count=len(response.tool_calls),
+            # Invoke LangGraph agent
+            try:
+                result = await self._agent.ainvoke(
+                    {
+                        "messages": [
+                            {"role": "system", "content": self.prompt_builder.system_prompt},
+                            {"role": "user", "content": user_message},
+                        ],
+                    },
+                    {"recursion_limit": self.config.max_tool_turns * 2 + 1},
                 )
+            except GraphRecursionError:
+                self.log.info(
+                    "max_tool_turns_reached",
+                    heartbeat_id=hb.heartbeat_id,
+                    turns=self.config.max_tool_turns,
+                )
+                result = None
 
-                if not response.tool_calls:
-                    break
-
-                turn_count += 1
-
-                # Add assistant message to conversation
-                messages.append(build_assistant_message(response))
-
-                # Execute and record tool calls
-                for tc in response.tool_calls:
-                    tool_response, handler_name = await self.tool_router.route(
-                        tc.name, tc.arguments
-                    )
-                    self._action_log.record(
-                        time=hb.timestamp,
-                        action_type=_classify_action(tc.name),
-                        tool_name=tc.name,
-                        summary=_summarize_tool_call(tc.name, tc.arguments),
-                    )
-                    messages.append(build_tool_result_message(tc.id, tool_response))
-                    self.log.info(
-                        "tool_routed",
-                        heartbeat_id=hb.heartbeat_id,
-                        turn=turn_count,
-                        tool_name=tc.name,
-                        routed_to=handler_name,
-                        status=tool_response.status,
-                    )
-
-                if turn_count >= max_turns:
-                    self.log.info(
-                        "max_tool_turns_reached",
-                        heartbeat_id=hb.heartbeat_id,
-                        turns=turn_count,
-                    )
-                    break
-
-            if response.text:
-                self.log.info("agent_text", heartbeat_id=hb.heartbeat_id, text=response.text)
-
-            self.log.debug(
-                "heartbeat_tool_summary",
-                heartbeat_id=hb.heartbeat_id,
-                tool_turns=turn_count,
-            )
+            final_text = _extract_final_text(result) if result else None
+            if final_text:
+                self.log.info("agent_thought", heartbeat_id=hb.heartbeat_id, text=final_text)
 
             if hb.heartbeat_id == self.scenario.crisis_heartbeat_id:
                 self.log.info("crisis_heartbeat_reached", heartbeat_id=hb.heartbeat_id)

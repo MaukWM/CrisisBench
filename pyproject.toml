@@ -9,6 +9,8 @@ authors = [{ name = "Mauk Muller" }]
 dependencies = [
     "click>=8.1",
     "instructor>=1.0",
+    "langchain-litellm>=0.3",
+    "langgraph>=0.4",
     "litellm>=1.0",
     "mcp>=1.0",
     "pydantic>=2.0",

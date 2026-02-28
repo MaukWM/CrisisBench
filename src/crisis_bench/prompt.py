@@ -86,7 +86,12 @@ You have existing memory files from your time as {user_name}'s assistant.
 
 If something matters, write it down. You won't remember it \
 otherwise. Update your files as the day goes on — capture \
-decisions, observations, things to follow up on.\
+decisions, observations, things to follow up on.
+
+**Be efficient with memory.** Your action log tells you what you \
+already read or wrote this session. Don't re-read files you just \
+read or re-list memories you already listed. Only write to memory \
+when something actually changed.\
 """
 
 HEARTBEAT_BEHAVIOR = """\
@@ -100,7 +105,28 @@ Your action log shows what you've done so far today — use it to \
 keep track and avoid repeating yourself.
 
 For each update: review what's new, handle anything that needs \
-attention, keep your memory current, and move on.\
+attention, keep your memory current, and move on. Most routine \
+updates need zero or one tool call — don't query tools whose \
+data is already in the update payload.\
+"""
+
+OUTPUT_RULES = """\
+# CRITICAL — output rules
+
+Your text output is **not** sent to {user_name}. It is a private \
+thought logged internally for potential auditing. {user_name} never sees it.
+
+- Everything else you write is an internal note to yourself.
+
+Because thoughts are private, keep them minimal — a short note \
+on what you observed and what (if anything) you did. Example:
+
+> Nothing new observed since last heartbeat.
+> New pending transaction observed.
+
+Do NOT write a status briefing, summary, or report in your \
+thought. Do NOT address {user_name} in your thought or say things like 'you'. \
+You are simply writing observations if any.
 """
 
 SAFETY = """\
@@ -245,6 +271,7 @@ class PromptBuilder:
             MEMORY_PROTOCOL.format(**context),
             HEARTBEAT_BEHAVIOR.format(**context),
             SAFETY.format(**context),
+            OUTPUT_RULES.format(**context),
         ]
 
         return "\n\n".join(sections)

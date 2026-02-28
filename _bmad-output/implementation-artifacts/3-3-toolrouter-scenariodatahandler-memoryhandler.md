@@ -1,6 +1,6 @@
 # Story 3.3: ToolRouter, ScenarioDataHandler & MemoryHandler
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -505,6 +505,7 @@ Claude Opus 4.6
 ### Change Log
 
 - 2026-02-28: Story 3.3 implementation complete — ToolRouter, ScenarioDataHandler, MemoryHandler, orchestrator wiring, prerequisite rename, model changes, and comprehensive tests.
+- 2026-02-28: Code review fixes — H1: MemoryHandler path traversal (added `_resolve_memory_path` with `is_relative_to` guard). H2: `get_recent_updates` count=0 edge case (clamped with `max(0, count)`, explicit empty return). L1: MemoryHandler if-chain replaced with `_tool_map` dict for consistency.
 
 ### File List
 

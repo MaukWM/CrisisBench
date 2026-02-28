@@ -64,8 +64,9 @@ class ScenarioDataHandler:
         return QueryWearableResponse(status="ok", data=data)
 
     def _handle_get_recent_updates(self, args: dict[str, Any]) -> GetRecentUpdatesResponse:
-        count = args["count"]
-        recent = self.scenario.heartbeats[: self._heartbeat_index + 1][-count:]
+        count = max(0, args["count"])
+        available = self.scenario.heartbeats[: self._heartbeat_index + 1]
+        recent = available[-count:] if count else []
         return GetRecentUpdatesResponse(status="ok", heartbeats=[hb.model_dump() for hb in recent])
 
     def _handle_get_contacts(self, args: dict[str, Any]) -> GetContactsResponse:

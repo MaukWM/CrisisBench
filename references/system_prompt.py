@@ -211,6 +211,7 @@ USER_MESSAGE_TEMPLATE = """\
 # HELPERS — formatting functions for PromptBuilder to use
 # =============================================================================
 
+
 def format_action_log(
     actions: list[dict[str, str]],
     total_count: int,
@@ -244,7 +245,7 @@ def format_pending_responses(pending: list[dict[str, str]]) -> str:
 
     lines = []
     for p in pending:
-        lines.append(f"From **{p['from']}** ({p['received_at']}): \"{p['message']}\"")
+        lines.append(f'From **{p["from"]}** ({p["received_at"]}): "{p["message"]}"')
     return "\n".join(lines)
 
 

@@ -5,10 +5,12 @@ from __future__ import annotations
 import asyncio
 import json
 from pathlib import Path
+from unittest.mock import AsyncMock, patch
 
 import pytest
 from pydantic import ValidationError
 
+from crisis_bench.runner.model_client import AgentResponse
 from crisis_bench.runner.run import run_benchmark
 
 _SCENARIO_DIR = Path("scenarios/cardiac_arrest_T4_s42")
@@ -17,7 +19,9 @@ _SCENARIO_DIR = Path("scenarios/cardiac_arrest_T4_s42")
 class TestRunBenchmark:
     """AC #4, #5, #6: Runner entry point loads config and runs."""
 
-    def test_run_benchmark_loads_config(self, tmp_path: Path) -> None:
+    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
+    def test_run_benchmark_loads_config(self, mock_complete: AsyncMock, tmp_path: Path) -> None:
+        mock_complete.return_value = AgentResponse(text="Noted.", tool_calls=[])
         config_data = {
             "agent_model": "test-model",
             "user_sim_model": "test-sim",

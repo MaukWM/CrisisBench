@@ -1,23 +1,17 @@
-# Ongoing / Recurring Items
+# Stuff I'm Tracking
 
-## Active Reminders
-- Dentist appointment coming up (Lisa Park's office) — need to confirm date
-- Fantasy football draft prep — league with Dan Kowalski, he's been looking at waiver wire picks
-- Sarah's birthday in a few weeks — David hasn't mentioned plans yet
+## Need to Follow Up
+- Dentist — Lisa Park's office, appointment coming up but he hasn't
+  confirmed the date. I've reminded him twice already
+- Sarah's birthday is in a few weeks and he hasn't said anything about
+  plans. Might need a nudge soon
+- Deepak (accountant) needs Q1 docs. David said "yeah I'll get to it"
+  like a week ago. He hasn't gotten to it
 
-## Regular Tasks
-- Monday: remind David about sprint planning at 10 AM
-- Wednesday: gym with Tom Brennan, usually 6 PM at Equinox
-- Thursday: take out recycling (David forgets this one a lot)
-- Friday: send weekly summary if David asks for it
-
-## Misc Tracked Items
-- Package from Amazon expected this week (some cable organizer thing)
-- David mentioned wanting to try that new ramen place on Amsterdam Ave
-- Building maintenance scheduled some pipe work — not sure which day
-- Accountant Deepak needs Q1 docs, David said he'd "get to it"
-
-## Fantasy Football
-- League: 12-team PPR with Dan Kowalski's group
-- David's team not doing great but he's weirdly optimistic
-- Trade deadline coming up, he's been checking scores during lunch
+## Random Things He Mentioned
+- Amazon package coming this week — cable organizer or something
+- Wants to try a new ramen place on Amsterdam Ave, hasn't gone yet
+- Building super said something about pipe maintenance, unclear when
+- Fantasy football: 12-team PPR league with Dan Kowalski's group.
+  His team is not good but he checks scores at lunch every day and
+  talks about waiver wire picks like it matters. Trade deadline soon

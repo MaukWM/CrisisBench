@@ -1,4 +1,4 @@
-"""HealthGenerator — realistic biometric data with crisis sensor drift.
+"""WearableGenerator — realistic biometric data with crisis sensor drift.
 
 Stateful generator producing physiologically plausible vitals:
 - Blood glucose follows meal-driven curves (not random noise)
@@ -77,8 +77,8 @@ def _glucose_meal_response(
     return amplitude * ratio * math.exp(1.0 - ratio)
 
 
-class HealthGenerator:
-    """Generate health/biometric data for each heartbeat.
+class WearableGenerator:
+    """Generate wearable/biometric data for each heartbeat.
 
     Tracks cumulative and stateful metrics across the day.  During a crisis
     block, active sensors fail while passive sensors continue drifting.
@@ -105,7 +105,7 @@ class HealthGenerator:
         timestamp: str,
         rng: random.Random,
     ) -> dict[str, object]:
-        """Produce one heartbeat's health data."""
+        """Produce one heartbeat's wearable data."""
         block = schedule.get_block_at(timestamp)
 
         if block.activity == "CRISIS":

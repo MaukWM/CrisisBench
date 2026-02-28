@@ -12,8 +12,8 @@ NoiseTier = Literal["T1", "T2", "T3", "T4"]
 # ---------------------------------------------------------------------------
 
 
-class HealthData(BaseModel):
-    """Wearable device health/biometric sensor readings."""
+class WearableData(BaseModel):
+    """Wearable device biometric sensor readings."""
 
     model_config = ConfigDict(frozen=True)
 
@@ -274,7 +274,7 @@ class HeartbeatPayload(BaseModel):
 
     heartbeat_id: int = Field(description="Sequential heartbeat identifier")
     timestamp: str = Field(description="Heartbeat time as ISO 8601 datetime")
-    health: HealthData | None = Field(default=None, description="Health sensor data")
+    wearable: WearableData | None = Field(default=None, description="Wearable sensor data")
     location: LocationData | None = Field(default=None, description="Location data")
     weather: WeatherData | None = Field(default=None, description="Weather data")
     calendar: CalendarData | None = Field(default=None, description="Calendar data")

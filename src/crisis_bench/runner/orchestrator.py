@@ -6,6 +6,9 @@ from typing import TYPE_CHECKING
 
 import structlog
 
+from crisis_bench.prompt import PromptBuilder
+from crisis_bench.runner.model_client import ModelClient
+
 if TYPE_CHECKING:
     from crisis_bench.models.runtime import RunConfig
     from crisis_bench.models.scenario import ScenarioPackage
@@ -20,6 +23,8 @@ class Orchestrator:
         self.scenario = scenario
         self.config = config
         self.log = log.bind(scenario_id=scenario.scenario_id)
+        self.prompt_builder = PromptBuilder(scenario)
+        self.model_client = ModelClient(config, scenario.tool_definitions)
 
     async def run(self) -> None:
         """Iterate heartbeats in order, respecting the post-crisis window."""
@@ -34,6 +39,23 @@ class Orchestrator:
 
             self.log.info("heartbeat", heartbeat_id=hb.heartbeat_id, timestamp=hb.timestamp)
             total_count += 1
+
+            user_message = self.prompt_builder.build_user_message(
+                heartbeat=hb,
+                action_log_entries=[],
+                total_action_count=0,
+                pending_responses=[],
+            )
+            response = await self.model_client.complete(
+                self.prompt_builder.system_prompt,
+                user_message,
+            )
+            self.log.info(
+                "agent_response",
+                heartbeat_id=hb.heartbeat_id,
+                has_text=response.text is not None,
+                tool_call_count=len(response.tool_calls),
+            )
 
             if hb.heartbeat_id == self.scenario.crisis_heartbeat_id:
                 self.log.info("crisis_heartbeat_reached", heartbeat_id=hb.heartbeat_id)

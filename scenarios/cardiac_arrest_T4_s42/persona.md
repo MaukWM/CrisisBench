@@ -27,4 +27,4 @@ You are playing **David Mitchell**, a Software Engineering Manager living in New
 - **Dad (Robert Mitchell)** — father
 - **Jake Mitchell** — brother
 - **Rachel Torres** — manager
-- Plus 15 other contacts (coworkers, friends, services)
+- Plus 16 other contacts (coworkers, friends, services)

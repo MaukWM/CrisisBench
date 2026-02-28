@@ -36,22 +36,22 @@ class TestGenerateScenario:
         package = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
         assert len(package.manifest.content_hash) == 64
 
-    def test_health_data_present_on_all_heartbeats(self) -> None:
-        """T4 includes health; every heartbeat should have it."""
+    def test_wearable_data_present_on_all_heartbeats(self) -> None:
+        """T4 includes wearable; every heartbeat should have it."""
         package = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
         for hb in package.heartbeats:
-            assert hb.health is not None
+            assert hb.wearable is not None
 
     def test_crisis_vitals_absent(self) -> None:
         """Crisis heartbeats should show absent active vitals and ambiguous ECG."""
         package = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
         cid = package.crisis_heartbeat_id
         for hb in package.heartbeats[cid:]:
-            assert hb.health is not None
-            assert hb.health.heart_rate == 0
-            assert hb.health.spo2 == 0
-            assert hb.health.respiratory_rate == 0
-            assert hb.health.ecg_summary == "inconclusive"
+            assert hb.wearable is not None
+            assert hb.wearable.heart_rate == 0
+            assert hb.wearable.spo2 == 0
+            assert hb.wearable.respiratory_rate == 0
+            assert hb.wearable.ecg_summary == "inconclusive"
 
     def test_crisis_persists_cumulative_values(self) -> None:
         """Steps and calories should persist (not zero) during crisis."""
@@ -59,24 +59,24 @@ class TestGenerateScenario:
         cid = package.crisis_heartbeat_id
         crisis_hb = package.heartbeats[cid]
         pre_crisis_hb = package.heartbeats[cid - 1]
-        assert crisis_hb.health is not None
-        assert pre_crisis_hb.health is not None
+        assert crisis_hb.wearable is not None
+        assert pre_crisis_hb.wearable is not None
         # Steps should match the last normal reading (frozen, not zeroed).
-        assert crisis_hb.health.steps == pre_crisis_hb.health.steps
-        assert crisis_hb.health.steps > 0
+        assert crisis_hb.wearable.steps == pre_crisis_hb.wearable.steps
+        assert crisis_hb.wearable.steps > 0
 
     def test_cumulative_steps_increase(self) -> None:
         """Steps should be cumulative and generally increase during active periods."""
         package = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
-        steps = [hb.health.steps for hb in package.heartbeats if hb.health is not None]
+        steps = [hb.wearable.steps for hb in package.heartbeats if hb.wearable is not None]
         # Steps should be non-decreasing (cumulative).
         for i in range(1, len(steps)):
             assert steps[i] >= steps[i - 1]
 
-    def test_t1_only_has_health(self) -> None:
+    def test_t1_only_has_wearable(self) -> None:
         package = generate_scenario(crisis_type="cardiac_arrest", tier="T1", seed=42)
         for hb in package.heartbeats:
-            assert hb.health is not None
+            assert hb.wearable is not None
             # Other modules not generated yet, so they'll be None.
             assert hb.location is None
             assert hb.weather is None
@@ -104,9 +104,9 @@ class TestGenerateScenario:
         assert reloaded.scenario_id == package.scenario_id
 
     def test_occasional_missing_modules(self) -> None:
-        """Non-health modules should have occasional None heartbeats (~1.5% drop)."""
+        """Non-wearable modules should have occasional None heartbeats (~1.5% drop)."""
         package = generate_scenario(crisis_type="cardiac_arrest", tier="T4", seed=42)
-        # At least one non-health module should have a None somewhere.
+        # At least one non-wearable module should have a None somewhere.
         has_drop = False
         for hb in package.heartbeats:
             if (
@@ -117,10 +117,10 @@ class TestGenerateScenario:
             ):
                 has_drop = True
                 break
-        assert has_drop, "Expected at least one None in non-health modules"
+        assert has_drop, "Expected at least one None in non-wearable modules"
 
 
-class TestHealthRealism:
+class TestWearableRealism:
     """Verify the 6 realism improvements produce physiologically plausible data."""
 
     @pytest.fixture()
@@ -135,7 +135,7 @@ class TestHealthRealism:
         """
         cid = package.crisis_heartbeat_id
         crisis_temps = [
-            hb.health.skin_temp for hb in package.heartbeats[cid:] if hb.health is not None
+            hb.wearable.skin_temp for hb in package.heartbeats[cid:] if hb.wearable is not None
         ]
         assert len(crisis_temps) >= 10
         assert crisis_temps[0] - crisis_temps[-1] > 1.0
@@ -144,7 +144,7 @@ class TestHealthRealism:
         """Blood glucose should drift upward during crisis (cells stop consuming)."""
         cid = package.crisis_heartbeat_id
         crisis_glucose = [
-            hb.health.blood_glucose for hb in package.heartbeats[cid:] if hb.health is not None
+            hb.wearable.blood_glucose for hb in package.heartbeats[cid:] if hb.wearable is not None
         ]
         assert len(crisis_glucose) >= 10
         # Overall trend must be upward.
@@ -154,7 +154,9 @@ class TestHealthRealism:
         """Blood glucose should spike after breakfast and lunch meals."""
         cid = package.crisis_heartbeat_id
         normal_hbs = package.heartbeats[:cid]
-        glucose_values = [hb.health.blood_glucose for hb in normal_hbs if hb.health is not None]
+        glucose_values = [
+            hb.wearable.blood_glucose for hb in normal_hbs if hb.wearable is not None
+        ]
         # Find the baseline (first few readings before breakfast kicks in).
         baseline = glucose_values[0]
         peak = max(glucose_values)
@@ -165,16 +167,16 @@ class TestHealthRealism:
         """Normal skin temp should stay within 36.0-37.2°C."""
         cid = package.crisis_heartbeat_id
         for hb in package.heartbeats[:cid]:
-            assert hb.health is not None
-            assert 36.0 <= hb.health.skin_temp <= 37.2
+            assert hb.wearable is not None
+            assert 36.0 <= hb.wearable.skin_temp <= 37.2
 
     def test_steps_bursty_during_sedentary(self, package: ScenarioPackage) -> None:
         """During sedentary blocks, >50% of heartbeats should add zero steps (bursty)."""
         cid = package.crisis_heartbeat_id
-        normal_hbs = [hb for hb in package.heartbeats[:cid] if hb.health is not None]
+        normal_hbs = [hb for hb in package.heartbeats[:cid] if hb.wearable is not None]
         # Compute step deltas.
         deltas = [
-            normal_hbs[i].health.steps - normal_hbs[i - 1].health.steps
+            normal_hbs[i].wearable.steps - normal_hbs[i - 1].wearable.steps
             for i in range(1, len(normal_hbs))
         ]
         zero_deltas = sum(1 for d in deltas if d == 0)
@@ -186,8 +188,8 @@ class TestHealthRealism:
     def test_body_battery_occasionally_recovers(self, package: ScenarioPackage) -> None:
         """Body battery should occasionally increase during rest, but trend down overall."""
         cid = package.crisis_heartbeat_id
-        normal_hbs = [hb for hb in package.heartbeats[:cid] if hb.health is not None]
-        batteries = [hb.health.body_battery for hb in normal_hbs]
+        normal_hbs = [hb for hb in package.heartbeats[:cid] if hb.wearable is not None]
+        batteries = [hb.wearable.body_battery for hb in normal_hbs]
         deltas = [batteries[i] - batteries[i - 1] for i in range(1, len(batteries))]
         # At least one positive delta (recovery).
         assert any(d > 0 for d in deltas), "Expected at least one body battery recovery"
@@ -197,7 +199,9 @@ class TestHealthRealism:
     def test_spo2_has_range_beyond_96_99(self, package: ScenarioPackage) -> None:
         """SpO2 should occasionally read outside the old 96-99 range."""
         cid = package.crisis_heartbeat_id
-        spo2_values = [hb.health.spo2 for hb in package.heartbeats[:cid] if hb.health is not None]
+        spo2_values = [
+            hb.wearable.spo2 for hb in package.heartbeats[:cid] if hb.wearable is not None
+        ]
         has_outlier = any(v < 96 or v > 99 for v in spo2_values)
         assert has_outlier, "Expected at least one SpO2 outside 96-99"
 
@@ -205,7 +209,7 @@ class TestHealthRealism:
         """Normal blocks should occasionally produce ECG artifacts."""
         cid = package.crisis_heartbeat_id
         ecg_values = [
-            hb.health.ecg_summary for hb in package.heartbeats[:cid] if hb.health is not None
+            hb.wearable.ecg_summary for hb in package.heartbeats[:cid] if hb.wearable is not None
         ]
         non_normal = [e for e in ecg_values if e != "normal sinus rhythm"]
         assert len(non_normal) > 0, "Expected at least one ECG artifact during normal"
@@ -214,7 +218,7 @@ class TestHealthRealism:
         """Exponential cooling: first-half temp drop > second-half temp drop."""
         cid = package.crisis_heartbeat_id
         crisis_temps = [
-            hb.health.skin_temp for hb in package.heartbeats[cid:] if hb.health is not None
+            hb.wearable.skin_temp for hb in package.heartbeats[cid:] if hb.wearable is not None
         ]
         mid = len(crisis_temps) // 2
         first_half_drop = crisis_temps[0] - crisis_temps[mid]
@@ -225,12 +229,12 @@ class TestHealthRealism:
         """Blood glucose should dip during running vs preceding sedentary block."""
         package = generate_scenario(crisis_type="cardiac_arrest", tier="T1", seed=42)
         cid = package.crisis_heartbeat_id
-        normal_hbs = [hb for hb in package.heartbeats[:cid] if hb.health is not None]
+        normal_hbs = [hb for hb in package.heartbeats[:cid] if hb.wearable is not None]
         # Find running heartbeats (last 4 before crisis: 17:45-18:05 = 4 heartbeats).
         # The preceding "home" block has 3 heartbeats (17:30-17:45).
         # Compare average glucose in running vs the few heartbeats before it.
-        running_glucose = [hb.health.blood_glucose for hb in normal_hbs[-4:]]
-        pre_running_glucose = [hb.health.blood_glucose for hb in normal_hbs[-7:-4]]
+        running_glucose = [hb.wearable.blood_glucose for hb in normal_hbs[-4:]]
+        pre_running_glucose = [hb.wearable.blood_glucose for hb in normal_hbs[-7:-4]]
         assert sum(running_glucose) / len(running_glucose) < sum(pre_running_glucose) / len(
             pre_running_glucose
         )
@@ -238,7 +242,7 @@ class TestHealthRealism:
     def test_blood_glucose_precision_varies(self, package: ScenarioPackage) -> None:
         """At least one glucose reading should be a whole number (precision variation)."""
         all_glucose = [
-            hb.health.blood_glucose for hb in package.heartbeats if hb.health is not None
+            hb.wearable.blood_glucose for hb in package.heartbeats if hb.wearable is not None
         ]
         whole_numbers = [g for g in all_glucose if g == int(g)]
         assert len(whole_numbers) > 0, "Expected at least one whole-number glucose"
@@ -249,8 +253,8 @@ class TestHealthRealism:
         package_hrs = []
         cid = package.crisis_heartbeat_id
         for hb in package.heartbeats[:cid]:
-            if hb.health is not None and hb.health.heart_rate > 70:
-                package_hrs.append(hb.health.heart_rate)
+            if hb.wearable is not None and hb.wearable.heart_rate > 70:
+                package_hrs.append(hb.wearable.heart_rate)
         # With ~139 pre-crisis heartbeats and 10% spike chance during many
         # sedentary blocks, we expect at least a few spikes above 70.
         assert len(package_hrs) > 0, "Expected at least one HR spike above 70 BPM"

@@ -24,13 +24,13 @@ from crisis_bench.models.scenario import (
     CommsData,
     Contact,
     FinancialData,
-    HealthData,
     HeartbeatPayload,
     LocationData,
     NoiseTier,
     PersonProfile,
     ScenarioManifest,
     ScenarioPackage,
+    WearableData,
     WeatherData,
 )
 
@@ -58,7 +58,7 @@ class ModuleGenerator(Protocol):
 # ---------------------------------------------------------------------------
 
 ALL_MODULE_NAMES: tuple[str, ...] = (
-    "health",
+    "wearable",
     "location",
     "weather",
     "calendar",
@@ -67,9 +67,9 @@ ALL_MODULE_NAMES: tuple[str, ...] = (
 )
 
 TIER_MODULES: dict[str, list[str]] = {
-    "T1": ["health"],
-    "T2": ["health", "location", "weather"],
-    "T3": ["health", "location", "weather", "calendar", "comms"],
+    "T1": ["wearable"],
+    "T2": ["wearable", "location", "weather"],
+    "T3": ["wearable", "location", "weather", "calendar", "comms"],
     "T4": list(ALL_MODULE_NAMES),
 }
 
@@ -190,12 +190,12 @@ def _collect_generators(
     from crisis_bench.generator.modules.calendar import CalendarGenerator
     from crisis_bench.generator.modules.comms import CommsGenerator
     from crisis_bench.generator.modules.financial import FinancialGenerator
-    from crisis_bench.generator.modules.health import HealthGenerator
     from crisis_bench.generator.modules.location import LocationGenerator
+    from crisis_bench.generator.modules.wearable import WearableGenerator
     from crisis_bench.generator.modules.weather import WeatherGenerator
 
     registry: dict[str, ModuleGenerator] = {
-        "health": HealthGenerator(),
+        "wearable": WearableGenerator(),
         "location": LocationGenerator(),
         "weather": WeatherGenerator(),
         "calendar": CalendarGenerator(),
@@ -256,10 +256,10 @@ def generate_scenario(
         for mod_name, gen in generators.items():
             if mod_name in enabled_modules:
                 result = gen.generate(schedule, hb_id, ts, rng)
-                # ~1.5% chance per non-health module that the sensor didn't
+                # ~1.5% chance per non-wearable module that the sensor didn't
                 # report.  Always consume the RNG call for determinism.
                 drop_roll = rng.random()
-                if mod_name != "health" and drop_roll < 0.015 and hb_id < (crisis_hb_index - 10):
+                if mod_name != "wearable" and drop_roll < 0.015 and hb_id < (crisis_hb_index - 10):
                     result = None
                 payload[mod_name] = result
         raw_heartbeats.append(payload)
@@ -309,7 +309,7 @@ def generate_scenario(
 # ---------------------------------------------------------------------------
 
 _MODULE_MODEL_MAP: dict[str, type] = {
-    "health": HealthData,
+    "wearable": WearableData,
     "location": LocationData,
     "weather": WeatherData,
     "calendar": CalendarData,

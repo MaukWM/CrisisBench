@@ -76,20 +76,14 @@ def load_scenario(scenario_dir: Path) -> ScenarioPackage:
     persona = (scenario_dir / "persona.md").read_text(encoding="utf-8")
 
     memory_files = [
-        MemoryFile(key=p.stem, content=p.read_text(encoding="utf-8"))
-        for p in memory_paths
+        MemoryFile(key=p.stem, content=p.read_text(encoding="utf-8")) for p in memory_paths
     ]
 
     # 4. Content hash verification
-    heartbeats_json = json.dumps(
-        [hb.model_dump() for hb in heartbeats], sort_keys=True
-    )
+    heartbeats_json = json.dumps([hb.model_dump() for hb in heartbeats], sort_keys=True)
     computed_hash = hashlib.sha256(heartbeats_json.encode()).hexdigest()
     if computed_hash != manifest.content_hash:
-        msg = (
-            f"Content hash mismatch: expected {manifest.content_hash}, "
-            f"computed {computed_hash}"
-        )
+        msg = f"Content hash mismatch: expected {manifest.content_hash}, computed {computed_hash}"
         raise ScenarioLoadError(msg)
 
     # 5. Reassemble into ScenarioPackage

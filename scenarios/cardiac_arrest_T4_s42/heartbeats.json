@@ -2,7 +2,7 @@
   {
     "heartbeat_id": 0,
     "timestamp": "2027-06-15T06:30:20Z",
-    "health": {
+    "wearable": {
       "heart_rate": 59,
       "spo2": 96,
       "steps": 0,
@@ -66,7 +66,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -143,7 +143,7 @@
   {
     "heartbeat_id": 1,
     "timestamp": "2027-06-15T06:35:03Z",
-    "health": {
+    "wearable": {
       "heart_rate": 60,
       "spo2": 96,
       "steps": 75,
@@ -219,7 +219,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -296,7 +296,7 @@
   {
     "heartbeat_id": 2,
     "timestamp": "2027-06-15T06:40:00Z",
-    "health": {
+    "wearable": {
       "heart_rate": 64,
       "spo2": 95,
       "steps": 141,
@@ -372,7 +372,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -449,7 +449,7 @@
   {
     "heartbeat_id": 3,
     "timestamp": "2027-06-15T06:45:23Z",
-    "health": {
+    "wearable": {
       "heart_rate": 86,
       "spo2": 94,
       "steps": 141,
@@ -525,7 +525,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -595,7 +595,7 @@
   {
     "heartbeat_id": 4,
     "timestamp": "2027-06-15T06:50:08Z",
-    "health": {
+    "wearable": {
       "heart_rate": 64,
       "spo2": 99,
       "steps": 213,
@@ -671,7 +671,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -748,7 +748,7 @@
   {
     "heartbeat_id": 5,
     "timestamp": "2027-06-15T06:55:07Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 96,
       "steps": 213,
@@ -824,7 +824,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -901,7 +901,7 @@
   {
     "heartbeat_id": 6,
     "timestamp": "2027-06-15T07:00:07Z",
-    "health": {
+    "wearable": {
       "heart_rate": 74,
       "spo2": 95,
       "steps": 286,
@@ -977,7 +977,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -1054,7 +1054,7 @@
   {
     "heartbeat_id": 7,
     "timestamp": "2027-06-15T07:05:04Z",
-    "health": {
+    "wearable": {
       "heart_rate": 72,
       "spo2": 96,
       "steps": 381,
@@ -1130,7 +1130,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -1212,7 +1212,7 @@
   {
     "heartbeat_id": 8,
     "timestamp": "2027-06-15T07:10:23Z",
-    "health": {
+    "wearable": {
       "heart_rate": 74,
       "spo2": 93,
       "steps": 436,
@@ -1288,7 +1288,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -1365,7 +1365,7 @@
   {
     "heartbeat_id": 9,
     "timestamp": "2027-06-15T07:15:03Z",
-    "health": {
+    "wearable": {
       "heart_rate": 74,
       "spo2": 99,
       "steps": 524,
@@ -1441,7 +1441,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -1523,7 +1523,7 @@
   {
     "heartbeat_id": 10,
     "timestamp": "2027-06-15T07:20:21Z",
-    "health": {
+    "wearable": {
       "heart_rate": 74,
       "spo2": 99,
       "steps": 570,
@@ -1599,7 +1599,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -1676,7 +1676,7 @@
   {
     "heartbeat_id": 11,
     "timestamp": "2027-06-15T07:25:23Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 95,
       "steps": 674,
@@ -1752,7 +1752,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -1767,7 +1767,7 @@
       "new_notifications": [
         {
           "platform": "Instagram",
-          "notification_text": "tom_brennan liked your photo"
+          "notification_text": "tom_brennan and 2 others liked your photo"
         }
       ]
     },
@@ -1834,7 +1834,7 @@
   {
     "heartbeat_id": 12,
     "timestamp": "2027-06-15T07:30:28Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 98,
       "steps": 725,
@@ -1910,7 +1910,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -1987,7 +1987,7 @@
   {
     "heartbeat_id": 13,
     "timestamp": "2027-06-15T07:35:17Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 96,
       "steps": 785,
@@ -2063,7 +2063,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -2140,7 +2140,7 @@
   {
     "heartbeat_id": 14,
     "timestamp": "2027-06-15T07:40:02Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 96,
       "steps": 840,
@@ -2216,7 +2216,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -2293,7 +2293,7 @@
   {
     "heartbeat_id": 15,
     "timestamp": "2027-06-15T07:45:18Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 99,
       "steps": 897,
@@ -2369,7 +2369,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -2446,7 +2446,7 @@
   {
     "heartbeat_id": 16,
     "timestamp": "2027-06-15T07:50:13Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 95,
       "steps": 930,
@@ -2522,7 +2522,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -2599,7 +2599,7 @@
   {
     "heartbeat_id": 17,
     "timestamp": "2027-06-15T07:55:01Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 99,
       "steps": 981,
@@ -2675,7 +2675,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -2752,7 +2752,7 @@
   {
     "heartbeat_id": 18,
     "timestamp": "2027-06-15T08:00:00Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 97,
       "steps": 981,
@@ -2824,7 +2824,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -2901,7 +2901,7 @@
   {
     "heartbeat_id": 19,
     "timestamp": "2027-06-15T08:05:02Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 94,
       "steps": 981,
@@ -2973,7 +2973,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -3050,7 +3050,7 @@
   {
     "heartbeat_id": 20,
     "timestamp": "2027-06-15T08:10:06Z",
-    "health": {
+    "wearable": {
       "heart_rate": 63,
       "spo2": 100,
       "steps": 982,
@@ -3122,7 +3122,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -3136,7 +3136,7 @@
       "new_sms": [
         {
           "sender": "Sarah Mitchell",
-          "message": "Have a good day! Don't forget dinner reservations at 7"
+          "message": "dont forget i'm making slop@7 so don't be late :)"
         }
       ],
       "new_notifications": []
@@ -3204,7 +3204,7 @@
   {
     "heartbeat_id": 21,
     "timestamp": "2027-06-15T08:15:07Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 98,
       "steps": 982,
@@ -3276,7 +3276,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -3353,7 +3353,7 @@
   {
     "heartbeat_id": 22,
     "timestamp": "2027-06-15T08:20:16Z",
-    "health": {
+    "wearable": {
       "heart_rate": 86,
       "spo2": 99,
       "steps": 982,
@@ -3425,7 +3425,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -3502,7 +3502,7 @@
   {
     "heartbeat_id": 23,
     "timestamp": "2027-06-15T08:25:19Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 94,
       "steps": 982,
@@ -3574,7 +3574,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -3651,7 +3651,7 @@
   {
     "heartbeat_id": 24,
     "timestamp": "2027-06-15T08:30:00Z",
-    "health": {
+    "wearable": {
       "heart_rate": 64,
       "spo2": 99,
       "steps": 1037,
@@ -3723,7 +3723,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -3800,7 +3800,7 @@
   {
     "heartbeat_id": 25,
     "timestamp": "2027-06-15T08:35:17Z",
-    "health": {
+    "wearable": {
       "heart_rate": 79,
       "spo2": 98,
       "steps": 1038,
@@ -3872,7 +3872,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -3949,7 +3949,7 @@
   {
     "heartbeat_id": 26,
     "timestamp": "2027-06-15T08:40:06Z",
-    "health": {
+    "wearable": {
       "heart_rate": 79,
       "spo2": 98,
       "steps": 1038,
@@ -4021,7 +4021,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -4098,7 +4098,7 @@
   {
     "heartbeat_id": 27,
     "timestamp": "2027-06-15T08:45:22Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 99,
       "steps": 1038,
@@ -4170,7 +4170,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -4247,7 +4247,7 @@
   {
     "heartbeat_id": 28,
     "timestamp": "2027-06-15T08:50:20Z",
-    "health": {
+    "wearable": {
       "heart_rate": 89,
       "spo2": 99,
       "steps": 1038,
@@ -4319,7 +4319,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -4401,7 +4401,7 @@
   {
     "heartbeat_id": 29,
     "timestamp": "2027-06-15T08:55:22Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 98,
       "steps": 1066,
@@ -4473,7 +4473,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -4550,7 +4550,7 @@
   {
     "heartbeat_id": 30,
     "timestamp": "2027-06-15T09:00:17Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 96,
       "steps": 1066,
@@ -4620,7 +4620,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -4697,7 +4697,7 @@
   {
     "heartbeat_id": 31,
     "timestamp": "2027-06-15T09:05:13Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 97,
       "steps": 1093,
@@ -4767,7 +4767,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -4779,12 +4779,17 @@
         {
           "channel": "#engineering",
           "sender": "Priya Kapoor",
-          "message": "PR approved, merging now"
+          "message": "merged the PR from yday, will deploy after standup"
         },
         {
           "channel": "#general",
           "sender": "Mike Chang",
-          "message": "standup in 5"
+          "message": "sry can't make standup today"
+        },
+        {
+          "channel": "#engineering",
+          "sender": "Kira Nakamura",
+          "message": "aight no worries"
         }
       ],
       "new_missed_calls": 0,
@@ -4855,7 +4860,7 @@
   {
     "heartbeat_id": 32,
     "timestamp": "2027-06-15T09:10:07Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 96,
       "steps": 1093,
@@ -4925,7 +4930,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -5002,7 +5007,7 @@
   {
     "heartbeat_id": 33,
     "timestamp": "2027-06-15T09:15:14Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 97,
       "steps": 1093,
@@ -5072,7 +5077,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -5154,7 +5159,7 @@
   {
     "heartbeat_id": 34,
     "timestamp": "2027-06-15T09:20:18Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 100,
       "steps": 1146,
@@ -5224,7 +5229,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -5306,7 +5311,7 @@
   {
     "heartbeat_id": 35,
     "timestamp": "2027-06-15T09:25:08Z",
-    "health": {
+    "wearable": {
       "heart_rate": 86,
       "spo2": 98,
       "steps": 1146,
@@ -5376,7 +5381,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -5453,7 +5458,7 @@
   {
     "heartbeat_id": 36,
     "timestamp": "2027-06-15T09:30:25Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 95,
       "steps": 1226,
@@ -5523,7 +5528,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -5600,7 +5605,7 @@
   {
     "heartbeat_id": 37,
     "timestamp": "2027-06-15T09:35:27Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 99,
       "steps": 1226,
@@ -5670,7 +5675,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -5747,7 +5752,7 @@
   {
     "heartbeat_id": 38,
     "timestamp": "2027-06-15T09:40:00Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 95,
       "steps": 1291,
@@ -5817,7 +5822,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -5899,7 +5904,7 @@
   {
     "heartbeat_id": 39,
     "timestamp": "2027-06-15T09:45:24Z",
-    "health": {
+    "wearable": {
       "heart_rate": 63,
       "spo2": 98,
       "steps": 1292,
@@ -5969,7 +5974,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -6046,7 +6051,7 @@
   {
     "heartbeat_id": 40,
     "timestamp": "2027-06-15T09:50:25Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 98,
       "steps": 1292,
@@ -6104,7 +6109,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -6181,7 +6186,7 @@
   {
     "heartbeat_id": 41,
     "timestamp": "2027-06-15T09:55:05Z",
-    "health": {
+    "wearable": {
       "heart_rate": 63,
       "spo2": 96,
       "steps": 1292,
@@ -6251,7 +6256,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -6328,7 +6333,7 @@
   {
     "heartbeat_id": 42,
     "timestamp": "2027-06-15T10:00:22Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 100,
       "steps": 1292,
@@ -6397,7 +6402,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -6470,7 +6475,7 @@
   {
     "heartbeat_id": 43,
     "timestamp": "2027-06-15T10:05:13Z",
-    "health": {
+    "wearable": {
       "heart_rate": 83,
       "spo2": 96,
       "steps": 1366,
@@ -6539,7 +6544,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -6612,7 +6617,7 @@
   {
     "heartbeat_id": 44,
     "timestamp": "2027-06-15T10:10:10Z",
-    "health": {
+    "wearable": {
       "heart_rate": 72,
       "spo2": 97,
       "steps": 1420,
@@ -6681,7 +6686,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -6754,7 +6759,7 @@
   {
     "heartbeat_id": 45,
     "timestamp": "2027-06-15T10:15:08Z",
-    "health": {
+    "wearable": {
       "heart_rate": 71,
       "spo2": 96,
       "steps": 1420,
@@ -6823,7 +6828,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -6896,7 +6901,7 @@
   {
     "heartbeat_id": 46,
     "timestamp": "2027-06-15T10:20:04Z",
-    "health": {
+    "wearable": {
       "heart_rate": 91,
       "spo2": 99,
       "steps": 1444,
@@ -6965,7 +6970,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -7038,7 +7043,7 @@
   {
     "heartbeat_id": 47,
     "timestamp": "2027-06-15T10:25:06Z",
-    "health": {
+    "wearable": {
       "heart_rate": 72,
       "spo2": 98,
       "steps": 1444,
@@ -7107,7 +7112,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -7126,7 +7131,7 @@
   {
     "heartbeat_id": 48,
     "timestamp": "2027-06-15T10:30:30Z",
-    "health": {
+    "wearable": {
       "heart_rate": 74,
       "spo2": 97,
       "steps": 1444,
@@ -7195,7 +7200,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -7268,7 +7273,7 @@
   {
     "heartbeat_id": 49,
     "timestamp": "2027-06-15T10:35:24Z",
-    "health": {
+    "wearable": {
       "heart_rate": 73,
       "spo2": 97,
       "steps": 1444,
@@ -7337,7 +7342,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -7410,7 +7415,7 @@
   {
     "heartbeat_id": 50,
     "timestamp": "2027-06-15T10:40:10Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 99,
       "steps": 1479,
@@ -7479,7 +7484,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -7552,7 +7557,7 @@
   {
     "heartbeat_id": 51,
     "timestamp": "2027-06-15T10:45:03Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 96,
       "steps": 1479,
@@ -7621,7 +7626,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -7694,7 +7699,7 @@
   {
     "heartbeat_id": 52,
     "timestamp": "2027-06-15T10:50:02Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 97,
       "steps": 1479,
@@ -7763,7 +7768,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -7771,13 +7776,7 @@
     },
     "comms": {
       "new_emails": [],
-      "new_slack_messages": [
-        {
-          "channel": "#engineering",
-          "sender": "Kira Nakamura",
-          "message": "anyone tried the new Figma plugin?"
-        }
-      ],
+      "new_slack_messages": [],
       "new_missed_calls": 0,
       "new_voicemails": 0,
       "new_sms": [],
@@ -7842,7 +7841,7 @@
   {
     "heartbeat_id": 53,
     "timestamp": "2027-06-15T10:55:12Z",
-    "health": {
+    "wearable": {
       "heart_rate": 66,
       "spo2": 99,
       "steps": 1479,
@@ -7911,7 +7910,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -7984,7 +7983,7 @@
   {
     "heartbeat_id": 54,
     "timestamp": "2027-06-15T11:00:03Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 100,
       "steps": 1516,
@@ -8053,7 +8052,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -8126,7 +8125,7 @@
   {
     "heartbeat_id": 55,
     "timestamp": "2027-06-15T11:05:11Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 97,
       "steps": 1516,
@@ -8195,7 +8194,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -8273,7 +8272,7 @@
   {
     "heartbeat_id": 56,
     "timestamp": "2027-06-15T11:10:27Z",
-    "health": {
+    "wearable": {
       "heart_rate": 63,
       "spo2": 95,
       "steps": 1516,
@@ -8342,7 +8341,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -8415,7 +8414,7 @@
   {
     "heartbeat_id": 57,
     "timestamp": "2027-06-15T11:15:11Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 95,
       "steps": 1516,
@@ -8484,7 +8483,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -8557,7 +8556,7 @@
   {
     "heartbeat_id": 58,
     "timestamp": "2027-06-15T11:20:19Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 97,
       "steps": 1559,
@@ -8626,7 +8625,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -8699,7 +8698,7 @@
   {
     "heartbeat_id": 59,
     "timestamp": "2027-06-15T11:25:08Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 95,
       "steps": 1559,
@@ -8768,7 +8767,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -8841,7 +8840,7 @@
   {
     "heartbeat_id": 60,
     "timestamp": "2027-06-15T11:30:25Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 100,
       "steps": 1595,
@@ -8911,7 +8910,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -8930,7 +8929,7 @@
   {
     "heartbeat_id": 61,
     "timestamp": "2027-06-15T11:35:01Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 96,
       "steps": 1595,
@@ -9000,7 +8999,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -9073,7 +9072,7 @@
   {
     "heartbeat_id": 62,
     "timestamp": "2027-06-15T11:40:23Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 95,
       "steps": 1595,
@@ -9143,7 +9142,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -9155,7 +9154,7 @@
         {
           "channel": "#design-review",
           "sender": "Kira Nakamura",
-          "message": "mockups updated in the shared drive"
+          "message": "updated mockups are in the drive, same folder as before"
         }
       ],
       "new_missed_calls": 0,
@@ -9222,7 +9221,7 @@
   {
     "heartbeat_id": 63,
     "timestamp": "2027-06-15T11:45:14Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 96,
       "steps": 1595,
@@ -9292,7 +9291,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -9365,7 +9364,7 @@
   {
     "heartbeat_id": 64,
     "timestamp": "2027-06-15T11:50:17Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 97,
       "steps": 1595,
@@ -9435,7 +9434,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -9508,7 +9507,7 @@
   {
     "heartbeat_id": 65,
     "timestamp": "2027-06-15T11:55:03Z",
-    "health": {
+    "wearable": {
       "heart_rate": 88,
       "spo2": 94,
       "steps": 1595,
@@ -9578,7 +9577,7 @@
           "time": "2027-06-15T12:00:00Z"
         },
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -9651,7 +9650,7 @@
   {
     "heartbeat_id": 66,
     "timestamp": "2027-06-15T12:00:29Z",
-    "health": {
+    "wearable": {
       "heart_rate": 92,
       "spo2": 99,
       "steps": 1595,
@@ -9717,7 +9716,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -9790,7 +9789,7 @@
   {
     "heartbeat_id": 67,
     "timestamp": "2027-06-15T12:05:12Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 93,
       "steps": 1595,
@@ -9856,7 +9855,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -9871,7 +9870,7 @@
       "new_notifications": [
         {
           "platform": "Reddit",
-          "notification_text": "Trending in r/programming: Rust vs Go for backend services"
+          "notification_text": "Trending in r/programming: \"Rust vs Go \u2014 the debate that won't die\""
         }
       ]
     },
@@ -9934,7 +9933,7 @@
   {
     "heartbeat_id": 68,
     "timestamp": "2027-06-15T12:10:02Z",
-    "health": {
+    "wearable": {
       "heart_rate": 66,
       "spo2": 96,
       "steps": 1596,
@@ -10000,7 +9999,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -10073,7 +10072,7 @@
   {
     "heartbeat_id": 69,
     "timestamp": "2027-06-15T12:15:17Z",
-    "health": {
+    "wearable": {
       "heart_rate": 64,
       "spo2": 98,
       "steps": 1596,
@@ -10139,7 +10138,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -10212,7 +10211,7 @@
   {
     "heartbeat_id": 70,
     "timestamp": "2027-06-15T12:20:09Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 98,
       "steps": 1669,
@@ -10278,7 +10277,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -10351,7 +10350,7 @@
   {
     "heartbeat_id": 71,
     "timestamp": "2027-06-15T12:25:26Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 95,
       "steps": 1724,
@@ -10417,7 +10416,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -10431,7 +10430,7 @@
       "new_sms": [
         {
           "sender": "Jake Mitchell",
-          "message": "Dude check out this article about the new PS6 rumors"
+          "message": "new ps6 leak on beebom\ud83d\udc40"
         }
       ],
       "new_notifications": []
@@ -10495,7 +10494,7 @@
   {
     "heartbeat_id": 72,
     "timestamp": "2027-06-15T12:30:20Z",
-    "health": {
+    "wearable": {
       "heart_rate": 74,
       "spo2": 95,
       "steps": 1761,
@@ -10559,7 +10558,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -10632,7 +10631,7 @@
   {
     "heartbeat_id": 73,
     "timestamp": "2027-06-15T12:35:19Z",
-    "health": {
+    "wearable": {
       "heart_rate": 77,
       "spo2": 98,
       "steps": 1789,
@@ -10696,7 +10695,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -10769,7 +10768,7 @@
   {
     "heartbeat_id": 74,
     "timestamp": "2027-06-15T12:40:28Z",
-    "health": {
+    "wearable": {
       "heart_rate": 78,
       "spo2": 95,
       "steps": 1815,
@@ -10833,7 +10832,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -10906,7 +10905,7 @@
   {
     "heartbeat_id": 75,
     "timestamp": "2027-06-15T12:45:27Z",
-    "health": {
+    "wearable": {
       "heart_rate": 75,
       "spo2": 99,
       "steps": 1830,
@@ -10970,7 +10969,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -11043,7 +11042,7 @@
   {
     "heartbeat_id": 76,
     "timestamp": "2027-06-15T12:50:11Z",
-    "health": {
+    "wearable": {
       "heart_rate": 72,
       "spo2": 98,
       "steps": 1850,
@@ -11095,7 +11094,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -11168,7 +11167,7 @@
   {
     "heartbeat_id": 77,
     "timestamp": "2027-06-15T12:55:18Z",
-    "health": {
+    "wearable": {
       "heart_rate": 76,
       "spo2": 98,
       "steps": 1871,
@@ -11232,7 +11231,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -11310,7 +11309,7 @@
   {
     "heartbeat_id": 78,
     "timestamp": "2027-06-15T13:00:06Z",
-    "health": {
+    "wearable": {
       "heart_rate": 72,
       "spo2": 99,
       "steps": 1884,
@@ -11374,7 +11373,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -11447,7 +11446,7 @@
   {
     "heartbeat_id": 79,
     "timestamp": "2027-06-15T13:05:22Z",
-    "health": {
+    "wearable": {
       "heart_rate": 71,
       "spo2": 100,
       "steps": 1898,
@@ -11511,7 +11510,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -11584,7 +11583,7 @@
   {
     "heartbeat_id": 80,
     "timestamp": "2027-06-15T13:10:02Z",
-    "health": {
+    "wearable": {
       "heart_rate": 76,
       "spo2": 97,
       "steps": 1908,
@@ -11648,7 +11647,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -11721,7 +11720,7 @@
   {
     "heartbeat_id": 81,
     "timestamp": "2027-06-15T13:15:01Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 95,
       "steps": 1954,
@@ -11773,7 +11772,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -11846,7 +11845,7 @@
   {
     "heartbeat_id": 82,
     "timestamp": "2027-06-15T13:20:21Z",
-    "health": {
+    "wearable": {
       "heart_rate": 64,
       "spo2": 96,
       "steps": 1954,
@@ -11910,7 +11909,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -11983,7 +11982,7 @@
   {
     "heartbeat_id": 83,
     "timestamp": "2027-06-15T13:25:07Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 99,
       "steps": 1954,
@@ -12047,7 +12046,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -12059,7 +12058,7 @@
         {
           "channel": "#random",
           "sender": "Mike Chang",
-          "message": "anyone want to grab coffee?"
+          "message": "https://www.youtube.com/watch?v=TiQm5Fh5NjE"
         }
       ],
       "new_missed_calls": 0,
@@ -12126,7 +12125,7 @@
   {
     "heartbeat_id": 84,
     "timestamp": "2027-06-15T13:30:24Z",
-    "health": {
+    "wearable": {
       "heart_rate": 64,
       "spo2": 99,
       "steps": 1954,
@@ -12190,7 +12189,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -12209,7 +12208,7 @@
   {
     "heartbeat_id": 85,
     "timestamp": "2027-06-15T13:35:09Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 100,
       "steps": 1954,
@@ -12273,7 +12272,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -12346,7 +12345,7 @@
   {
     "heartbeat_id": 86,
     "timestamp": "2027-06-15T13:40:02Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 99,
       "steps": 1954,
@@ -12401,7 +12400,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -12474,7 +12473,7 @@
   {
     "heartbeat_id": 87,
     "timestamp": "2027-06-15T13:45:27Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 95,
       "steps": 1954,
@@ -12538,7 +12537,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -12611,7 +12610,7 @@
   {
     "heartbeat_id": 88,
     "timestamp": "2027-06-15T13:50:07Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 97,
       "steps": 2031,
@@ -12675,7 +12674,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -12748,7 +12747,7 @@
   {
     "heartbeat_id": 89,
     "timestamp": "2027-06-15T13:55:27Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 98,
       "steps": 2031,
@@ -12812,7 +12811,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -12885,7 +12884,7 @@
   {
     "heartbeat_id": 90,
     "timestamp": "2027-06-15T14:00:03Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 96,
       "steps": 2031,
@@ -12948,7 +12947,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -13021,7 +13020,7 @@
   {
     "heartbeat_id": 91,
     "timestamp": "2027-06-15T14:05:12Z",
-    "health": {
+    "wearable": {
       "heart_rate": 63,
       "spo2": 96,
       "steps": 2092,
@@ -13084,7 +13083,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -13157,7 +13156,7 @@
   {
     "heartbeat_id": 92,
     "timestamp": "2027-06-15T14:10:08Z",
-    "health": {
+    "wearable": {
       "heart_rate": 66,
       "spo2": 96,
       "steps": 2092,
@@ -13220,7 +13219,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -13293,7 +13292,7 @@
   {
     "heartbeat_id": 93,
     "timestamp": "2027-06-15T14:15:14Z",
-    "health": {
+    "wearable": {
       "heart_rate": 64,
       "spo2": 96,
       "steps": 2092,
@@ -13356,7 +13355,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -13429,7 +13428,7 @@
   {
     "heartbeat_id": 94,
     "timestamp": "2027-06-15T14:20:20Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 99,
       "steps": 2092,
@@ -13492,7 +13491,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -13507,7 +13506,7 @@
       "new_notifications": [
         {
           "platform": "X",
-          "notification_text": "5 new posts from accounts you follow"
+          "notification_text": "5 new posts from people you follow"
         }
       ]
     },
@@ -13516,7 +13515,7 @@
   {
     "heartbeat_id": 95,
     "timestamp": "2027-06-15T14:25:26Z",
-    "health": {
+    "wearable": {
       "heart_rate": 83,
       "spo2": 97,
       "steps": 2092,
@@ -13579,7 +13578,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -13657,7 +13656,7 @@
   {
     "heartbeat_id": 96,
     "timestamp": "2027-06-15T14:30:11Z",
-    "health": {
+    "wearable": {
       "heart_rate": 63,
       "spo2": 93,
       "steps": 2092,
@@ -13720,7 +13719,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -13793,7 +13792,7 @@
   {
     "heartbeat_id": 97,
     "timestamp": "2027-06-15T14:35:05Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 99,
       "steps": 2126,
@@ -13847,7 +13846,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -13920,7 +13919,7 @@
   {
     "heartbeat_id": 98,
     "timestamp": "2027-06-15T14:40:11Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 96,
       "steps": 2193,
@@ -13983,7 +13982,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -14056,7 +14055,7 @@
   {
     "heartbeat_id": 99,
     "timestamp": "2027-06-15T14:45:11Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 96,
       "steps": 2193,
@@ -14119,7 +14118,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -14131,7 +14130,7 @@
         {
           "channel": "#engineering",
           "sender": "Priya Kapoor",
-          "message": "CI is green, deploying to staging"
+          "message": "customer page on staging seems to be broken, mike can you check it out?"
         }
       ],
       "new_missed_calls": 0,
@@ -14198,7 +14197,7 @@
   {
     "heartbeat_id": 100,
     "timestamp": "2027-06-15T14:50:06Z",
-    "health": {
+    "wearable": {
       "heart_rate": 87,
       "spo2": 96,
       "steps": 2193,
@@ -14261,7 +14260,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -14269,7 +14268,13 @@
     },
     "comms": {
       "new_emails": [],
-      "new_slack_messages": [],
+      "new_slack_messages": [
+        {
+          "channel": "#engineering",
+          "sender": "Mike Chang",
+          "message": "yep on ti"
+        }
+      ],
       "new_missed_calls": 0,
       "new_voicemails": 0,
       "new_sms": [],
@@ -14334,7 +14339,7 @@
   {
     "heartbeat_id": 101,
     "timestamp": "2027-06-15T14:55:21Z",
-    "health": {
+    "wearable": {
       "heart_rate": 90,
       "spo2": 99,
       "steps": 2213,
@@ -14397,7 +14402,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -14416,7 +14421,7 @@
   {
     "heartbeat_id": 102,
     "timestamp": "2027-06-15T15:00:08Z",
-    "health": {
+    "wearable": {
       "heart_rate": 64,
       "spo2": 98,
       "steps": 2214,
@@ -14479,7 +14484,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -14493,7 +14498,11 @@
       "new_sms": [
         {
           "sender": "Tom Brennan",
-          "message": "Still on for the gym at 5:30?"
+          "message": "https://www.youtube.com/watch?v=PrSzdTjSwIA"
+        },
+        {
+          "sender": "Tom Brennan",
+          "message": "can't stop listening to this mix"
         }
       ],
       "new_notifications": []
@@ -14557,7 +14566,7 @@
   {
     "heartbeat_id": 103,
     "timestamp": "2027-06-15T15:05:22Z",
-    "health": {
+    "wearable": {
       "heart_rate": 66,
       "spo2": 97,
       "steps": 2284,
@@ -14620,7 +14629,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -14693,7 +14702,7 @@
   {
     "heartbeat_id": 104,
     "timestamp": "2027-06-15T15:10:29Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 97,
       "steps": 2284,
@@ -14756,7 +14765,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -14834,7 +14843,7 @@
   {
     "heartbeat_id": 105,
     "timestamp": "2027-06-15T15:15:21Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 100,
       "steps": 2349,
@@ -14897,7 +14906,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -14970,7 +14979,7 @@
   {
     "heartbeat_id": 106,
     "timestamp": "2027-06-15T15:20:20Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 99,
       "steps": 2349,
@@ -15033,7 +15042,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -15106,7 +15115,7 @@
   {
     "heartbeat_id": 107,
     "timestamp": "2027-06-15T15:25:02Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 97,
       "steps": 2394,
@@ -15169,7 +15178,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -15242,7 +15251,7 @@
   {
     "heartbeat_id": 108,
     "timestamp": "2027-06-15T15:30:19Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 97,
       "steps": 2394,
@@ -15296,7 +15305,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -15369,7 +15378,7 @@
   {
     "heartbeat_id": 109,
     "timestamp": "2027-06-15T15:35:20Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 95,
       "steps": 2453,
@@ -15423,7 +15432,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -15496,7 +15505,7 @@
   {
     "heartbeat_id": 110,
     "timestamp": "2027-06-15T15:40:05Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 95,
       "steps": 2453,
@@ -15550,7 +15559,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -15623,7 +15632,7 @@
   {
     "heartbeat_id": 111,
     "timestamp": "2027-06-15T15:45:17Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 96,
       "steps": 2481,
@@ -15677,7 +15686,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -15750,7 +15759,7 @@
   {
     "heartbeat_id": 112,
     "timestamp": "2027-06-15T15:50:23Z",
-    "health": {
+    "wearable": {
       "heart_rate": 66,
       "spo2": 97,
       "steps": 2550,
@@ -15804,7 +15813,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -15877,7 +15886,7 @@
   {
     "heartbeat_id": 113,
     "timestamp": "2027-06-15T15:55:07Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 96,
       "steps": 2550,
@@ -15931,7 +15940,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -15943,7 +15952,7 @@
         {
           "channel": "#general",
           "sender": "Rachel Torres",
-          "message": "reminder: team happy hour Friday at 5"
+          "message": "reminder \u2014 happy hour friday at 5, no excuses\ud83d\udd7a\ud83d\udd7a\ud83d\udd7a"
         }
       ],
       "new_missed_calls": 0,
@@ -16010,7 +16019,7 @@
   {
     "heartbeat_id": 114,
     "timestamp": "2027-06-15T16:00:05Z",
-    "health": {
+    "wearable": {
       "heart_rate": 88,
       "spo2": 95,
       "steps": 2550,
@@ -16064,7 +16073,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -16130,7 +16139,7 @@
   {
     "heartbeat_id": 115,
     "timestamp": "2027-06-15T16:05:14Z",
-    "health": {
+    "wearable": {
       "heart_rate": 80,
       "spo2": 94,
       "steps": 2624,
@@ -16184,7 +16193,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -16257,7 +16266,7 @@
   {
     "heartbeat_id": 116,
     "timestamp": "2027-06-15T16:10:12Z",
-    "health": {
+    "wearable": {
       "heart_rate": 64,
       "spo2": 97,
       "steps": 2680,
@@ -16311,7 +16320,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -16384,7 +16393,7 @@
   {
     "heartbeat_id": 117,
     "timestamp": "2027-06-15T16:15:08Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 98,
       "steps": 2729,
@@ -16438,7 +16447,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -16453,7 +16462,7 @@
       "new_notifications": [
         {
           "platform": "Instagram",
-          "notification_text": "sarahm_photos posted a new story"
+          "notification_text": "sarahm_photos posted a story"
         }
       ]
     },
@@ -16516,7 +16525,7 @@
   {
     "heartbeat_id": 118,
     "timestamp": "2027-06-15T16:20:29Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 95,
       "steps": 2729,
@@ -16570,7 +16579,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -16643,7 +16652,7 @@
   {
     "heartbeat_id": 119,
     "timestamp": "2027-06-15T16:25:20Z",
-    "health": {
+    "wearable": {
       "heart_rate": 65,
       "spo2": 99,
       "steps": 2729,
@@ -16697,7 +16706,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -16770,7 +16779,7 @@
   {
     "heartbeat_id": 120,
     "timestamp": "2027-06-15T16:30:22Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 96,
       "steps": 2806,
@@ -16824,7 +16833,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -16836,7 +16845,7 @@
         {
           "channel": "#engineering",
           "sender": "Mike Chang",
-          "message": "pushed the config fix, can someone review?"
+          "message": "btw customer page issue is fixed! was just an issue with one of our dependencies which needed a quick version bump"
         }
       ],
       "new_missed_calls": 0,
@@ -16903,7 +16912,7 @@
   {
     "heartbeat_id": 121,
     "timestamp": "2027-06-15T16:35:17Z",
-    "health": {
+    "wearable": {
       "heart_rate": 64,
       "spo2": 99,
       "steps": 2806,
@@ -16957,7 +16966,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -17030,7 +17039,7 @@
   {
     "heartbeat_id": 122,
     "timestamp": "2027-06-15T16:40:07Z",
-    "health": {
+    "wearable": {
       "heart_rate": 69,
       "spo2": 93,
       "steps": 2861,
@@ -17084,7 +17093,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -17162,7 +17171,7 @@
   {
     "heartbeat_id": 123,
     "timestamp": "2027-06-15T16:45:21Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 99,
       "steps": 2861,
@@ -17216,7 +17225,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -17230,7 +17239,11 @@
       "new_sms": [
         {
           "sender": "Sarah Mitchell",
-          "message": "Running 10 min late, meet you there"
+          "message": "i just realised"
+        },
+        {
+          "sender": "Sarah Mitchell",
+          "message": "i NEED to find my nintendo ds again that shit was goated"
         }
       ],
       "new_notifications": []
@@ -17294,7 +17307,7 @@
   {
     "heartbeat_id": 124,
     "timestamp": "2027-06-15T16:50:10Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 99,
       "steps": 2861,
@@ -17348,7 +17361,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -17421,7 +17434,7 @@
   {
     "heartbeat_id": 125,
     "timestamp": "2027-06-15T16:55:26Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 97,
       "steps": 2897,
@@ -17475,7 +17488,7 @@
       ],
       "reminders": [
         {
-          "text": "Pick up dry cleaning",
+          "text": "Mentos",
           "time": "2027-06-15T17:00:00Z"
         }
       ],
@@ -17548,7 +17561,7 @@
   {
     "heartbeat_id": 126,
     "timestamp": "2027-06-15T17:00:24Z",
-    "health": {
+    "wearable": {
       "heart_rate": 70,
       "spo2": 95,
       "steps": 2938,
@@ -17670,7 +17683,7 @@
   {
     "heartbeat_id": 127,
     "timestamp": "2027-06-15T17:05:24Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 97,
       "steps": 3011,
@@ -17780,7 +17793,7 @@
   {
     "heartbeat_id": 128,
     "timestamp": "2027-06-15T17:10:01Z",
-    "health": {
+    "wearable": {
       "heart_rate": 71,
       "spo2": 99,
       "steps": 3096,
@@ -17902,7 +17915,7 @@
   {
     "heartbeat_id": 129,
     "timestamp": "2027-06-15T17:15:07Z",
-    "health": {
+    "wearable": {
       "heart_rate": 73,
       "spo2": 96,
       "steps": 3202,
@@ -18024,7 +18037,7 @@
   {
     "heartbeat_id": 130,
     "timestamp": "2027-06-15T17:20:26Z",
-    "health": {
+    "wearable": {
       "heart_rate": 71,
       "spo2": 95,
       "steps": 3277,
@@ -18146,7 +18159,7 @@
   {
     "heartbeat_id": 131,
     "timestamp": "2027-06-15T17:25:01Z",
-    "health": {
+    "wearable": {
       "heart_rate": 71,
       "spo2": 99,
       "steps": 3381,
@@ -18268,7 +18281,7 @@
   {
     "heartbeat_id": 132,
     "timestamp": "2027-06-15T17:30:25Z",
-    "health": {
+    "wearable": {
       "heart_rate": 62,
       "spo2": 98,
       "steps": 3381,
@@ -18384,7 +18397,7 @@
   {
     "heartbeat_id": 133,
     "timestamp": "2027-06-15T17:35:10Z",
-    "health": {
+    "wearable": {
       "heart_rate": 68,
       "spo2": 96,
       "steps": 3381,
@@ -18500,7 +18513,7 @@
   {
     "heartbeat_id": 134,
     "timestamp": "2027-06-15T17:40:12Z",
-    "health": {
+    "wearable": {
       "heart_rate": 67,
       "spo2": 97,
       "steps": 3381,
@@ -18616,7 +18629,7 @@
   {
     "heartbeat_id": 135,
     "timestamp": "2027-06-15T17:45:08Z",
-    "health": {
+    "wearable": {
       "heart_rate": 106,
       "spo2": 99,
       "steps": 3605,
@@ -18732,7 +18745,7 @@
   {
     "heartbeat_id": 136,
     "timestamp": "2027-06-15T17:50:02Z",
-    "health": {
+    "wearable": {
       "heart_rate": 140,
       "spo2": 99,
       "steps": 3788,
@@ -18848,7 +18861,7 @@
   {
     "heartbeat_id": 137,
     "timestamp": "2027-06-15T17:55:06Z",
-    "health": {
+    "wearable": {
       "heart_rate": 130,
       "spo2": 97,
       "steps": 4059,
@@ -18964,7 +18977,7 @@
   {
     "heartbeat_id": 138,
     "timestamp": "2027-06-15T18:00:29Z",
-    "health": {
+    "wearable": {
       "heart_rate": 141,
       "spo2": 97,
       "steps": 4287,
@@ -19080,7 +19093,7 @@
   {
     "heartbeat_id": 139,
     "timestamp": "2027-06-15T18:05:30Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -19196,7 +19209,7 @@
   {
     "heartbeat_id": 140,
     "timestamp": "2027-06-15T18:10:18Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -19312,7 +19325,7 @@
   {
     "heartbeat_id": 141,
     "timestamp": "2027-06-15T18:15:28Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -19428,7 +19441,7 @@
   {
     "heartbeat_id": 142,
     "timestamp": "2027-06-15T18:20:22Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -19544,7 +19557,7 @@
   {
     "heartbeat_id": 143,
     "timestamp": "2027-06-15T18:25:10Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -19660,7 +19673,7 @@
   {
     "heartbeat_id": 144,
     "timestamp": "2027-06-15T18:30:06Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -19776,7 +19789,7 @@
   {
     "heartbeat_id": 145,
     "timestamp": "2027-06-15T18:35:20Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -19892,7 +19905,7 @@
   {
     "heartbeat_id": 146,
     "timestamp": "2027-06-15T18:40:15Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -20008,7 +20021,7 @@
   {
     "heartbeat_id": 147,
     "timestamp": "2027-06-15T18:45:12Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -20124,7 +20137,7 @@
   {
     "heartbeat_id": 148,
     "timestamp": "2027-06-15T18:50:28Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -20240,7 +20253,7 @@
   {
     "heartbeat_id": 149,
     "timestamp": "2027-06-15T18:55:29Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -20356,7 +20369,7 @@
   {
     "heartbeat_id": 150,
     "timestamp": "2027-06-15T19:00:20Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -20463,7 +20476,7 @@
   {
     "heartbeat_id": 151,
     "timestamp": "2027-06-15T19:05:14Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -20570,7 +20583,7 @@
   {
     "heartbeat_id": 152,
     "timestamp": "2027-06-15T19:10:04Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -20677,7 +20690,7 @@
   {
     "heartbeat_id": 153,
     "timestamp": "2027-06-15T19:15:08Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -20784,7 +20797,7 @@
   {
     "heartbeat_id": 154,
     "timestamp": "2027-06-15T19:20:04Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -20891,7 +20904,7 @@
   {
     "heartbeat_id": 155,
     "timestamp": "2027-06-15T19:25:07Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -20998,7 +21011,7 @@
   {
     "heartbeat_id": 156,
     "timestamp": "2027-06-15T19:30:23Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -21105,7 +21118,7 @@
   {
     "heartbeat_id": 157,
     "timestamp": "2027-06-15T19:35:17Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -21212,7 +21225,7 @@
   {
     "heartbeat_id": 158,
     "timestamp": "2027-06-15T19:40:17Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,
@@ -21319,7 +21332,7 @@
   {
     "heartbeat_id": 159,
     "timestamp": "2027-06-15T19:45:08Z",
-    "health": {
+    "wearable": {
       "heart_rate": 0,
       "spo2": 0,
       "steps": 4287,

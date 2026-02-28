@@ -7,12 +7,14 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from crisis_bench.models.runtime import RunConfig
+from crisis_bench.models.runtime import QueryWearableResponse, RunConfig
 from crisis_bench.models.scenario import ToolDefinition, ToolParameter
 from crisis_bench.runner.model_client import (
     AgentResponse,
     ModelClient,
     ParsedToolCall,
+    build_assistant_message,
+    build_tool_result_message,
     convert_tool_definitions,
 )
 
@@ -174,3 +176,91 @@ class TestModelClient:
         call_kwargs = mock_acompletion.call_args.kwargs
         assert call_kwargs["temperature"] == 0.7
         assert call_kwargs["max_tokens"] == 1000
+
+
+class TestContinueConversation:
+    """AC #7: continue_conversation passes messages through to LiteLLM."""
+
+    @patch("litellm.acompletion", new_callable=AsyncMock)
+    def test_continue_conversation(
+        self,
+        mock_acompletion: AsyncMock,
+        mock_litellm_text_response: MagicMock,
+        sample_tool_definitions: list[ToolDefinition],
+        default_run_config: RunConfig,
+    ) -> None:
+        mock_acompletion.return_value = mock_litellm_text_response
+        client = ModelClient(default_run_config, sample_tool_definitions)
+        messages = [
+            {"role": "system", "content": "sys"},
+            {"role": "user", "content": "hello"},
+            {"role": "assistant", "content": "checking"},
+            {"role": "tool", "tool_call_id": "call_1", "content": "{}"},
+        ]
+        result = _run(client.continue_conversation(messages))
+        assert isinstance(result, AgentResponse)
+        assert result.text == "I'll check on that for you."
+        # Verify messages are passed through exactly
+        call_kwargs = mock_acompletion.call_args.kwargs
+        assert call_kwargs["messages"] == messages
+
+
+class TestBuildAssistantMessage:
+    """AC #7: Assistant message builder formats correctly."""
+
+    def test_build_assistant_message_with_tool_calls(self) -> None:
+        response = AgentResponse(
+            text="Let me check.",
+            tool_calls=[
+                ParsedToolCall(id="call_1", name="query_wearable", arguments={}),
+                ParsedToolCall(
+                    id="call_2",
+                    name="mcp.spotify.search",
+                    arguments={"query": "hello"},
+                ),
+            ],
+        )
+        msg = build_assistant_message(response)
+        assert msg["role"] == "assistant"
+        assert msg["content"] == "Let me check."
+        assert len(msg["tool_calls"]) == 2
+        tc1 = msg["tool_calls"][0]
+        assert tc1["id"] == "call_1"
+        assert tc1["type"] == "function"
+        assert tc1["function"]["name"] == "query_wearable"
+        assert tc1["function"]["arguments"] == "{}"
+        # MCP dotted name must be sanitized
+        tc2 = msg["tool_calls"][1]
+        assert tc2["function"]["name"] == "mcp__spotify__search"
+        assert isinstance(tc2["function"]["arguments"], str)
+
+    def test_build_assistant_message_no_tool_calls(self) -> None:
+        response = AgentResponse(text="All done.", tool_calls=[])
+        msg = build_assistant_message(response)
+        assert msg["role"] == "assistant"
+        assert msg["content"] == "All done."
+        assert "tool_calls" not in msg
+
+    def test_build_assistant_message_none_text(self) -> None:
+        response = AgentResponse(
+            text=None,
+            tool_calls=[ParsedToolCall(id="call_1", name="list_memories", arguments={})],
+        )
+        msg = build_assistant_message(response)
+        assert msg["content"] == ""
+
+
+class TestBuildToolResultMessage:
+    """AC #7: Tool result message builder formats correctly."""
+
+    def test_build_tool_result_message(self) -> None:
+        result = QueryWearableResponse(status="ok", data={"heart_rate": 72, "spo2": 98})
+        msg = build_tool_result_message("call_123", result)
+        assert msg["role"] == "tool"
+        assert msg["tool_call_id"] == "call_123"
+        assert isinstance(msg["content"], str)
+        import json
+
+        parsed = json.loads(msg["content"])
+        assert parsed["status"] == "ok"
+        assert parsed["data"]["heart_rate"] == 72

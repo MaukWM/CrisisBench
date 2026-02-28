@@ -136,12 +136,17 @@ class TestOrchestratorHeartbeats:
 class TestOrchestratorToolRouting:
     """Verify ToolRouter + handlers are wired and route tool calls."""
 
+    @patch(
+        "crisis_bench.runner.model_client.ModelClient.continue_conversation",
+        new_callable=AsyncMock,
+    )
     @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
     def test_orchestrator_routes_tool_calls(
         self,
         mock_complete: AsyncMock,
+        mock_continue: AsyncMock,
     ) -> None:
-        """Model returns a tool call → tool_router.route is invoked."""
+        """Model returns a tool call → tool_router.route is invoked, then loop terminates."""
         heartbeats = [
             HeartbeatPayload(
                 heartbeat_id=0,
@@ -208,6 +213,7 @@ class TestOrchestratorToolRouting:
                 ParsedToolCall(id="call_1", name="query_wearable", arguments={}),
             ],
         )
+        mock_continue.return_value = AgentResponse(text="Done.", tool_calls=[])
 
         orchestrator = Orchestrator(scenario, config)
         with structlog.testing.capture_logs() as logs:
@@ -218,3 +224,146 @@ class TestOrchestratorToolRouting:
         assert routed_logs[0]["tool_name"] == "query_wearable"
         assert routed_logs[0]["routed_to"] == "ScenarioDataHandler"
         assert routed_logs[0]["status"] == "ok"
+
+        # Verify multi-turn: complete called once, continue_conversation called once
+        assert mock_complete.call_count == 1
+        assert mock_continue.call_count == 1
+
+
+class TestMultiTurnToolLoop:
+    """AC #1, #2, #3, #5, #6, #7: Multi-turn tool loop behavior."""
+
+    @patch(
+        "crisis_bench.runner.model_client.ModelClient.continue_conversation",
+        new_callable=AsyncMock,
+    )
+    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
+    def test_multi_turn_tool_loop(
+        self,
+        mock_complete: AsyncMock,
+        mock_continue: AsyncMock,
+        small_scenario_package: ScenarioPackage,
+    ) -> None:
+        """AC #1: Agent makes tool call, results sent back, loop terminates when no more calls."""
+        config = RunConfig(
+            agent_model="test",
+            user_sim_model="test",
+            judge_model="test",
+            max_post_crisis_heartbeats=0,
+        )
+        mock_complete.return_value = AgentResponse(
+            text="Let me check.",
+            tool_calls=[ParsedToolCall(id="call_1", name="list_memories", arguments={})],
+        )
+        mock_continue.return_value = AgentResponse(text="All done.", tool_calls=[])
+
+        orchestrator = Orchestrator(small_scenario_package, config)
+        with structlog.testing.capture_logs() as logs:
+            _run(orchestrator.run(max_heartbeats=1))
+
+        # complete called once per heartbeat (turn 0), continue once (turn 1)
+        assert mock_complete.call_count == 1
+        assert mock_continue.call_count == 1
+
+        # tool_routed log should appear
+        routed_logs = [e for e in logs if e["event"] == "tool_routed"]
+        assert len(routed_logs) == 1
+        assert routed_logs[0]["tool_name"] == "list_memories"
+        assert routed_logs[0]["routed_to"] == "MemoryHandler"
+
+        # agent_response logged for both turns
+        agent_logs = [e for e in logs if e["event"] == "agent_response"]
+        assert len(agent_logs) == 2
+        assert agent_logs[0]["turn"] == 0
+        assert agent_logs[1]["turn"] == 1
+
+    @patch(
+        "crisis_bench.runner.model_client.ModelClient.continue_conversation",
+        new_callable=AsyncMock,
+    )
+    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
+    def test_max_tool_turns_reached(
+        self,
+        mock_complete: AsyncMock,
+        mock_continue: AsyncMock,
+        small_scenario_package: ScenarioPackage,
+    ) -> None:
+        """AC #2: Loop stops at max_tool_turns, final tool calls executed, INFO log emitted."""
+        config = RunConfig(
+            agent_model="test",
+            user_sim_model="test",
+            judge_model="test",
+            max_tool_turns=2,
+            max_post_crisis_heartbeats=0,
+        )
+        # Both always return tool calls — loop should be capped at max_tool_turns
+        mock_complete.return_value = AgentResponse(
+            text="Checking...",
+            tool_calls=[ParsedToolCall(id="call_1", name="list_memories", arguments={})],
+        )
+        mock_continue.return_value = AgentResponse(
+            text="More...",
+            tool_calls=[ParsedToolCall(id="call_2", name="list_memories", arguments={})],
+        )
+
+        orchestrator = Orchestrator(small_scenario_package, config)
+        with structlog.testing.capture_logs() as logs:
+            _run(orchestrator.run(max_heartbeats=1))
+
+        # Turn 0: complete returns tool call → turn_count=1, execute, 1<2 → loop
+        # Turn 1: continue returns tool call → turn_count=2, execute, 2>=2 → break
+        # Total: 1 complete + 1 continue = 2 model calls
+        assert mock_complete.call_count == 1
+        assert mock_continue.call_count == 1
+
+        # max_tool_turns_reached log
+        max_logs = [e for e in logs if e["event"] == "max_tool_turns_reached"]
+        assert len(max_logs) == 1
+        assert max_logs[0]["turns"] == 2
+
+        # Tool calls from final turn are still executed (AC #2)
+        routed_logs = [e for e in logs if e["event"] == "tool_routed"]
+        assert len(routed_logs) == 2  # 1 from turn 0, 1 from turn 1
+
+    @patch(
+        "crisis_bench.runner.model_client.ModelClient.continue_conversation",
+        new_callable=AsyncMock,
+    )
+    @patch("crisis_bench.runner.model_client.ModelClient.complete", new_callable=AsyncMock)
+    def test_action_log_accumulates_across_heartbeats(
+        self,
+        mock_complete: AsyncMock,
+        mock_continue: AsyncMock,
+        small_scenario_package: ScenarioPackage,
+    ) -> None:
+        """AC #3, #5: Action log from heartbeat 1 appears in heartbeat 2's user message."""
+        config = RunConfig(
+            agent_model="test",
+            user_sim_model="test",
+            judge_model="test",
+            max_post_crisis_heartbeats=0,
+        )
+        # First heartbeat: tool call, then done
+        # Second heartbeat: no tool calls
+        call_count = 0
+
+        async def mock_complete_side_effect(system_prompt, user_message):
+            nonlocal call_count
+            call_count += 1
+            if call_count == 1:
+                return AgentResponse(
+                    text="Checking.",
+                    tool_calls=[ParsedToolCall(id="call_1", name="list_memories", arguments={})],
+                )
+            return AgentResponse(text="Noted.", tool_calls=[])
+
+        mock_complete.side_effect = mock_complete_side_effect
+        mock_continue.return_value = AgentResponse(text="Done.", tool_calls=[])
+
+        orchestrator = Orchestrator(small_scenario_package, config)
+        _run(orchestrator.run(max_heartbeats=2))
+
+        # On the second heartbeat, complete is called with user_message containing action log
+        assert mock_complete.call_count == 2
+        second_call_user_message = mock_complete.call_args_list[1].args[1]
+        assert "Listed memory files" in second_call_user_message

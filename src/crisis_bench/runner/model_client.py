@@ -10,7 +10,7 @@ import litellm
 import structlog
 
 if TYPE_CHECKING:
-    from crisis_bench.models.runtime import RunConfig
+    from crisis_bench.models.runtime import RunConfig, ToolResponse
     from crisis_bench.models.scenario import ToolDefinition
 
 log = structlog.get_logger()
@@ -69,6 +69,33 @@ def convert_tool_definitions(tools: list[ToolDefinition]) -> list[dict[str, Any]
     ]
 
 
+def build_assistant_message(response: AgentResponse) -> dict[str, Any]:
+    """Build an assistant message dict in LiteLLM/OpenAI format from an AgentResponse."""
+    msg: dict[str, Any] = {"role": "assistant", "content": response.text or ""}
+    if response.tool_calls:
+        msg["tool_calls"] = [
+            {
+                "id": tc.id,
+                "type": "function",
+                "function": {
+                    "name": _sanitize_tool_name(tc.name),
+                    "arguments": json.dumps(tc.arguments),
+                },
+            }
+            for tc in response.tool_calls
+        ]
+    return msg
+
+
+def build_tool_result_message(tool_call_id: str, result: ToolResponse) -> dict[str, Any]:
+    """Build a tool result message dict in LiteLLM/OpenAI format."""
+    return {
+        "role": "tool",
+        "tool_call_id": tool_call_id,
+        "content": json.dumps(result.model_dump()),
+    }
+
+
 class ModelClient:
     """Wraps LiteLLM for agent LLM calls with fresh context per heartbeat."""
 
@@ -78,13 +105,8 @@ class ModelClient:
         self.tools = convert_tool_definitions(tool_definitions)
         self.log = log.bind(model=self.model_name)
 
-    async def complete(self, system_prompt: str, user_message: str) -> AgentResponse:
-        """Single LiteLLM call — fresh messages list each call (NFR4: no history)."""
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_message},
-        ]
-
+    async def _call(self, messages: list[dict[str, Any]]) -> AgentResponse:
+        """Execute a single LiteLLM call and parse the response."""
         response = await litellm.acompletion(
             model=self.model_name,
             messages=messages,
@@ -128,3 +150,15 @@ class ModelClient:
             )
 
         return AgentResponse(text=text, tool_calls=parsed_calls)
+
+    async def complete(self, system_prompt: str, user_message: str) -> AgentResponse:
+        """Single LiteLLM call — fresh messages list each call (NFR4: no history)."""
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_message},
+        ]
+        return await self._call(messages)
+
+    async def continue_conversation(self, messages: list[dict[str, Any]]) -> AgentResponse:
+        """Continue an existing conversation with accumulated messages."""
+        return await self._call(messages)
